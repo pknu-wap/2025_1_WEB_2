@@ -5,14 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import LetterInputForm from "./components/LetterCreate/LetterInputForm";
 import PrivacySelector from "./components/LetterCreate/PrivacySelector";
-import Globe from "./assets/LetterCreate/worldwide.png";
-import Lock from "./assets/LetterCreate/unlock.png";
+import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <PrivacySelector buttonValue={"전체공개"} imgPath={Globe}></PrivacySelector>
-    <PrivacySelector buttonValue={"나만보기"} imgPath={Lock}></PrivacySelector>
+    <YearMonthDayPicker />
   </React.StrictMode>
 );
 

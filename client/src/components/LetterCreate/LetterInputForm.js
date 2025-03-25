@@ -9,12 +9,7 @@ import styles from "../../assets/LetterCreate/LetterInputForm.module.css";
     /> */
 }
 
-const LetterInputForm = ({
-  placeholderName,
-  content,
-  setContent,
-  customFontSize,
-}) => {
+const LetterInputForm = ({ placeholderName, content, customFontSize }) => {
   return (
     <div>
       <textarea

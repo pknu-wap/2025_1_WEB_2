@@ -22,8 +22,10 @@
 
 .btn{
     background-color: #ffffff;
+    color: #222222;
     border: none;
     outline: none;
+    width: 140px;
     padding: 10px 20px;
     border-radius: 20px;
 }

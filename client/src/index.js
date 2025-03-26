@@ -9,11 +9,7 @@ import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
 import LetterCreatePage from "./pages/LetterCreatePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <LetterCreatePage />
-  </React.StrictMode>
-);
+root.render(<React.StrictMode></React.StrictMode>);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

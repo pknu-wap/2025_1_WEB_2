@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "../../assets/LetterCreate/LetterInputForm.module.css";
 
 {
@@ -15,6 +15,25 @@ const LetterInputForm = ({
   setContent,
   customFontSize,
 }) => {
+  // const textAreaRef = useRef(null); // textarea DOM 참조
+
+  // // 텍스트가 변경될 때 높이를 조정
+  // const handleTextAreaChange = (e) => {
+  //   if (textAreaRef.current) {
+  //     textAreaRef.current.style.height = "auto"; // 높이 초기화
+  //     textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // 내용 크기에 맞게 조정
+  //   }
+  //   onChange(e); // 원래 onChange 호출
+  // };
+
+  // // 초기 렌더링 시 높이를 내용에 맞게 설정
+  // useEffect(() => {
+  //   if (textAreaRef.current) {
+  //     textAreaRef.current.style.height = "auto"; // 초기화
+  //     textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // 내용 크기에 맞게 높이 설정
+  //   }
+  // }, [value]); // value가 변경될 때마다 실행
+
   return (
     <div>
       <textarea

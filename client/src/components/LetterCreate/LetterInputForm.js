@@ -25,10 +25,14 @@ const LetterInputForm = ({
         rows={1} // 최소 줄 수
         cols={32} // 최소 열 수
         spellCheck={false} // 스펠링 체크 끄기
+        // 조건부
         style={{
           overflow: "hidden",
           resize: "none",
           fontSize: customFontSize,
+          // 제목 자동 줄바꿈 방지
+          whiteSpace:
+            placeholderName == "제목을 적어주세요" ? "nowrap" : "pre-wrap",
         }} // 스크롤 숨기고 크기 조정 비활성화
       />
     </div>

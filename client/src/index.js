@@ -6,11 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import LetterInputForm from "./components/LetterCreate/LetterInputForm";
 import PrivacySelector from "./components/LetterCreate/PrivacySelector";
 import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
+import Header from "./components/Header";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LetterInputForm placeholderName={"제목을 적어주세요"} />
+    <Header />
   </React.StrictMode>
 );
 

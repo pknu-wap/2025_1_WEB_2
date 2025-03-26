@@ -1,4 +1,10 @@
+.create_page {
+    margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
+    width: 100%;
+}
 .letter_form{
+    width: 60%;
+    margin: 0 auto;
 }
 
 .letter_title_form{
@@ -12,7 +18,7 @@
 .letter_content_form{
     background-color: rgba(255,255,255, 0.8);
     border-radius: 20px;
-    height: 450px;
+    height: 500px;
     /* 위쪽 오른쪽 아래쪽 왼쪽 */
     padding: 30px 30px 10px 30px;
     margin-top: 15px;

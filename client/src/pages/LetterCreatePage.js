@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
 import FloatingButton from "../components/FloatingButton";
+import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
 const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 hook
@@ -26,6 +27,8 @@ const LetterCreatePage = ({}) => {
           />
         </div>
       </div>
+
+      <LetterInfoForm />
 
       {/* 플로팅 버튼 */}
       <FloatingButton handleToggle={handleToggle} />

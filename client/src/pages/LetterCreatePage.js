@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
+import FloatingButton from "../components/FloatingButton";
 
 const LetterCreatePage = ({}) => {
+  // 플로팅 버튼 토글 hook
+  const [toggle, setToggle] = useState(false);
+  // 플로팅 버튼 토글 핸들러
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
+  };
+
   return (
     <div className={styles.create_page}>
       <div className={styles.letter_form}>
@@ -18,6 +26,9 @@ const LetterCreatePage = ({}) => {
           />
         </div>
       </div>
+
+      {/* 플로팅 버튼 */}
+      <FloatingButton handleToggle={handleToggle} />
     </div>
   );
 };

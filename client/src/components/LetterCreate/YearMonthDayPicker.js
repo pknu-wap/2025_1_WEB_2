@@ -40,6 +40,7 @@ const YearMonthDayPicker = () => {
             backgroundColor: state.isFocused ? "#EDEDED" : "#FFFFFF",
             outline: "none",
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거
@@ -72,6 +73,7 @@ const YearMonthDayPicker = () => {
             backgroundColor: state.isFocused ? "#EDEDED" : "#FFFFFF",
             outline: "none",
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거
@@ -109,6 +111,7 @@ const YearMonthDayPicker = () => {
             outline: "none",
             boxShadow: state.isFocused ? "none" : baseStyles.boxShadow,
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거

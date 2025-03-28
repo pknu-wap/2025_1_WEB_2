@@ -32,5 +32,56 @@
 .letter_to{
     background-color: #FFFFFF;
     border-radius: 30px;
-    padding: 10px 20px;
+    padding: 12px 20px 7px 20px;
+    margin-bottom: 20px;
+}
+
+.letter_when{
+    margin-bottom: 20px;
+}
+.letter_privacy_form{
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+.letter_privacy{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.letter_email{
+    width: 90%;
+}
+
+.letter_email_input_form{
+    background-color: #FFFFFF;
+    padding: 13px 20px 2px 20px;
+    border-radius: 30px;
+    margin-top: 5px;
+}
+
+.letter_checkbox{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+
+.save_btn{
+    background-color: #FFF9CF;
+    outline: none;
+    border: 1px solid #222222;
+    border-radius: 30px;
+    margin-top: 40px;
+    margin-right: 15px;
+    padding: 7px 20px;
+    cursor: pointer;
+    align-self: flex-end; /* 부모가 flex일 때 오른쪽 정렬 */
+}
+
+.save_btn:hover{
+    
+    background-color: #efeac4;
 }

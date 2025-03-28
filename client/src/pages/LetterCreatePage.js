@@ -6,10 +6,10 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
 const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 hook
-  const [toggle, setToggle] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   // 플로팅 버튼 토글 핸들러
-  const handleToggle = () => {
-    setToggle((prev) => !prev);
+  const handleOpen = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -28,10 +28,10 @@ const LetterCreatePage = ({}) => {
         </div>
       </div>
 
-      <LetterInfoForm />
+      <LetterInfoForm isOpen={isOpen} />
 
       {/* 플로팅 버튼 */}
-      <FloatingButton handleToggle={handleToggle} />
+      <FloatingButton handleOpen={handleOpen} />
     </div>
   );
 };

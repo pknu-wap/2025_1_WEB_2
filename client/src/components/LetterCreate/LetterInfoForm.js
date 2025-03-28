@@ -6,7 +6,8 @@ import YearMonthDayPicker from "./YearMonthDayPicker";
 import Globe from "../../assets/LetterCreate/worldwide.png";
 import Lock from "../../assets/LetterCreate/unlock.png";
 
-const LetterInfoForm = ({}) => {
+const LetterInfoForm = ({ isOpen }) => {
+  if (!isOpen) return null;
   return (
     <div className={styles.letter_info_form}>
       <div className={styles.letter_info_input_form}>

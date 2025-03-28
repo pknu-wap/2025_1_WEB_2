@@ -10,7 +10,14 @@ const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 핸들러
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
+
+    // 토글 버튼 눌러도 userIdTo 유지되는 것 확인함.
+    console.log({ userIdTo });
   };
+
+  // letter_to useState
+  const [userIdTo, setUserIdTo] = useState("");
+  const [emailNotifyOnReceive, setEmailNotifyOnReceive] = useState("");
 
   return (
     <div className={styles.create_page}>
@@ -28,7 +35,19 @@ const LetterCreatePage = ({}) => {
         </div>
       </div>
 
-      <LetterInfoForm isOpen={isOpen} />
+      <LetterInfoForm
+        isOpen={isOpen}
+        handleLetterTo={(e) => {
+          setUserIdTo(e.target.value);
+          console.log({ userIdTo });
+        }}
+        userIdTo={userIdTo}
+        emailNotifyOnReceive={emailNotifyOnReceive}
+        handleEmail={(e) => {
+          setEmailNotifyOnReceive(e.target.value);
+          console.log({ emailNotifyOnReceive });
+        }}
+      />
 
       {/* 플로팅 버튼 */}
       <FloatingButton handleOpen={handleOpen} />

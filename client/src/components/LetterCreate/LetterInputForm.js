@@ -11,8 +11,8 @@ import styles from "../../assets/LetterCreate/LetterInputForm.module.css";
 // content, setContent는 LetterCreatePage에서 선언하여서 변수로 전달.
 const LetterInputForm = ({
   placeholderName,
-  content,
-  setContent,
+  value,
+  onChange,
   customFontSize,
 }) => {
   // const textAreaRef = useRef(null); // textarea DOM 참조
@@ -39,8 +39,8 @@ const LetterInputForm = ({
       <textarea
         className={styles.letter_title_input_form}
         placeholder={placeholderName} // placeHoder 값을 변수로 전달.
-        value={content} // useState hook 사용하여 관리하는 값.
-        onChange={setContent}
+        value={value} // useState hook 사용하여 관리하는 값.
+        onChange={onChange}
         rows={1} // 최소 줄 수
         cols={32} // 최소 열 수
         spellCheck={false} // 스펠링 체크 끄기

@@ -6,7 +6,13 @@ import YearMonthDayPicker from "./YearMonthDayPicker";
 import Globe from "../../assets/LetterCreate/worldwide.png";
 import Lock from "../../assets/LetterCreate/unlock.png";
 
-const LetterInfoForm = ({ isOpen }) => {
+const LetterInfoForm = ({
+  isOpen,
+  handleLetterTo,
+  userIdTo,
+  handleEmail,
+  emailNotifyOnReceive,
+}) => {
   if (!isOpen) return null;
   return (
     <div className={styles.letter_info_form}>
@@ -15,6 +21,8 @@ const LetterInfoForm = ({ isOpen }) => {
           <LetterInputForm
             placeholderName={"누구에게 보내실 건가요?"}
             customFontSize={22}
+            onChange={handleLetterTo}
+            value={userIdTo}
           />
         </div>
         <div className={styles.letter_when}>
@@ -48,6 +56,8 @@ const LetterInfoForm = ({ isOpen }) => {
             <LetterInputForm
               placeholderName={"your_email@example.com"}
               customFontSize={16}
+              onChange={handleEmail}
+              value={emailNotifyOnReceive}
             />
           </div>
           <div className={styles.letter_checkbox}>

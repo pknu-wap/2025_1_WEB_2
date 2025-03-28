@@ -6,7 +6,7 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
 const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 hook
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   // 플로팅 버튼 토글 핸들러
   const handleOpen = () => {
     setIsOpen((prev) => !prev);

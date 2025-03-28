@@ -11,7 +11,6 @@
     /* 포커스 시 생기는 테두리도 제거 */
     outline: none;
     /* background-color: rgba(255, 255, 255, 0.8); */
-
     background-color: transparent;
     color: #222222;
     width: 100%;

@@ -10,7 +10,13 @@ const LetterInfoForm = ({}) => {
   return (
     <div className={styles.letter_info_form}>
       <div className={styles.letter_info_input_form}>
-        <LetterInputForm placeholderName={"누구에게 보내실 건가요?"} />
+        <div className={styles.letter_to}>
+          <LetterInputForm
+            placeholderName={"누구에게 보내실 건가요?"}
+            customFontSize={22}
+          />
+        </div>
+
         <label>얼마나 느리게 보내드릴까요?</label>
         <YearMonthDayPicker />
         <label>공개범위를 설정해주세요</label>
@@ -26,11 +32,12 @@ const LetterInfoForm = ({}) => {
           편지가 도착하면 메일로 알림을 보내드릴게요. 알림받을 이메일을
           적어주세요
         </label>
-        <LetterInputForm placeholderName={"example@com"} />
+        <LetterInputForm placeholderName={"youremail@example.com"} />
         <button type="checkbox" id="emailCheckbox" />
         <label for="emailCheckbox">
           회원 가입 시 사용한 이메일로 보내주세요.
         </label>
+        <button>이렇게 보내주세요 💌</button>
       </div>
     </div>
   );

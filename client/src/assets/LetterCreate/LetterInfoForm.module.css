@@ -1,9 +1,18 @@
+/* 폰트-face 정의 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 .letter_info_form{
     position: fixed;
     width: 480px;
     height: 600px;
     bottom: 140px;
     right: 70px;
+    font-family: 'Pretendard-Regular';
     border: 0.01rem #222222 solid;
     border-radius: 30px;
     background-color: #E8FBFF;
@@ -14,8 +23,14 @@
 }
 
 .letter_info_input_form{
-    width: 100%; /* 부모 크기 기준으로 */
+    width: 90%; /* 부모 크기 기준으로 */
     display: flex;
     flex-direction: column;
     align-items: center; /* 가로 중앙 정렬 */
+}
+
+.letter_to{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    padding: 10px 20px;
 }

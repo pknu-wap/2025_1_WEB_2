@@ -12,6 +12,7 @@ const LetterCreatePage = ({}) => {
     setIsOpen((prev) => !prev);
     // 토글 버튼 눌러도 userIdTo 유지되는 것 확인함.
     console.log({ userIdTo });
+    console.log({ privacy });
   };
 
   // letter_to useState
@@ -26,6 +27,22 @@ const LetterCreatePage = ({}) => {
   });
   const [month, setMonth] = useState({ value: 1, label: "1월" });
   const [day, setDay] = useState({ value: 1, label: "1일" });
+
+  // 공개 범위 설정
+  const [privacy, setPrivacy] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
+  const [isPriacy, setIsPrivacy] = useState(false);
+  const handleClicked = (type) => {
+    if (type === "public") {
+      setIsPublic(true);
+      setIsPrivacy(false);
+      setPrivacy("전체공개");
+    } else {
+      setIsPublic(false);
+      setIsPrivacy(true);
+      setPrivacy("나만보기");
+    }
+  };
 
   return (
     <div className={styles.create_page}>
@@ -62,6 +79,11 @@ const LetterCreatePage = ({}) => {
         setMonth={setMonth}
         day={day}
         setDay={setDay}
+        privacy={privacy}
+        setPrivacy={setPrivacy}
+        handleClicked={handleClicked}
+        isPrivacy={isPriacy}
+        isPublic={isPublic}
       />
 
       {/* 플로팅 버튼 */}

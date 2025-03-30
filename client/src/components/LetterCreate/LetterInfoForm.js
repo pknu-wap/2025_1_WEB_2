@@ -19,6 +19,10 @@ const LetterInfoForm = ({
   setMonth,
   day,
   setDay,
+  setPrivacy,
+  isPrivacy,
+  isPublic,
+  handleClicked,
 }) => {
   if (!isOpen) return null;
   return (
@@ -52,10 +56,16 @@ const LetterInfoForm = ({
             <PrivacySelector
               buttonValue={"전체공개"}
               imgPath={Globe}
+              setPrivacy={setPrivacy}
+              handleClick={() => handleClicked("public")}
+              isClick={isPublic}
             ></PrivacySelector>
             <PrivacySelector
               buttonValue={"나만보기"}
               imgPath={Lock}
+              setPrivacy={setPrivacy}
+              handleClick={() => handleClicked("private")}
+              isClick={isPrivacy}
             ></PrivacySelector>
           </div>
         </div>

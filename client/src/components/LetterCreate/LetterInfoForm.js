@@ -12,6 +12,13 @@ const LetterInfoForm = ({
   userIdTo,
   handleEmail,
   emailNotifyOnReceive,
+  currentYear,
+  year,
+  setYear,
+  month,
+  setMonth,
+  day,
+  setDay,
 }) => {
   if (!isOpen) return null;
   return (
@@ -29,7 +36,15 @@ const LetterInfoForm = ({
           <label style={{ marginLeft: "15px" }}>
             얼마나 느리게 보내드릴까요?
           </label>
-          <YearMonthDayPicker />
+          <YearMonthDayPicker
+            currentYear={currentYear}
+            year={year}
+            setYear={setYear}
+            month={month}
+            setMonth={setMonth}
+            day={day}
+            setDay={setDay}
+          />
         </div>
         <div className={styles.letter_privacy_form}>
           <label style={{ marginLeft: "15px" }}>공개범위를 설정해주세요</label>

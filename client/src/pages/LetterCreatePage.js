@@ -10,7 +10,6 @@ const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 핸들러
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
-
     // 토글 버튼 눌러도 userIdTo 유지되는 것 확인함.
     console.log({ userIdTo });
   };
@@ -18,6 +17,15 @@ const LetterCreatePage = ({}) => {
   // letter_to useState
   const [userIdTo, setUserIdTo] = useState("");
   const [emailNotifyOnReceive, setEmailNotifyOnReceive] = useState("");
+
+  // 날짜 선택 hooks
+  const currentYear = new Date().getFullYear();
+  const [year, setYear] = useState({
+    value: currentYear,
+    label: `${currentYear}년`,
+  });
+  const [month, setMonth] = useState({ value: 1, label: "1월" });
+  const [day, setDay] = useState({ value: 1, label: "1일" });
 
   return (
     <div className={styles.create_page}>
@@ -47,6 +55,13 @@ const LetterCreatePage = ({}) => {
           setEmailNotifyOnReceive(e.target.value);
           console.log({ emailNotifyOnReceive });
         }}
+        currentYear={currentYear}
+        year={year}
+        setYear={setYear}
+        month={month}
+        setMonth={setMonth}
+        day={day}
+        setDay={setDay}
       />
 
       {/* 플로팅 버튼 */}

@@ -44,11 +44,21 @@ const LetterCreatePage = ({}) => {
     }
   };
 
+  // 제목 및 콘텐츠 설정
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
   return (
     <div className={styles.create_page}>
       <div className={styles.letter_form}>
         <div className={styles.letter_title_form}>
-          <LetterInputForm placeholderName={"제목을 적어주세요"} />
+          <LetterInputForm
+            placeholderName={"제목을 적어주세요"}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              console.log({ title });
+            }}
+          />
         </div>
 
         {/* 입력창 자동 크기 조절부분 바꾸어주어야함 */}
@@ -56,6 +66,10 @@ const LetterCreatePage = ({}) => {
           <LetterInputForm
             placeholderName={"미래의 나에게 편지를 남겨보세요!"}
             customFontSize={16}
+            onChange={(e) => {
+              setContent(e.target.value);
+              console.log({ content });
+            }}
           />
         </div>
       </div>

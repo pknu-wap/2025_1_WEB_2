@@ -8,10 +8,13 @@ import PrivacySelector from "./components/LetterCreate/PrivacySelector";
 import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
 import Header from "./components/Header";
 
+import LetterView from "./components/LetterView/LetterView";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Header />
+    <LetterView />
   </React.StrictMode>
 );
 

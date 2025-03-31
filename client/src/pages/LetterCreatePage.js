@@ -69,6 +69,7 @@ const LetterCreatePage = ({}) => {
               setContent(e.target.value);
             }}
           />
+          <button className={styles.send_btn}>편지를 전송합니다.</button>
         </div>
       </div>
 

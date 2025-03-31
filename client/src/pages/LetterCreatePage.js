@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
-import FloatingButton from "../components/FloatingButton";
+import LetterFloatingButton from "../components/LetterCreate/LetterFloatingButton";
 import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
 const LetterCreatePage = ({}) => {
@@ -56,7 +56,6 @@ const LetterCreatePage = ({}) => {
             placeholderName={"제목을 적어주세요"}
             onChange={(e) => {
               setTitle(e.target.value);
-              console.log({ title });
             }}
           />
         </div>
@@ -68,7 +67,6 @@ const LetterCreatePage = ({}) => {
             customFontSize={16}
             onChange={(e) => {
               setContent(e.target.value);
-              console.log({ content });
             }}
           />
         </div>
@@ -101,7 +99,7 @@ const LetterCreatePage = ({}) => {
       />
 
       {/* 플로팅 버튼 */}
-      <FloatingButton handleOpen={handleOpen} />
+      <LetterFloatingButton handleOpen={handleOpen} />
     </div>
   );
 };

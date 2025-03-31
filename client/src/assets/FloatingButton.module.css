@@ -14,3 +14,7 @@
     background-color: #EDEDED;
     cursor: pointer;
 }
+
+.floating_btn{
+    width: 35px;
+}

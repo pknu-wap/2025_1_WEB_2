@@ -1,0 +1,87 @@
+/* 폰트-face 정의 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.letter_info_form{
+    position: fixed;
+    width: 480px;
+    height: 600px;
+    bottom: 140px;
+    right: 70px;
+    font-family: 'Pretendard-Regular';
+    border: 0.01rem #222222 solid;
+    border-radius: 30px;
+    background-color: #E8FBFF;
+    display: flex; /* 내부 요소 정렬을 위해 flex 적용 */
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+}
+
+.letter_info_input_form{
+    width: 90%; /* 부모 크기 기준으로 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가로 중앙 정렬 */
+}
+
+.letter_to{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    padding: 12px 20px 7px 20px;
+    margin-bottom: 20px;
+}
+
+.letter_when{
+    margin-bottom: 20px;
+}
+.letter_privacy_form{
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+.letter_privacy{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.letter_email{
+    width: 90%;
+}
+
+.letter_email_input_form{
+    background-color: #FFFFFF;
+    padding: 13px 20px 2px 20px;
+    border-radius: 30px;
+    margin-top: 5px;
+}
+
+.letter_checkbox{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+
+.save_btn{
+    background-color: #FFF9CF;
+    outline: none;
+    border: 1px solid #222222;
+    border-radius: 30px;
+    margin-top: 40px;
+    margin-right: 15px;
+    padding: 7px 20px;
+    cursor: pointer;
+    align-self: flex-end; /* 부모가 flex일 때 오른쪽 정렬 */
+}
+
+.save_btn:hover{
+    
+    background-color: #efeac4;
+}

@@ -1,27 +1,26 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
-.privacy_select_btn{
+.privacy_select_btn {
     background-color: transparent;
     font-family: 'Pretendard-Regular';
-    /* 테두리 */
     border: 0.001rem solid #EDEDED;
+    width: 45%;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 12px;
-    padding: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
+    font-size: 14px;
+    padding: 15px 20px; /* 위아래 20px, 좌우 40px */
+    margin-left: 10px;
+    margin-right: 10px;
+
+    /* 추가된 스타일 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 정렬 유지 */
+    gap: 5px; /* img와 text 사이 간격 */
 }
 
-.privacy_select_btn:hover{
+.privacy_select_btn:hover {
     background-color: #EDEDED;
 }
 
-.privacy_select_btn_icon{
+.privacy_select_btn_icon {
     width: 12px;
 }

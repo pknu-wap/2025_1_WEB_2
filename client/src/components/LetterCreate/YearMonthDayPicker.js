@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import Select from "react-select";
 import styles from "../../assets/LetterCreate/YMDSelector.module.css";
 
-const YearMonthDayPicker = () => {
-  const currentYear = new Date().getFullYear();
-  const [year, setYear] = useState({
-    value: currentYear,
-    label: `${currentYear}년`,
-  });
-  const [month, setMonth] = useState({ value: 1, label: "1월" });
-  const [day, setDay] = useState({ value: 1, label: "1일" });
+const YearMonthDayPicker = ({
+  currentYear,
+  year,
+  setYear,
+  month,
+  setMonth,
+  day,
+  setDay,
+}) => {
+  // const currentYear = new Date().getFullYear();
+  // const [year, setYear] = useState({
+  //   value: currentYear,
+  //   label: `${currentYear}년`,
+  // });
+  // const [month, setMonth] = useState({ value: 1, label: "1월" });
+  // const [day, setDay] = useState({ value: 1, label: "1일" });
 
   const getDaysInMonth = (year, month) => new Date(year, month, 0).getDate();
 
@@ -40,6 +48,7 @@ const YearMonthDayPicker = () => {
             backgroundColor: state.isFocused ? "#EDEDED" : "#FFFFFF",
             outline: "none",
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거
@@ -72,6 +81,7 @@ const YearMonthDayPicker = () => {
             backgroundColor: state.isFocused ? "#EDEDED" : "#FFFFFF",
             outline: "none",
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거
@@ -109,6 +119,7 @@ const YearMonthDayPicker = () => {
             outline: "none",
             boxShadow: state.isFocused ? "none" : baseStyles.boxShadow,
             padding: "7px 20px",
+            cursor: "pointer",
           }),
           indicatorSeparator: () => ({
             display: "none", // 구분선 제거

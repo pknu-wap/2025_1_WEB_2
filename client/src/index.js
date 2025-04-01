@@ -7,11 +7,13 @@ import LetterInputForm from "./components/LetterCreate/LetterInputForm";
 import PrivacySelector from "./components/LetterCreate/PrivacySelector";
 import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
 import Header from "./components/Header";
+import LetterCreatePage from "./pages/LetterCreatePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Header />
+    <App />
   </React.StrictMode>
 );
 

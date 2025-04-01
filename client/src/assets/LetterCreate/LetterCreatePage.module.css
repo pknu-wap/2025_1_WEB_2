@@ -1,0 +1,46 @@
+.create_page {
+    margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
+    width: 100%;
+}
+.letter_form{
+    width: 55%;
+    margin: 0 auto;
+}
+
+.letter_title_form{
+    background-color: rgba(255,255,255, 0.8);
+    align-items: center;
+    border-radius: 20px;
+    /* 위쪽 오른쪽 아래쪽 왼쪽 */
+    padding: 20px 30px 10px 30px;
+}
+
+.letter_content_form{
+    background-color: rgba(255,255,255, 0.8);
+    border-radius: 20px;
+    height: 500px;
+    /* 위쪽 오른쪽 아래쪽 왼쪽 */
+    padding: 30px 30px 10px 30px;
+    margin-top: 15px;
+}
+.send_btn_box {
+    display: flex; /* Flexbox 적용 */
+    justify-content: flex-end; /* 내부 요소를 오른쪽으로 정렬 */
+    align-items: center; /* 필요하면 세로 정렬 */
+    width: 100%; /* 부모 컨테이너 너비를 100%로 설정 */
+}
+
+.send_btn {
+    display: flex;
+    background-color: #FFF9CF;
+    outline: none;
+    border: 1px solid #222222;
+    border-radius: 30px;
+    padding: 7px 20px;
+    bottom: 0;
+}
+
+.send_btn:hover {
+    cursor: pointer;
+    background-color: #EDEDED;
+}

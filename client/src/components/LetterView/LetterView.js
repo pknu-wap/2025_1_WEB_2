@@ -2,7 +2,8 @@ import styles from "../../assets/LetterView/LetterView.module.css";
 
 const LetterView = () => {
   return (
-    <div className={styles.letterContainer}>
+    <div className={styles.viewPage}>
+ <div className={styles.letterContainer}>
       <div className={styles.header}>
         YYYY년 MM월 DD일로부터 YY년 MM 개월 DD일만에 도착한 편지입니다!
       </div>
@@ -17,6 +18,8 @@ const LetterView = () => {
       <div className={styles.separator}></div>
       <div className={styles.content}>편지 내용입니다.</div>
     </div>
+    </div>
+   
   );
 };
 

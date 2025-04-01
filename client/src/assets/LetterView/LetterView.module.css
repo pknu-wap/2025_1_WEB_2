@@ -5,15 +5,15 @@
     font-weight: 400;
     font-style: normal;
 }
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.viewPage {
+  margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
+  width: 100%;
+  display: flex;
+  justify-content: center;  /* 가로 중앙 정렬 */
 }
 
 .letterContainer {
-    width: 90%;
+    width: 60%;
     height: 700px;
     background-color: white;
     border-radius: 15px;

@@ -97,6 +97,7 @@ const LetterCreatePage = ({}) => {
         handleClicked={handleClicked}
         isPrivacy={isPriacy}
         isPublic={isPublic}
+        handleClick={handleOpen}
       />
 
       {/* 플로팅 버튼 */}

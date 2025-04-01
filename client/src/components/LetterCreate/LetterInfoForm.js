@@ -23,6 +23,7 @@ const LetterInfoForm = ({
   isPrivacy,
   isPublic,
   handleClicked,
+  handleClick,
 }) => {
   if (!isOpen) return null;
   return (
@@ -93,7 +94,9 @@ const LetterInfoForm = ({
           </div>
         </div>
 
-        <button className={styles.save_btn}>이렇게 보내주세요 💌</button>
+        <button className={styles.save_btn} onClick={handleClick}>
+          이렇게 보내주세요 💌
+        </button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
 import LetterFloatingButton from "../components/LetterCreate/LetterFloatingButton";
@@ -62,13 +62,17 @@ const LetterCreatePage = ({}) => {
 
         {/* 입력창 자동 크기 조절부분 바꾸어주어야함 */}
         <div className={styles.letter_content_form}>
-          <LetterInputForm
-            placeholderName={"미래의 나에게 편지를 남겨보세요!"}
-            customFontSize={16}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
+          <div style={{ height: "90%" }}>
+            <LetterInputForm
+              placeholderName={"미래의 나에게 편지를 남겨보세요!"}
+              customFontSize={16}
+              onChange={(e) => {
+                setContent(e.target.value);
+                console.log({ content });
+              }}
+            />
+          </div>
+
           <button className={styles.send_btn}>편지를 전송합니다.</button>
         </div>
       </div>

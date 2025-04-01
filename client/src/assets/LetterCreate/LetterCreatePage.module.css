@@ -23,11 +23,24 @@
     padding: 30px 30px 10px 30px;
     margin-top: 15px;
 }
-.send_btn{
+.send_btn_box {
+    display: flex; /* Flexbox 적용 */
+    justify-content: flex-end; /* 내부 요소를 오른쪽으로 정렬 */
+    align-items: center; /* 필요하면 세로 정렬 */
+    width: 100%; /* 부모 컨테이너 너비를 100%로 설정 */
+}
+
+.send_btn {
+    display: flex;
     background-color: #FFF9CF;
     outline: none;
     border: 1px solid #222222;
     border-radius: 30px;
     padding: 7px 20px;
     bottom: 0;
+}
+
+.send_btn:hover {
+    cursor: pointer;
+    background-color: #EDEDED;
 }

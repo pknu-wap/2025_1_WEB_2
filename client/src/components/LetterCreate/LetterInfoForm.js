@@ -93,7 +93,6 @@ const LetterInfoForm = ({
             </label>
           </div>
         </div>
-
         <button className={styles.save_btn} onClick={handleClick}>
           이렇게 보내주세요 💌
         </button>

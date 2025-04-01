@@ -72,8 +72,9 @@ const LetterCreatePage = ({}) => {
               }}
             />
           </div>
-
-          <button className={styles.send_btn}>편지를 전송합니다.</button>
+          <div className={styles.send_btn_box}>
+            <button className={styles.send_btn}>편지를 전송합니다.</button>
+          </div>
         </div>
       </div>
 

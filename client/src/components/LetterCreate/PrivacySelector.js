@@ -12,13 +12,21 @@ const PrivacySelector = ({
   // 버튼 속 icon
   imgPath,
   // 버튼 클릭 시  해당 option을 selected로 설정
-  setSelected,
+  setPrivacy,
+  handleClick,
+  isClick,
 }) => {
   return (
     <button
       className={styles.privacy_select_btn}
       value={buttonValue}
-      onClick={setSelected(buttonValue)}
+      onClick={(e) => {
+        setPrivacy(e.target.value);
+        handleClick();
+      }}
+      style={{
+        backgroundColor: isClick ? "#EDEDED" : "transparent",
+      }}
     >
       <img className={styles.privacy_select_btn_icon} src={imgPath} />
       {buttonValue}

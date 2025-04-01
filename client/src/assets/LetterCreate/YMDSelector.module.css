@@ -1,8 +1,12 @@
 .ymd_selector{
-    background-color: "transparent"; 
+    background-color: #FFFFFF; 
+    width: 100%;
     border: "none"; 
+    border-radius: 30px;
     box-shadow: "none"; 
+    margin-top: 5px; /* label 과 picker 사이의 거리 */
 }
+
 
 /* 기본 select 스타일 제거 */
 select {

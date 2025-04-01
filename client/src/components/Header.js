@@ -1,6 +1,8 @@
 import styles from "../assets/Header.module.css";
 import logo from "../assets/logo.png";
 
+// 나중에 onClick 메소드 적용해야함.
+
 const Header = ({}) => {
   return (
     <header className={styles.header}>

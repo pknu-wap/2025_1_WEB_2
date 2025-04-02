@@ -15,9 +15,5 @@
   "bugs": {
     "url": "https://github.com/pknu-wap/2025_1_WEB_2/issues"
   },
-  "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme",
-  "dependencies": {
-    "express": "^4.21.2",
-    "express-async-handler": "^1.2.0"
-  }
+  "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme"
 }

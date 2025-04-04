@@ -21,12 +21,21 @@ const LetterCreatePage = ({}) => {
 
   // 날짜 선택 hooks
   const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const currentDate = new Date().getDate();
   const [year, setYear] = useState({
     value: currentYear,
     label: `${currentYear}년`,
   });
-  const [month, setMonth] = useState({ value: 1, label: "1월" });
-  const [day, setDay] = useState({ value: 1, label: "1일" });
+  //
+  const [month, setMonth] = useState({
+    value: currentMonth + 1,
+    label: `${currentMonth + 1}월`,
+  });
+  const [day, setDay] = useState({
+    value: currentDate,
+    label: `${currentDate}일`,
+  });
 
   // 공개 범위 설정
   const [privacy, setPrivacy] = useState("");
@@ -91,6 +100,8 @@ const LetterCreatePage = ({}) => {
           console.log({ emailNotifyOnReceive });
         }}
         currentYear={currentYear}
+        currentMonth={currentMonth}
+        currentDate={currentDate}
         year={year}
         setYear={setYear}
         month={month}

@@ -13,6 +13,8 @@ const LetterInfoForm = ({
   handleEmail,
   emailNotifyOnReceive,
   currentYear,
+  currentMonth,
+  currentDate,
   year,
   setYear,
   month,
@@ -43,6 +45,8 @@ const LetterInfoForm = ({
           </label>
           <YearMonthDayPicker
             currentYear={currentYear}
+            currentMonth={currentMonth}
+            currentDate={currentDate}
             year={year}
             setYear={setYear}
             month={month}

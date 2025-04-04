@@ -18,7 +18,7 @@ export class DBController {
     this.db = db;
   }
 
-  async addUser(email:string,name:string) : Promise<Result<number, Error>> {
+  async addUser(email:string,name:string, password:string) : Promise<Result<number, Error>> {
     const result = await this.db.select().from(usersTable).where(eq(usersTable.email,email));
     if (result.length !== 0) {
       return err(new Error("Already Registered with this email"));
@@ -27,6 +27,7 @@ export class DBController {
       const id = (await this.db.insert(usersTable).values({
           email,
           name,
+          password,
       }).$returningId())[0].id;
       return ok(id);
     } catch {

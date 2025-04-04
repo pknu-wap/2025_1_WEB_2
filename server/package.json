@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsup src/index.ts && node dist/index.js"
+    "dev": "tsup src/index.ts && node dist/index.cjs"
   },
   "type": "module",
   "keywords": [],

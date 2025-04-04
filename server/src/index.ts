@@ -11,9 +11,7 @@ app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`)
 })
 
-const db = drizzle(process.env.DATABASE_URL!);
 
-const dbController = new DBController(db);
 
 // async function main() {
 //   await db.delete(lettersTable)

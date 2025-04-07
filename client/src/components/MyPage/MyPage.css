@@ -1,115 +1,128 @@
+/* 폰트-face 정의 */
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.MyPage {
+  padding-bottom: 100px; 
+}
+
 .box {
-    width: 1000px;
-    height: 700px;
-    background-color: white;
-    border-radius: 40px;
-    margin: 0 auto;
-    margin-top: 181px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start; 
-    padding-top: 50px;
-    position: relative; 
-    z-index: 0;
-  }
-  .intro-content {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile-image {
-    position: absolute;
-    top: 94px; 
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-  }
-  
-  .name-text {
-    position: absolute;
-    top: 169px; 
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 25px;
-    color: black;
-    text-align: center;
-  }
-  
-  .intro-text {
-    position: absolute;
-    top: 221px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: black;
-    text-align: center;
-  }
-  
-  .profile-button {
-    position: absolute;
-    top: 252px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 79px;
-    height: 19px;
-    background-color: #D9D9D9;
-    color: black;
-    border-radius: 30px;
-    font-size: 11px;
-    border: none;
-  }
-  
-  .line {
-    width: 851px;
-    height: 1px;
-    background-color: black;
-    position: absolute;
-    top: 485px; 
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10; 
-  }
-  
-  .gray-box-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    position: absolute; 
-    top: 338px; 
-    z-index: 10; 
-  }
-  
-  .gray-box {
-    width: 268px;
-    height: 170px;
-    background-color: #D9D9D9;
-    border-radius: 30px;
-  }
-  
-  .back-button {
-    width: 97px; 
-    height: 95px;
-    background-color: white;  
-    border: none;
-    border-radius: 30px;  
-    position: absolute;
-    /* 수정 필요 */
-    top: 943px; 
-    left: 115px; 
-  }
-  
-  .button-image {
-    width: 54px; 
-    height: auto;  
-    object-fit: contain; 
-  }
-  
+  width: 80%;
+  height: auto; 
+  background-color: white;
+  border-radius: 40px;
+  margin: 0 auto;
+  margin-top: 181px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding-top: 50px;
+  position: relative;
+  z-index: 0;
+}
+
+.intro-content {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  position: absolute;
+  top: 94px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+}
+
+.name-text {
+  position: absolute;
+  top: 169px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  font-size: 25px;
+  color: black;
+  text-align: center;
+}
+
+.intro-text {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: black;
+  text-align: center;
+}
+
+.profile-button {
+  position: absolute;
+  top: 252px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  width: 79px;
+  height: 19px;
+  background-color: #d9d9d9;
+  color: black;
+  border-radius: 30px;
+  font-size: 11px;
+  border: none;
+}
+
+.line {
+  width: 851px;
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  top: 485px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.gray-box-container {
+  width: 852px; 
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  gap: 36px 24px; 
+  margin-top: 338px;
+  z-index: 10;
+}
+
+.gray-box {
+  width: 268px;
+  height: 170px;
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gray-box:hover {
+  background-color: #a9a9a9;
+}
+
+.box-title {
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  padding: 10px;
+}

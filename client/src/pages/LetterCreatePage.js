@@ -4,6 +4,16 @@ import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
 import LetterFloatingButton from "../components/LetterCreate/LetterFloatingButton";
 import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
+// type PARAM = {
+// 	title        : string  // 편지 제목
+// 	content      : string  // 편지 내용
+// 	user_id_to   : string | undefined // 편지를 받는 사람
+// 	time_send    : number  // 편지를 보낸 시간(현재)의 타임스탬프
+// 	time_receive : number  // 편지를 받을 시간(미래)의 타임스탬프
+// 	email_notify_on_receive : string  // 편지가 전송되었을 때, 알림을 받을 이메일
+// 	is_public    : boolean // 편지 공개 여부; true면 공개
+// }
+
 const LetterCreatePage = ({}) => {
   // 플로팅 버튼 토글 hook
   const [isOpen, setIsOpen] = useState(true);
@@ -57,6 +67,16 @@ const LetterCreatePage = ({}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  // 전송시간 설정
+  const [timeSend, setTimeSend] = useState(null);
+
+  // 전송 버튼 클릭시 핸들러
+  const handleSubmit = () => {
+    const now = Date.now(); //현재시각 밀리초 단위
+    setTimeSend(now); // 숫자형식임
+    console.log(timeSend);
+  };
+
   return (
     <div className={styles.create_page}>
       <div className={styles.letter_form}>
@@ -82,7 +102,9 @@ const LetterCreatePage = ({}) => {
             />
           </div>
           <div className={styles.send_btn_box}>
-            <button className={styles.send_btn}>편지를 전송합니다.</button>
+            <button className={styles.send_btn} onClick={handleSubmit}>
+              편지를 전송합니다.
+            </button>
           </div>
         </div>
       </div>
@@ -100,8 +122,6 @@ const LetterCreatePage = ({}) => {
           console.log({ emailNotifyOnReceive });
         }}
         currentYear={currentYear}
-        currentMonth={currentMonth}
-        currentDate={currentDate}
         year={year}
         setYear={setYear}
         month={month}

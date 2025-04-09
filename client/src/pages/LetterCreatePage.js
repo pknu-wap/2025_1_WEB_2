@@ -47,6 +47,24 @@ const LetterCreatePage = ({}) => {
     label: `${currentDate}일`,
   });
 
+  // 받는 날짜의 UNIX TimeStamp
+  const [timeReceive, setTimeRecetve] = useState(null);
+
+  // 선택한 날짜를 유닉스 타임스탬프로 변경
+  const getReceiveTimeStamp = () => {
+    // 오후 12시 기준
+    const unixTimeStamp = new Date(
+      year.value,
+      month.value - 1,
+      day.value,
+      12,
+      0,
+      0
+    );
+
+    setTimeRecetve(unixTimeStamp.getTime());
+  };
+
   // 공개 범위 설정
   const [privacy, setPrivacy] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -72,9 +90,11 @@ const LetterCreatePage = ({}) => {
 
   // 전송 버튼 클릭시 핸들러
   const handleSubmit = () => {
-    const now = Date.now(); //현재시각 밀리초 단위
+    const now = Date.now(); // 현재시각 밀리초 단위(UNIX TimeStamp)
     setTimeSend(now); // 숫자형식임
-    console.log(timeSend);
+    //console.log(timeSend);
+    getReceiveTimeStamp();
+    //console.log(timeReceive);
   };
 
   return (

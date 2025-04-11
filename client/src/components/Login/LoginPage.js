@@ -18,6 +18,10 @@ const LoginPage = () => {
   return (
     <div className="login-container">
         <img src={logo} alt="로고" className="login-logo" />
+        <div className="login-form">
+            <input type="email" placeholder="이메일" className="login-input" />
+            <input type="password" placeholder="비밀번호" className="login-input" />
+      </div>
     </div>
   );
 };

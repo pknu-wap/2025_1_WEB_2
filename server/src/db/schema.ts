@@ -7,7 +7,7 @@ export const usersTable = mysqlTable('users_table', {
   id: serial().primaryKey(),
   name: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),
-  password: varchar({ length: 255}).notNull(),
+  passwordHash: varchar({ length: 255}).notNull(),
 });
 
 export const lettersTable = mysqlTable('letters_table', {

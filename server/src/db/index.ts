@@ -5,8 +5,6 @@ import { eq } from 'drizzle-orm';
 import { ok, err, Result } from 'neverthrow';
 import { lettersTable, usersTable } from './schema.ts';
 
-let db :  | null = null;
-
 export class DBController {
   db: MySql2Database<Record<string, never>> & {
     $client: AnyMySql2Connection;
@@ -18,7 +16,7 @@ export class DBController {
     this.db = db;
   }
 
-  async addUser(email:string,name:string, password:string) : Promise<Result<number, Error>> {
+  async addUser(email:string,name:string, passwordHash:string) : Promise<Result<number, Error>> {
     const result = await this.db.select().from(usersTable).where(eq(usersTable.email,email));
     if (result.length !== 0) {
       return err(new Error("Already Registered with this email"));
@@ -27,12 +25,25 @@ export class DBController {
       const id = (await this.db.insert(usersTable).values({
           email,
           name,
-          password,
+          passwordHash,
       }).$returningId())[0].id;
       return ok(id);
     } catch {
       return err(new Error("DB Insert Error"))
     }
+  }
+
+  async getUser(email:string) : Promise<Result<{
+    id: number;
+    name: string;
+    email: string;
+    passwordHash: string;
+}, Error>> {
+    const result = await this.db.select().from(usersTable).where(eq(usersTable.email,email));
+    if (result.length === 0) {
+      return err(new Error("Not Registered with this email"));
+    }
+    return ok(result[0]);
   }
 
   async addLetter(prop: typeof lettersTable.$inferInsert) {

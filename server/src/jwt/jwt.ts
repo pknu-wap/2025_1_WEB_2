@@ -8,18 +8,18 @@ const payload = {
 };
 
 export const generateToken = (payload) => {
-  const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '3h' });
+  const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '3h', algorithm: "HS256" });
 
   return token;
 };
 
 const refreshToken = (token) => {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET_KEY);
+      const decoded = jwt.verify(token, JWT_SECRET_KEY, {complete:true});
 
       const payload = {
-        userId: decoded.userId,
-        isAdmin: decoded.isAdmin,
+        userId: decoded.payload["userId"],
+        isAdmin: decoded.payload["isAdmin"],
       };
 
       const newToken = generateToken(payload);

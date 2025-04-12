@@ -28,7 +28,8 @@ export class DBController {
           passwordHash,
       }).$returningId())[0].id;
       return ok(id);
-    } catch {
+    } catch(e) {
+      console.log(e)
       return err(new Error("DB Insert Error"))
     }
   }

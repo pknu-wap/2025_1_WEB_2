@@ -10,7 +10,7 @@ const Router = () => {
         {/* 아래는 임의의 Route */}
         <Route path="/create" element={<LetterCreatePage />} />
         {/* <Route path="/mypage" element={<MyPage />} /> */}
-        <Route path="/view" element={<LetterView />} />
+        <Route path="/view/:id" element={<LetterView />} />
       </Routes>
     </BrowserRouter>
   );

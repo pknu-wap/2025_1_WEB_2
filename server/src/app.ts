@@ -22,6 +22,7 @@ app.post("/account/login", async (req, res)=>{
     const {email, password} = req.body;
     if (!email || !password) {
         res.status(400);
+        res.send("Bad Request")
         return;
     }
     const passwordhash = createHash("sha256").update(password+SALT).digest("base64");
@@ -44,6 +45,7 @@ app.post("/account/create", async(req, res)=>{
     const {email, name, password} = req.body;
     if (!email || !name || !password) {
         res.status(400);
+        res.send("Bad Request")
         return;
     }
     const passwordhash = createHash("sha256").update(password+SALT).digest("base64");

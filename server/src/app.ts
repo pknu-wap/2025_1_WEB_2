@@ -20,6 +20,10 @@ app.use(express.json());
 
 app.post("/account/login", async (req, res)=>{
     const {email, password} = req.body;
+    if (!email || !password) {
+        res.status(400);
+        return;
+    }
     const passwordhash = createHash("sha256").update(password+SALT).digest("base64");
     const user = await dbController.getUser(email);
     if (user.isOk()) {

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pknu-wap/2025_1_WEB_2/issues"
   },
-  "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme"
+  "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
 }

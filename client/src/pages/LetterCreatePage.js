@@ -123,14 +123,16 @@ const LetterCreatePage = ({}) => {
       is_public: isPublic,
     };
 
+    // 쿠키 형식으로 Token받아올 예정
     try {
       const res = await axios.post(
-        "https://your-api.com/api/letter/send",
+        `${process.env.REACT_APP_API_BASE_URL_PROXY}/letter/create`,
         param,
         {
           withCredentials: true, // JWT 쿠키를 함께 보낼 경우 필요
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

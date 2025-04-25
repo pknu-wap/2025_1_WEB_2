@@ -3,11 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import LetterInputForm from "./components/LetterCreate/LetterInputForm";
-import PrivacySelector from "./components/LetterCreate/PrivacySelector";
-import YearMonthDayPicker from "./components/LetterCreate/YearMonthDayPicker";
 import Header from "./components/Header";
-import LetterCreatePage from "./pages/LetterCreatePage";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

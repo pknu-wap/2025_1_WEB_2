@@ -1,5 +1,5 @@
 import { React } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LetterCreatePage from "../../pages/LetterCreatePage";
 import LoginPage from "../../components/Login/LoginPage";
 import MyPage from "../MyPage/MyPage";

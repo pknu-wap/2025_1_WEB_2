@@ -14,16 +14,22 @@ const Header = ({}) => {
   const navCreate = () => {
     navigate("/create");
   };
+
+  const navMyPage = () => {
+    navigate("/mypage");
+  };
   return (
     <header className={styles.header}>
       <nav className={styles.nav_bar}>
-        <img className={styles.logo} src={logo} />
+        <img className={styles.logo} src={logo} onClick={() => navigate("/")} />
         <div className={styles.nav_btns}>
           <button className={styles.btn}>편지 구경하기</button>
           <button className={styles.btn} onClick={navCreate}>
             느린 편지 쓰기
           </button>
-          <button className={styles.btn}>나의 편지 보관함</button>
+          <button className={styles.btn} onClick={navMyPage}>
+            나의 편지 보관함
+          </button>
         </div>
       </nav>
     </header>

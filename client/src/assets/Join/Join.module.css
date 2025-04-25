@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .login_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login_logo {
+    width: 300px;
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin-bottom: 40px;
+  }
+  
+  .login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+  }
+  
+  .input_wrapper {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    background: #fff;
+    border-radius: 15px;
+    height: 60px; 
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+  
+  .input_icon {
+    width: 20px;
+    height: auto;
+    margin-right: 12px;
+  }
+  
+  .login_input {
+    flex: 1;
+    height: 100%;
+    font-family: 'Pretendard-Regular';
+    font-size: 18px;
+    border: none;
+    outline: none;
+    padding: 0;
+    background: transparent;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .login_button {
+    width: 120px;  /* 가로 크기 120px로 설정 */
+    height: 30px;  /* 높이 크기 30px로 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 0;  /* padding을 0으로 설정하여 크기 조정 */
+    background-color: #E8FBFF;
+    font-family: 'Pretendard-Regular';
+    font-size: 13px;
+    border: 0.5px solid #000000;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
+  
+  .button_icon {
+    width: 12px;
+    height: auto;
+  }
+  .toggle_btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    cursor: pointer;
+    color: gray;
+  }
+  
+  .error_text {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 36px;
+  }
+  
+  

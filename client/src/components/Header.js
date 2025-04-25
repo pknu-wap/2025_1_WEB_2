@@ -29,7 +29,7 @@ const Header = () => {
         />
         <div className={styles.nav_btns}>
           <button className={styles.btn} onClick={navJoin}>
-            편지 구경하기
+            회원가입
           </button>
           <button className={styles.btn} onClick={navCreate}>
             느린 편지 쓰기

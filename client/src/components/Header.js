@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
 
+  const navJoin = () => {
+    navigate("/join");
+  };
+
   const navCreate = () => {
     navigate("/create");
   };
@@ -24,7 +28,9 @@ const Header = () => {
           alt="로고"
         />
         <div className={styles.nav_btns}>
-          <button className={styles.btn}>편지 구경하기</button>
+          <button className={styles.btn} onClick={navJoin}>
+            회원가입
+          </button>
           <button className={styles.btn} onClick={navCreate}>
             느린 편지 쓰기
           </button>

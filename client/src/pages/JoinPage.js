@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios"; // axios 임포트
 import InputForm from "../components/Join/InputForm";
 import emailIcon from "../assets/이메일 인풋 이미지.png";
 import passwordIcon from "../assets/비밀번호 인풋 이미지.png";
@@ -64,13 +65,43 @@ const JoinPage = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (nicknameError || emailError || passwordMatchError) {
       alert("입력한 정보를 확인해주세요.");
       return;
     }
 
-    alert("회원가입 성공!");
+    const userData = {
+      name: nickname,
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/account/create`,
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("회원가입이 완료되었습니다.");
+        setNickname("");
+        setEmail("");
+        setPassword("");
+        setPasswordCheck("");
+        setShowPassword(false);
+      } else {
+        alert("회원가입에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("회원가입 중 오류 발생:", error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
   };
 
   return (

@@ -91,4 +91,21 @@
     width: 12px;
     height: auto;
   }
+  .toggle_btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    cursor: pointer;
+    color: gray;
+  }
+  
+  .error_text {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 36px;
+  }
+  
   

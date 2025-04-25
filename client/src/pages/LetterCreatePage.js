@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
@@ -11,6 +11,7 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
  * axios withCredentials 옵션으로 쿠키 포함
  *
  */
+
 // type PARAM = {
 // 	title        : string  // 편지 제목
 // 	content      : string  // 편지 내용
@@ -21,7 +22,7 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 // 	is_public    : boolean // 편지 공개 여부; true면 공개
 // }
 
-const LetterCreatePage = ({}) => {
+const LetterCreatePage = () => {
   // 플로팅 버튼 토글 hook
   const [isOpen, setIsOpen] = useState(true);
   // 플로팅 버튼 토글 핸들러

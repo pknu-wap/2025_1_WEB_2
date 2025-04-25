@@ -4,12 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 // 나중에 onClick 메소드 적용해야함.
 
-const Header = ({}) => {
+const Header = () => {
   const navigate = useNavigate();
-
-  const navLogin = () => {
-    navigate("/loginpage");
-  };
 
   const navCreate = () => {
     navigate("/create");
@@ -21,7 +17,12 @@ const Header = ({}) => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav_bar}>
-        <img className={styles.logo} src={logo} onClick={() => navigate("/")} />
+        <img
+          className={styles.logo}
+          src={logo}
+          onClick={() => navigate("/")}
+          alt="로고"
+        />
         <div className={styles.nav_btns}>
           <button className={styles.btn}>편지 구경하기</button>
           <button className={styles.btn} onClick={navCreate}>

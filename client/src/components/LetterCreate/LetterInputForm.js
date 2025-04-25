@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../../assets/LetterCreate/LetterInputForm.module.css";
 
-{
-  /* <LetterInputForm placeholderName={"제목을 적어주세요"} />
+/* <LetterInputForm placeholderName={"제목을 적어주세요"} />
     <LetterInputForm
       placeholderName={"미래의 나에게 편지를 남겨보세요!"}
       customFontSize={16}
     /> */
-}
+
 // content, setContent는 LetterCreatePage에서 선언하여서 변수로 전달.
 const LetterInputForm = ({
   placeholderName,
@@ -51,7 +50,7 @@ const LetterInputForm = ({
           fontSize: customFontSize,
           // 제목 자동 줄바꿈 방지
           whiteSpace:
-            placeholderName == "제목을 적어주세요" ? "nowrap" : "pre-wrap",
+            placeholderName === "제목을 적어주세요" ? "nowrap" : "pre-wrap",
         }} // 스크롤 숨기고 크기 조정 비활성화
       />
     </div>

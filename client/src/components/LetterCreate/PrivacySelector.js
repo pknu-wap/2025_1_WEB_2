@@ -1,5 +1,5 @@
 import styles from "../../assets/LetterCreate/PrivacySelector.module.css";
-import React, { useStae } from "react";
+import React from "react";
 /*
 사용방법
 <PrivacySelector buttonValue={"전체공개"} imgPath={Globe}></PrivacySelector>
@@ -28,7 +28,11 @@ const PrivacySelector = ({
         backgroundColor: isClick ? "#EDEDED" : "transparent",
       }}
     >
-      <img className={styles.privacy_select_btn_icon} src={imgPath} />
+      <img
+        className={styles.privacy_select_btn_icon}
+        src={imgPath}
+        alt="공개범위 설정 아이콘"
+      />
       {buttonValue}
     </button>
   );

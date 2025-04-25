@@ -6,14 +6,12 @@ import MyPage from "../MyPage/MyPage";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/create" element={<LetterCreatePage />} />
-        <Route path="/mypage" element={<MyPage />} />
-        {/* <Route path="/view" element={<LetterViewPage />} /> */}
-        <Route path="/loginpage" element={<LoginPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/create" element={<LetterCreatePage />} />
+      <Route path="/mypage" element={<MyPage />} />
+      {/* <Route path="/view" element={<LetterViewPage />} /> */}
+      <Route path="/loginpage" element={<LoginPage />} />
+    </Routes>
   );
 };
 

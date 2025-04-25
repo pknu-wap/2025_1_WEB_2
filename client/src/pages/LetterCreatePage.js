@@ -132,7 +132,7 @@ const LetterCreatePage = ({}) => {
           withCredentials: true, // JWT 쿠키를 함께 보낼 경우 필요
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            //Authorization: `Bearer ${token}`,
           },
         }
       );

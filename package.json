@@ -1,1 +1,22 @@
-{}
+{
+  "name": "2025_1_web_2",
+  "version": "1.0.0",
+  "description": "2025-1 웹2팀입니다",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pknu-wap/2025_1_WEB_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pknu-wap/2025_1_WEB_2/issues"
+  },
+  "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

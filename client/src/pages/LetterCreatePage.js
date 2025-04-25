@@ -1,9 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
 import LetterFloatingButton from "../components/LetterCreate/LetterFloatingButton";
 import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 
+// 전제조건
+/**
+ * JWT 토큰은 서버가 Set-Cookie 헤더로 내려줌
+ * axios withCredentials 옵션으로 쿠키 포함
+ *
+ */
 // type PARAM = {
 // 	title        : string  // 편지 제목
 // 	content      : string  // 편지 내용
@@ -89,12 +96,59 @@ const LetterCreatePage = ({}) => {
   const [timeSend, setTimeSend] = useState(null);
 
   // 전송 버튼 클릭시 핸들러
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const now = Date.now(); // 현재시각 밀리초 단위(UNIX TimeStamp)
     setTimeSend(now); // 숫자형식임
     //console.log(timeSend);
     getReceiveTimeStamp();
     //console.log(timeReceive);
+
+    // 비동기적 상태 반영 때문에 바로 timeReceive, timeSend 사용하면 안 될 수 있음
+    const futureReceiveTime = new Date(
+      year.value,
+      month.value - 1,
+      day.value,
+      12,
+      0,
+      0
+    ).getTime();
+
+    const param = {
+      title: title,
+      content: content,
+      user_id_to: userIdTo,
+      time_send: now,
+      time_receive: futureReceiveTime,
+      email_notify_on_receive: emailNotifyOnReceive,
+      is_public: isPublic,
+    };
+
+    // 쿠키 형식으로 Token받아올 예정
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL_PROXY}/letter/create`,
+        param,
+        {
+          withCredentials: true, // JWT 쿠키를 함께 보낼 경우 필요
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("전송 성공:", res.data);
+      alert("편지가 전송되었습니다!");
+
+      // 필요 시 초기화
+      setTitle("");
+      setContent("");
+      setUserIdTo("");
+      setEmailNotifyOnReceive("");
+    } catch (error) {
+      console.error("전송 실패:", error.response?.data || error.message);
+      alert("편지 전송에 실패했습니다.");
+    }
   };
 
   return (

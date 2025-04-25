@@ -13,11 +13,13 @@
   "license": "MIT",
   "packageManager": "pnpm@10.6.2",
   "dependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-ws": "^3.0.5",
     "@types/jsonwebtoken": "^9.0.9",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.41.0",
     "eslint-plugin-drizzle": "^0.2.3",

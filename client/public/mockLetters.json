@@ -1,0 +1,40 @@
+{
+    "letters": [
+      {
+        "id": "123",
+        "title": "첫 번째 편지",
+        "content": "이것은 첫 번째 편지 내용입니다.",
+        "user_id_from": "userA",
+        "user_id_send": "userB",
+        "time_send": 1712000000000,
+        "time_receive": 1712600000000,
+        "email_notify_on_receive": "userB@example.com",
+        "is_public": true,
+        "is_sent": "true"
+      },
+      {
+        "id": "456",
+        "title": "두 번째 편지",
+        "content": "이것은 두 번째 편지 내용입니다.",
+        "user_id_from": "userC",
+        "user_id_send": "userD",
+        "time_send": 1713000000000,
+        "time_receive": 1713600000000,
+        "email_notify_on_receive": "userD@example.com",
+        "is_public": false,
+        "is_sent": "true"
+      },
+      {
+        "id": "789",
+        "title": "세 번째 편지",
+        "content": "이것은 세 번째 편지 내용입니다.",
+        "user_id_from": "userE",
+        "user_id_send": "userF",
+        "time_send": 1714000000000,
+        "time_receive": 1714600000000,
+        "email_notify_on_receive": "userF@example.com",
+        "is_public": true,
+        "is_sent": "false"
+      }
+    ]
+  }

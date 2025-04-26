@@ -5,7 +5,12 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsup src/index.ts && node dist/index.cjs"
+    "dev": "run-p internal:build:watch internal:run-node:watch",
+    "run-prod": "run-s internal:build internal:run-node",
+    "internal:build": "tsdown",
+    "internal:build:watch": "tsdown --watch",
+    "internal:run-node": "node dist/main.js",
+    "internal:run-node:watch": "node --watch --watch-preserve-output dist/main.js"
   },
   "type": "module",
   "keywords": [],
@@ -35,8 +40,17 @@
     "eslint-plugin-neverthrow": "^1.1.4",
     "eslint-plugin-oxlint": "^0.16.4",
     "express-async-handler": "^1.2.0",
+    "npm-run-all": "^4.1.5",
+    "oxlint": "^0.16.7",
+    "rolldown": "1.0.0-beta.8",
+    "tsdown": "^0.9.7",
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "rolldown"
+    ]
   }
 }

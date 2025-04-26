@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "react",
+    "unicorn",
+    "typescript",
+    "oxc",
+    "import"
+  ],
+  "rules": {
+    "import/no-namespace": "error"
+  }
+}

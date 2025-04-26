@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!;
 

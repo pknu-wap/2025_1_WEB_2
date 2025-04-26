@@ -1,13 +1,13 @@
 import { app } from '#lib/app/index.ts';
-import expressWs from 'express-ws';
 import api from './api/index.ts';
-import * as express from "express";
+import express from "express";
 import { DBController } from './db/index.ts';
 import { drizzle } from 'drizzle-orm/mysql2';
 import {createHash} from "crypto";
 import { generateToken } from './jwt/jwt.ts';
 import { expressjwt, Request } from 'express-jwt';
 import { CorsOptions, CorsOptionsDelegate, default as cors } from 'cors';
+
 
 const db = drizzle(process.env.DATABASE_URL!);
 const SALT = process.env.SALT!;
@@ -18,7 +18,6 @@ const allowlist = ["http://localhost:3000","http://127.0.0.1:3000"]
 
 const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {
     let corsOptions : CorsOptions;
-    console.log(allowlist.indexOf(req.headers.origin))
     if (allowlist.indexOf(req.headers.origin) !== -1) {
         corsOptions = {origin:true};
     } else {

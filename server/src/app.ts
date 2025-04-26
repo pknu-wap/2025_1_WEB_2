@@ -9,13 +9,11 @@ import { expressjwt, Request } from 'express-jwt';
 import { CorsOptions, CorsOptionsDelegate, default as cors } from 'cors';
 
 
-
 const db = drizzle(process.env.DATABASE_URL!);
 const SALT = process.env.SALT!;
 
 const dbController = new DBController(db);
 
-// undefined is for postman
 const allowlist = ["http://localhost:3000","http://127.0.0.1:3000"]
 
 const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {

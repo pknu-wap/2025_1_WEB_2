@@ -7,6 +7,7 @@ import nicknameIcon from "../assets/nicknameIcon.png";
 import Logo from "../assets/logo.png";
 import signupIcon from "../assets/회원가입 버튼 이미지.png";
 import styles from "../assets/Join/Join.module.css";
+import { useNavigate } from "react-router-dom";
 
 const JoinPage = () => {
   useEffect(() => {
@@ -16,7 +17,7 @@ const JoinPage = () => {
       if (header) header.style.display = "";
     };
   }, []);
-
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,6 +96,7 @@ const JoinPage = () => {
         setPassword("");
         setPasswordCheck("");
         setShowPassword(false);
+        window.location.href = "/";
       } else {
         alert("회원가입에 실패했습니다.");
       }
@@ -106,7 +108,12 @@ const JoinPage = () => {
 
   return (
     <div className={styles.login_container}>
-      <img src={Logo} alt="로고" className="login-logo" />
+      <img
+        src={Logo}
+        alt="로고"
+        className="login-logo"
+        onClick={() => navigate("/")}
+      />
       <div className={styles.login_form}>
         <InputForm
           icon={nicknameIcon}

@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import app from './app.ts'
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`)

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "../../assets/logo.png";
@@ -7,20 +6,13 @@ import emailIcon from "../../assets/이메일 인풋 이미지.png";
 import passwordIcon from "../../assets/비밀번호 인풋 이미지.png";
 import loginIcon from "../../assets/로그인 버튼 이미지.png";
 import signupIcon from "../../assets/회원가입 버튼 이미지.png";
+import { useAuth } from "../../context/AuthContext"; // AuthContext import
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() => {
-    const header = document.querySelector("header");
-    if (header) header.style.display = "none";
-    return () => {
-      if (header) header.style.display = "";
-    };
-  }, []);
+  const { login } = useAuth(); // 로그인 함수 가져오기
 
   const handleLogin = async () => {
     try {
@@ -40,11 +32,11 @@ const LoginPage = () => {
       const { token } = response.data;
 
       if (token) {
-        Cookies.set("toekn", token); // 만료 기간 설정해놓지 않음.
+        login(token); // 로그인 성공 시 AuthContext의 login 함수 호출
         alert("로그인 성공");
         window.location.href = "/";
       } else {
-        alert("로그인 실패 : 토큰이 없습니다. ");
+        alert("로그인 실패 : 토큰이 없습니다.");
       }
     } catch (error) {
       console.log("로그인 에러", error);

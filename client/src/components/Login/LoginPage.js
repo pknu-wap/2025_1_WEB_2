@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 import logo from "../../assets/logo.png";
 import emailIcon from "../../assets/이메일 인풋 이미지.png";
 import passwordIcon from "../../assets/비밀번호 인풋 이미지.png";
@@ -39,7 +40,7 @@ const LoginPage = () => {
       const { token } = response.data;
 
       if (token) {
-        localStorage.setItem("token", token);
+        Cookies.set("toekn", token); // 만료 기간 설정해놓지 않음.
         alert("로그인 성공");
         window.location.href = "/";
       } else {

@@ -14,14 +14,14 @@ const SALT = process.env.SALT!;
 
 const dbController = new DBController(db);
 
-const allowlist = ["http://localhost:3000","http://127.0.0.1:3000"]
+const allowlist = ["http://localhost:3000","http://127.0.0.1:3000","https://slow-postbox.netlify.app"]
 
 const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {
     let corsOptions : CorsOptions;
     if (allowlist.indexOf(req.headers.origin) !== -1) {
-        corsOptions = {origin:true};
+        corsOptions = {origin:true,credentials:true,allowedHeaders:["Content-Type","Authorization"]};
     } else {
-        corsOptions = {origin:false}
+        corsOptions = {origin:false};
     }
     callback(null,corsOptions);
 }

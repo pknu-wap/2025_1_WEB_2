@@ -7,13 +7,7 @@ import signupIcon from "../../assets/회원가입 버튼 이미지.png";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  useEffect(() => {
-    const header = document.querySelector("header");
-    if (header) header.style.display = "none";
-    return () => {
-      if (header) header.style.display = "";
-    };
-  }, []);
+
 
   return (
     <div className="login-container">

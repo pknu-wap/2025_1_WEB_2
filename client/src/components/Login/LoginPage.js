@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import logo from "../../assets/logo.png";
 import emailIcon from "../../assets/이메일 인풋 이미지.png";
 import passwordIcon from "../../assets/비밀번호 인풋 이미지.png";
 import loginIcon from "../../assets/로그인 버튼 이미지.png";
 import signupIcon from "../../assets/회원가입 버튼 이미지.png";
 import { useAuth } from "../../context/AuthContext"; // AuthContext import
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth(); // 로그인 함수 가져오기
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -46,7 +47,14 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <img src={logo} alt="로고" className="login-logo" />
+      <img
+        src={logo}
+        alt="로고"
+        className="login-logo"
+        onClick={() => {
+          navigate("/");
+        }}
+      />
 
       <div className="login-form">
         <div className="input-wrapper">

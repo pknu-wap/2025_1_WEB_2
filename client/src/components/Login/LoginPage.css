@@ -21,6 +21,10 @@
   margin-bottom: 40px;
 }
 
+.login-logo:hover{
+  cursor: pointer;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;

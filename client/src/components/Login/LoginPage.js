@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import logo from "../../assets/logo.png";
 import emailIcon from "../../assets/이메일 인풋 이미지.png";
@@ -14,6 +14,14 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const { login } = useAuth(); // 로그인 함수 가져오기
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const header = document.querySelector("header");
+    if (header) header.style.display = "none";
+    return () => {
+      if (header) header.style.display = "";
+    };
+  }, []);
 
   const handleLogin = async () => {
     try {

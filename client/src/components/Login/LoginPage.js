@@ -41,7 +41,7 @@ const LoginPage = () => {
       if (token) {
         localStorage.setItem("token", token);
         alert("로그인 성공");
-        navigate("/");
+        window.location.href = "/";
       } else {
         alert("로그인 실패 : 토큰이 없습니다. ");
       }

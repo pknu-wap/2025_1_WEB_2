@@ -84,7 +84,7 @@ const LoginPage = () => {
         </div>
 
         <div className="button-group">
-          <button className="login-button">
+          <button className="login-button" onClick={() => navigate("/join")}>
             <img
               src={signupIcon}
               alt="회원가입 아이콘"

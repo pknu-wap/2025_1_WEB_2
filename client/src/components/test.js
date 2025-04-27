@@ -36,7 +36,6 @@ const TestPage = () => {
 
   return (
     <div>
-      <h1>Test Page</h1>
       {token ? <p>토큰이 존재합니다: {token}</p> : <p>토큰이 없습니다.</p>}
       {/* 
       <h1> 닉네임 : {myData.email}</h1> */}

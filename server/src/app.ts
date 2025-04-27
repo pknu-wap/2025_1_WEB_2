@@ -14,7 +14,7 @@ const SALT = process.env.SALT!;
 
 const dbController = new DBController(db);
 
-const allowlist = ["http://localhost:3000","http://127.0.0.1:3000"]
+const allowlist = ["http://localhost:3000","http://127.0.0.1:3000","https://slow-postbox.netlify.app"]
 
 const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {
     let corsOptions : CorsOptions;

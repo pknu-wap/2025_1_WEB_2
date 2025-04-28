@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   const navLogin = () => {
-    navigate("/loginpage");
+    navigate("/login");
   };
 
   const navCreate = () => {

@@ -91,8 +91,9 @@
     width: 12px;
     height: auto;
   }
+  
   .toggle_btn {
-    position: absolute;
+    margin-top: 15px;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);

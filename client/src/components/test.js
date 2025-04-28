@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Cookies from "js-cookie";
 
 const TestPage = () => {
   const [token, setToken] = useState(null);
-  const [myData, setMyData] = useState(null);
-  const navigate = useNavigate(); // 컴포넌트 함수 내부에서 호출해야함.
 
   useEffect(() => {
     // 쿠키에서 token을 가져오기

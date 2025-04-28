@@ -43,7 +43,7 @@ const LoginPage = () => {
       if (token) {
         login(token); // 로그인 성공 시 AuthContext의 login 함수 호출
         alert("로그인 성공");
-        window.location.href = "/";
+        window.location.href = "/loginpage";
       } else {
         alert("로그인 실패 : 토큰이 없습니다.");
       }

@@ -7,10 +7,11 @@
 
 .login-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: center; 
+  margin: 0 auto;
+  height: 85vh;
 }
 
 .login-logo {
@@ -87,6 +88,10 @@
   border: 0.5px solid #000000;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.login-button:hover{
+  background-color: #EDEDED;
 }
 
 

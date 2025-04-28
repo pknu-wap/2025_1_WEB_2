@@ -76,7 +76,7 @@ const LetterInfoForm = ({
             <br />
           </label>
           <label style={{ marginLeft: "15px" }}>
-            알림받을 이메일을 적어주세요
+            알림받을 이메일을 적어주세요.
           </label>
           <div className={styles.letter_email_input_form}>
             <LetterInputForm

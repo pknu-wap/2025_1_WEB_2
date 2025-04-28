@@ -25,6 +25,7 @@ const JoinPage = () => {
 
   const [nicknameError, setNicknameError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +48,11 @@ const JoinPage = () => {
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
+
+    // 비밀번호 입력 시 에러 메시지 초기화
+    if (value) {
+      setPasswordError(""); // 비밀번호 입력 시 에러 메시지 초기화
+    }
     if (passwordCheck) {
       setPasswordMatchError(
         value === passwordCheck ? "" : "비밀번호가 일치하지 않습니다."
@@ -67,8 +73,12 @@ const JoinPage = () => {
   };
 
   const handleSubmit = async () => {
-    if (nicknameError || emailError || passwordMatchError) {
-      alert("입력한 정보를 확인해주세요.");
+    // 필수 입력 항목 검사
+    if (!nickname && !email && !password && !passwordCheck) {
+      setNicknameError("닉네임을 입력해주세요.");
+      setEmailError("이메일을 입력해주세요.");
+      setPasswordError("비밀번호를 입력해주세요.");
+      alert("닉네임, 이메일, 비밀번호를 모두 입력해주세요.");
       return;
     }
 
@@ -139,6 +149,7 @@ const JoinPage = () => {
           onChange={handlePasswordChange}
           togglePassword={() => setShowPassword(!showPassword)}
           showPassword={showPassword}
+          error={passwordError}
         />
         <InputForm
           icon={passwordIcon}

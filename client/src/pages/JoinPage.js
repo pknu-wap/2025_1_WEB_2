@@ -96,7 +96,7 @@ const JoinPage = () => {
         setPassword("");
         setPasswordCheck("");
         setShowPassword(false);
-        window.location.href = "/";
+        window.location.href = "/loginpage";
       } else {
         alert("회원가입에 실패했습니다.");
       }

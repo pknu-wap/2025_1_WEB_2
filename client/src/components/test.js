@@ -36,7 +36,7 @@ const TestPage = () => {
 
   return (
     <div>
-      {token ? <p>토큰이 존재합니다: {token}</p> : <p>토큰이 없습니다.</p>}
+      {token ? <p>토큰이 존재합니다</p> : <p>토큰이 없습니다.</p>}
       {/* 
       <h1> 닉네임 : {myData.email}</h1> */}
     </div>

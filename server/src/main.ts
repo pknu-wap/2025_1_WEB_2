@@ -1,15 +1,12 @@
 import 'dotenv/config';
-import { lettersTable, usersTable } from './db/schema.ts';
-import { DBController } from './db/index.ts';
-import { drizzle } from 'drizzle-orm/mysql2';
 
 import app from './app.ts'
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`)
-})
+});
 
 
 

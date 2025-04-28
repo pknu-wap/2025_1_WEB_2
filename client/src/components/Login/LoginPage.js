@@ -56,22 +56,37 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
-    if (!email) {
+    // 둘 다 없는 경우 먼저 체크
+    if (!email && !password) {
       setEmailError("이메일을 입력해주세요.");
+      setPasswordError("비밀번호를 입력해주세요.");
+      alert("이메일과 비밀번호를 입력해주세요.");
       return;
     }
 
+    // 이메일만 없는 경우
+    if (!email) {
+      setEmailError("이메일을 입력해주세요.");
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+
+    // 비밀번호만 없는 경우
+    if (!password) {
+      setPasswordError("비밀번호를 입력해주세요.");
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
+
+    // 이메일 형식이 잘못된 경우
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("올바른 이메일 형식이 아닙니다.");
+      alert("올바른 이메일 형식이 아닙니다.");
       return;
     }
 
-    if (!password) {
-      setPasswordError("비밀번호를 입력해주세요.");
-      return;
-    }
-
+    // 서버 요청
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/account/login`,

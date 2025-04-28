@@ -89,6 +89,10 @@
   cursor: pointer;
 }
 
+.login-button:hover{
+  background-color: #EDEDED;
+}
+
 
 .button-icon {
   width: 12px;

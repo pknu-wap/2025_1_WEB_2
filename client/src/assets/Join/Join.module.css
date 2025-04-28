@@ -10,7 +10,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+ 
+    height: 90vh;
+
   }
   
   .login_logo {
@@ -91,7 +93,7 @@
     width: 12px;
     height: auto;
   }
-  
+
   .toggle_btn {
     margin-top: 15px;
     right: 10px;

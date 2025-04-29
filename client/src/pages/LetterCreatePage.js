@@ -42,8 +42,7 @@ const LetterCreatePage = () => {
 
         const data = response.data;
         setUserInfo(data);
-        setUserIdTo(userInfo?.id); // 실제 저장값은 id
-        console.log("API 응답 데이터:", data);
+        setUserIdTo(data.id);
       } catch (error) {
         alert("내 정보를 가져오는데 실패했습니다.");
       }
@@ -55,13 +54,10 @@ const LetterCreatePage = () => {
 
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
-    console.log({ userIdTo });
-    console.log({ privacy });
   };
 
   const [userIdTo, setUserIdTo] = useState("");
   const [emailNotifyOnReceive, setEmailNotifyOnReceive] = useState("");
-
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
   const currentDate = new Date().getDate();
@@ -93,6 +89,33 @@ const LetterCreatePage = () => {
       setIsPrivacy(true);
       setPrivacy("나만보기");
     }
+  };
+
+  // 체크박스 상태 추가
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+
+  // 체크박스 상태 변경 핸들러
+  const handleCheckboxChange = () => {
+    const nextChecked = !isEmailChecked;
+    setIsEmailChecked(nextChecked);
+    if (nextChecked) {
+      setEmailNotifyOnReceive(userInfo?.email || "");
+    } else {
+      setEmailNotifyOnReceive("");
+    }
+  };
+
+  // 포커싱 시 체크박스 해제 및 이메일 초기화
+  const handleEmailFocus = () => {
+    if (isEmailChecked) {
+      setIsEmailChecked(false);
+      setEmailNotifyOnReceive("");
+    }
+  };
+
+  // 이메일 입력 핸들러
+  const handleEmailChange = (e) => {
+    setEmailNotifyOnReceive(e.target.value);
   };
 
   const [title, setTitle] = useState("");
@@ -177,8 +200,12 @@ const LetterCreatePage = () => {
         // handleLetterTo={(e) => setUserIdTo(e.target.value)}
         readOnly={true}
         userIdTo={userInfo?.name} // 보여주는 값은 사용자 name
+        isEmailChecked={isEmailChecked}
+        handleCheckboxChange={handleCheckboxChange}
         emailNotifyOnReceive={emailNotifyOnReceive}
-        handleEmail={(e) => setEmailNotifyOnReceive(e.target.value)}
+        handleEmail={handleEmailChange}
+        onFocus={handleEmailFocus}
+        defaultEmail={userInfo?.email}
         currentYear={currentYear}
         year={year}
         setYear={setYear}

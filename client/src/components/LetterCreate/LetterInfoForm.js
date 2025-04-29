@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../assets/LetterCreate/LetterInfoForm.module.css";
 import LetterInputForm from "./LetterInputForm";
 import PrivacySelector from "./PrivacySelector";
@@ -10,8 +10,12 @@ const LetterInfoForm = ({
   isOpen,
   readOnly,
   userIdTo,
+  isEmailChecked,
+  handleCheckboxChange,
   handleEmail,
+  defaultEmail,
   emailNotifyOnReceive,
+  onFocus,
   currentYear,
   year,
   setYear,
@@ -26,6 +30,7 @@ const LetterInfoForm = ({
   handleClick,
 }) => {
   if (!isOpen) return null;
+
   return (
     <div className={styles.letter_info_form}>
       <div className={styles.letter_info_input_form}>
@@ -84,11 +89,17 @@ const LetterInfoForm = ({
               placeholderName={"your_email@example.com"}
               customFontSize={16}
               onChange={handleEmail}
+              onFocus={onFocus}
               value={emailNotifyOnReceive}
             />
           </div>
           <div className={styles.letter_checkbox}>
-            <input type="checkbox" id="emailCheckbox" />
+            <input
+              type="checkbox"
+              id="emailCheckbox"
+              checked={isEmailChecked}
+              onChange={handleCheckboxChange}
+            />
             <label for="emailCheckbox">
               회원 가입 시 사용한 이메일로 보내주세요.
             </label>

@@ -1,5 +1,5 @@
 import { app } from '#lib/app/index.ts';
-import api from './api/index.ts';
+//import api from './api/index.ts';
 import express from "express";
 import { DBController } from './db/index.ts';
 import { drizzle } from 'drizzle-orm/mysql2';
@@ -26,7 +26,7 @@ const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {
     callback(null,corsOptions);
 }
 
-app.use('/api/v1', api)
+//app.use('/api/v1', api)
 app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
@@ -22,17 +23,41 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 // 	is_public    : boolean // 편지 공개 여부; true면 공개
 // }
 const LetterCreatePage = () => {
+  const [token, setToken] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const tokenFromCookie = Cookies.get("token");
+
+    if (tokenFromCookie) setToken(tokenFromCookie); // 상태로는 저장 (필요하면 UI에서 활용)
+
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/account/my`,
+          {
+            headers: { Authorization: `Bearer ${tokenFromCookie}` },
+          }
+        );
+
+        const data = response.data;
+        setUserInfo(data);
+        setUserIdTo(data.id);
+      } catch (error) {
+        alert("내 정보를 가져오는데 실패했습니다.");
+      }
+    };
+
+    fetchProjectDetails();
+  }, []);
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
-    console.log({ userIdTo });
-    console.log({ privacy });
   };
 
   const [userIdTo, setUserIdTo] = useState("");
   const [emailNotifyOnReceive, setEmailNotifyOnReceive] = useState("");
-
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
   const currentDate = new Date().getDate();
@@ -64,6 +89,33 @@ const LetterCreatePage = () => {
       setIsPrivacy(true);
       setPrivacy("나만보기");
     }
+  };
+
+  // 체크박스 상태 추가
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+
+  // 체크박스 상태 변경 핸들러
+  const handleCheckboxChange = () => {
+    const nextChecked = !isEmailChecked;
+    setIsEmailChecked(nextChecked);
+    if (nextChecked) {
+      setEmailNotifyOnReceive(userInfo?.email || "");
+    } else {
+      setEmailNotifyOnReceive("");
+    }
+  };
+
+  // 포커싱 시 체크박스 해제 및 이메일 초기화
+  const handleEmailFocus = () => {
+    if (isEmailChecked) {
+      setIsEmailChecked(false);
+      setEmailNotifyOnReceive("");
+    }
+  };
+
+  // 이메일 입력 핸들러
+  const handleEmailChange = (e) => {
+    setEmailNotifyOnReceive(e.target.value);
   };
 
   const [title, setTitle] = useState("");
@@ -99,6 +151,7 @@ const LetterCreatePage = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -145,10 +198,14 @@ const LetterCreatePage = () => {
 
       <LetterInfoForm
         isOpen={isOpen}
-        handleLetterTo={(e) => setUserIdTo(e.target.value)}
-        userIdTo={userIdTo}
+        // handleLetterTo={(e) => setUserIdTo(e.target.value)}
+        readOnly={true}
+        userIdTo={userInfo?.name} // 보여주는 값은 사용자 name
+        isEmailChecked={isEmailChecked}
+        handleCheckboxChange={handleCheckboxChange}
         emailNotifyOnReceive={emailNotifyOnReceive}
-        handleEmail={(e) => setEmailNotifyOnReceive(e.target.value)}
+        handleEmail={handleEmailChange}
+        onFocus={handleEmailFocus}
         currentYear={currentYear}
         year={year}
         setYear={setYear}

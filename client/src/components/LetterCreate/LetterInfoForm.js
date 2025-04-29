@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../assets/LetterCreate/LetterInfoForm.module.css";
 import LetterInputForm from "./LetterInputForm";
 import PrivacySelector from "./PrivacySelector";
@@ -13,7 +13,6 @@ const LetterInfoForm = ({
   isEmailChecked,
   handleCheckboxChange,
   handleEmail,
-  defaultEmail,
   emailNotifyOnReceive,
   onFocus,
   currentYear,

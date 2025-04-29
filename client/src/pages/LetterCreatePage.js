@@ -151,6 +151,7 @@ const LetterCreatePage = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -205,7 +206,6 @@ const LetterCreatePage = () => {
         emailNotifyOnReceive={emailNotifyOnReceive}
         handleEmail={handleEmailChange}
         onFocus={handleEmailFocus}
-        defaultEmail={userInfo?.email}
         currentYear={currentYear}
         year={year}
         setYear={setYear}

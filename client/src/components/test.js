@@ -22,7 +22,6 @@ const TestPage = () => {
 
         const data = response.data;
         setUserInfo(data);
-        console.log("API 응답 데이터:", data);
       } catch (error) {
         alert("내 정보를 가져오는데 실패했습니다.");
       }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
 import styles from "../assets/LetterCreate/LetterCreatePage.module.css";
@@ -22,6 +23,34 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 // 	is_public    : boolean // 편지 공개 여부; true면 공개
 // }
 const LetterCreatePage = () => {
+  const [token, setToken] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const tokenFromCookie = Cookies.get("token");
+
+    if (tokenFromCookie) setToken(tokenFromCookie); // 상태로는 저장 (필요하면 UI에서 활용)
+
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/account/my`,
+          {
+            headers: { Authorization: `Bearer ${tokenFromCookie}` },
+          }
+        );
+
+        const data = response.data;
+        setUserInfo(data);
+        setUserIdTo(userInfo?.id); // 실제 저장값은 id
+        console.log("API 응답 데이터:", data);
+      } catch (error) {
+        alert("내 정보를 가져오는데 실패했습니다.");
+      }
+    };
+
+    fetchProjectDetails();
+  }, []);
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => {
@@ -145,8 +174,9 @@ const LetterCreatePage = () => {
 
       <LetterInfoForm
         isOpen={isOpen}
-        handleLetterTo={(e) => setUserIdTo(e.target.value)}
-        userIdTo={userIdTo}
+        // handleLetterTo={(e) => setUserIdTo(e.target.value)}
+        readOnly={true}
+        userIdTo={userInfo?.name} // 보여주는 값은 사용자 name
         emailNotifyOnReceive={emailNotifyOnReceive}
         handleEmail={(e) => setEmailNotifyOnReceive(e.target.value)}
         currentYear={currentYear}

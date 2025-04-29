@@ -8,7 +8,7 @@ import Lock from "../../assets/LetterCreate/unlock.png";
 
 const LetterInfoForm = ({
   isOpen,
-  handleLetterTo,
+  readOnly,
   userIdTo,
   handleEmail,
   emailNotifyOnReceive,
@@ -33,8 +33,9 @@ const LetterInfoForm = ({
           <LetterInputForm
             placeholderName={"누구에게 보내실 건가요?"}
             customFontSize={22}
-            onChange={handleLetterTo}
             value={userIdTo}
+            readOnly={readOnly}
+            onChange={(e) => alert("자신에게만 편지를 보낼 수 있습니다.")}
           />
         </div>
         <div className={styles.letter_when}>

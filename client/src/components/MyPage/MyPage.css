@@ -103,6 +103,7 @@
   gap: 36px 24px; 
   margin-top: 338px;
   z-index: 10;
+  cursor: pointer;
 }
 
 .gray-box {

@@ -97,12 +97,15 @@ app.post("/letter/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]
         res.send({error: parseResult.error.toString()});
         return;
     }
-    if (req.auth.id !== parseResult.data.user_id_from) {
+    const body = parseResult.data;
+    if (req.auth.id !== body.user_id_from) {
         res.status(422);
         res.send({error: "req.auth.id !== result.data.user_id_from"});
         return;
+    } else if (body.time_send > body.time_receive) {
+        res.status(422);
+        res.send({error: "time_send > time_receive"})
     }
-    const body = parseResult.data;
     const letterId = await dbController.addLetter({
         title:body.title,
         content: body.content,
@@ -115,20 +118,10 @@ app.post("/letter/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]
         is_sent: false,
     });
     if (letterId.isOk()) {
-        res.send(letterId.value); // letterId
+        res.send({id:letterId.value}); // letterId
     } else {
         res.status(500);
-        res.send(letterId.error.message);
-    }
-});
-
-app.get("/letter/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
-    const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
-    if (allLetters.isOk()) {
-        res.send(allLetters.value);
-    } else {
-        res.status(500);
-        res.send({error:allLetters.error.message});
+        res.send({error:letterId.error.message});
     }
 });
 
@@ -136,8 +129,8 @@ const zLetterGet = z.object({
     id:z.number()
 });
 
-app.post("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
-    const parseResult = zLetterGet.safeParse(req.body);
+app.get("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const parseResult = zLetterGet.safeParse(req.query);
     if (!parseResult.success) {
         res.status(400);
         res.send({error: parseResult.error.toString()});
@@ -159,16 +152,26 @@ app.post("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),
         res.status(422);
         res.send("Not public, and you are not sender nor receiver");
     }
-    res.send(letter.value);
+    res.send({letter: letter.value});
 });
 
 
 app.get("/letter/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const allLetters = await dbController.getLetterIdsWithUserID(req.auth.id);
     if (allLetters.isOk()) {
-        res.send(allLetters.value);
+        res.send({arr_id:allLetters.value});
     } else {
         res.send(500);
+        res.send({error:allLetters.error.message});
+    }
+});
+
+app.get("/letter/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
+    if (allLetters.isOk()) {
+        res.send({arr_letter:allLetters.value});
+    } else {
+        res.status(500);
         res.send({error:allLetters.error.message});
     }
 });

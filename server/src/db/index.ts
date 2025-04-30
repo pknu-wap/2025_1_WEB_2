@@ -57,11 +57,31 @@ export class DBController {
     }
   }
 
-  async getLetterWithUserID(id:number): Promise<Result<Array<typeof lettersTable.$inferSelect>,Error>> {
-    const result = await this.db.select().from(lettersTable).where(or(eq(lettersTable.user_id_from,id),eq(lettersTable.user_id_to,id)));
+  async getLettersAllWithUserID(userId:number): Promise<Result<Array<typeof lettersTable.$inferSelect>,Error>> {
+    const result = await this.db.select().from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
     if (result.length === 0) {
       return ok([]);
     }
     return ok(result);
+  }
+
+  async getLetter(id:number) {
+    const result = await this.db.select().from(lettersTable).where(eq(lettersTable.id,id));
+    if (result.length === 0) {
+      return ok(null);
+    } else {
+      return ok(result[0]);
+    }
+  }
+
+  async getLetterIdsWithUserID(userId:number) {
+    const result = await this.db.select({
+      id: lettersTable.id,
+    }).from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
+    if (result.length === 0) {
+      return ok([]);
+    } else {
+      return ok(result.map((v)=>v.id));
+    }
   }
 }

@@ -7,6 +7,7 @@ import {createHash} from "crypto";
 import { generateToken } from './jwt/jwt.ts';
 import { expressjwt, Request } from 'express-jwt';
 import { CorsOptions, CorsOptionsDelegate, default as cors } from 'cors';
+import {z} from "zod";
 
 
 const db = drizzle(process.env.DATABASE_URL!);
@@ -75,8 +76,51 @@ app.post("/account/create", async(req, res)=>{
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!;
 
-app.get("/account/my",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async (req: Request<{id,email,name}>, res)=>{
+app.get("/account/my",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async (req: Request<{id:number,email: string,name:string}>, res)=>{
     res.send({id:req.auth.id,email:req.auth.email,name:req.auth.name});
-})
+});
 
-export default app
+const zLetterCreate = z.object({
+    title:z.string(),
+    content:z.string(),
+    user_id_from:z.number(),
+    user_id_to:z.number(),
+    time_send:z.number().transform((v)=> {let a = new Date();a.setTime(v);return a;}),
+    time_receive:z.number().transform((v)=> {let a = new Date();a.setTime(v);return a;}),
+    email_get_notify_receive:z.string().email(),
+    is_public:z.boolean()
+});
+
+app.post("/letter/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const parseResult = zLetterCreate.safeParse(req.body);
+    if (!parseResult.success) {
+        res.status(400);
+        res.send({error: parseResult.error.toString()});
+        return;
+    }
+    if (req.auth.id !== parseResult.data.user_id_from) {
+        res.status(422);
+        res.send({error: "req.auth.id !== result.data.user_id_from"});
+        return;
+    }
+    const body = parseResult.data;
+    const dbResult = await dbController.addLetter({
+        title:body.title,
+        content: body.content,
+        user_id_from: body.user_id_from,
+        user_id_to: body.user_id_to,
+        time_send: body.time_send,
+        time_receive: body.time_receive,
+        email_get_notify_receive: body.email_get_notify_receive,
+        is_public: body.is_public,
+        is_sent: false,
+    });
+    if (dbResult.isOk()) {
+        res.send(dbResult.value); // letterId
+    } else {
+        res.status(500);
+        res.send(dbResult.error.message);
+    }
+});
+
+export default app;

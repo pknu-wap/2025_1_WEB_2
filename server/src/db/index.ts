@@ -57,12 +57,12 @@ export class DBController {
     }
   }
 
-  async getLettersAllWithUserID(userId:number): Promise<Result<Array<typeof lettersTable.$inferSelect>,Error>> {
+  async getLettersAllWithUserID(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
     const result = await this.db.select().from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
     if (result.length === 0) {
       return ok([]);
     }
-    return ok(result);
+    return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
 
   async getLetter(id:number) {
@@ -70,7 +70,7 @@ export class DBController {
     if (result.length === 0) {
       return ok(null);
     } else {
-      return ok(result[0]);
+      return ok({...result[0],time_send:result[0].time_send.getTime(),time_receive:result[0].time_receive.getTime()});
     }
   }
 

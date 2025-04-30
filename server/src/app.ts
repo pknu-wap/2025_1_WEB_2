@@ -104,7 +104,8 @@ app.post("/letter/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]
         return;
     } else if (body.time_send > body.time_receive) {
         res.status(422);
-        res.send({error: "time_send > time_receive"})
+        res.send({error: "time_send > time_receive"});
+        return;
     }
     const letterId = await dbController.addLetter({
         title:body.title,
@@ -126,7 +127,7 @@ app.post("/letter/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]
 });
 
 const zLetterGet = z.object({
-    id:z.number()
+    id:z.string().transform((v)=>Number(v))
 });
 
 app.get("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
@@ -137,20 +138,25 @@ app.get("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), 
         return;
     }
     const body = parseResult.data;
+    if (isNaN(parseResult.data.id)) {
+        res.status(400);
+        res.send({error: "id is not number"});
+        return;
+    }
     const letter = await dbController.getLetter(body.id);
     if (letter.isErr()) {
         res.status(500);
-        res.send(letter.error);
+        res.send({error:letter.error});
         return;
     }
     if (letter.value === null) {
         res.status(404);
-        res.send("404 Not Found");
+        res.send({error:"404 Not Found"});
         return;
     }
     if (!letter.value.is_public && req.auth.id !== letter.value.user_id_from && req.auth.id !== letter.value.user_id_to) {
         res.status(422);
-        res.send("Not public, and you are not sender nor receiver");
+        res.send({error:"Not public, and you are not sender nor receiver"});
     }
     res.send({letter: letter.value});
 });

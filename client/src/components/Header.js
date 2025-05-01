@@ -17,7 +17,7 @@ const Header = () => {
     Cookies.remove("token"); // localStorage 대신 쿠키 삭제
     setIsLoggedIn(false); // 상태 업데이트
     alert("로그아웃 되었습니다.");
-    navigate("/loginpage"); // 로그인페이지로 이동
+    navigate("/login"); // 로그인페이지로 이동
   };
 
   const navLogin = () => {

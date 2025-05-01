@@ -133,6 +133,13 @@ const LetterCreatePage = () => {
       0
     ).getTime();
 
+    const diff = futureReceiveTime - now;
+
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
     const param = {
       title: title,
       content: content,
@@ -158,7 +165,10 @@ const LetterCreatePage = () => {
       );
 
       console.log("전송 성공:", res.data);
-      alert("편지가 전송되었습니다!");
+
+      alert(
+        `편지가 전송되었습니다!\n\n ${days}일 ${hours}시간 ${minutes}분 ${seconds}초 후에 ㅍ편지를 보내드릴게요.._@v`
+      );
 
       // 모든 초기화
       setTitle("");

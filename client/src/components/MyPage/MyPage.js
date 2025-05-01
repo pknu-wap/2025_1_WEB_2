@@ -15,16 +15,16 @@ function MyPage() {
     navigate(`/view/${letterId}`); // navigate로 페이지 이동
   };
 
-  const handleFetchLetterData = async (letterId) => {
-    try {
-      // 편지 데이터를 서버로부터 가져오기 (예시 URL로 요청)
-      const response = await axios.get(`/api/letters/${letterId}`);
-      // 성공적으로 데이터를 받아온 경우
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching letter data:", error);
-    }
-  };
+  // const handleFetchLetterData = async (letterId) => {
+  //   try {
+  //     // 편지 데이터를 서버로부터 가져오기 (예시 URL로 요청)
+  //     const response = await axios.get(`/api/letters/${letterId}`);
+  //     // 성공적으로 데이터를 받아온 경우
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching letter data:", error);
+  //   }
+  // };
 
   return (
     <div className="MyPage">

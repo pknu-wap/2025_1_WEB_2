@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 const TestPage = () => {
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  const [userLetterIds, setUserLetterIds] = useState(null);
+  // const [userLetterIds, setUserLetterIds] = useState(null);
 
   useEffect(() => {
     const tokenFromCookie = Cookies.get("token");
@@ -31,23 +31,23 @@ const TestPage = () => {
     fetchUserInfo();
 
     // 내가 보낸 편지 정보 가져오기
-    const fetchMyLetters = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/letter/get_all_of_me`,
-          {
-            headers: { Authorization: `Bearer ${tokenFromCookie}` },
-          }
-        );
+    // const fetchMyLetters = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       `${process.env.REACT_APP_API_BASE_URL}/letter/get_all_of_me`,
+    //       {
+    //         headers: { Authorization: `Bearer ${tokenFromCookie}` },
+    //       }
+    //     );
 
-        const data = response.data;
-        setUserLetterIds(data);
-      } catch (error) {
-        alert("내 편지들의 정보를 가져오는데 실패했습니다. ");
-      }
-    };
+    //     const data = response.data;
+    //     setUserLetterIds(data);
+    //   } catch (error) {
+    //     alert("내 편지들의 정보를 가져오는데 실패했습니다. ");
+    //   }
+    // };
 
-    fetchMyLetters();
+    // fetchMyLetters();
   }, []);
 
   return (

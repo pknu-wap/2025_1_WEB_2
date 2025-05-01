@@ -7,7 +7,7 @@ import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.js
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [letters, setLetters] = useState(lettersData.letters || []);
+  const [letters] = useState(lettersData.letters || []);
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLetterClick = (letterId) => {

@@ -68,4 +68,21 @@
 .post_box {
     width: 500px; /* 이미지 크기 조정 (원하는 크기) */
 }
+
+/* 처음에는 보이지 않게 */
+.text_box,
+.post_box {
+  opacity: 0;
+  animation: fadeIn 2s forwards; /* 2초 동안 서서히 나타남 */
+}
+
+/* 텍스트 박스와 이미지가 서서히 나타나는 애니메이션 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* 처음에 보이지 않음 */
+  }
+  100% {
+    opacity: 1; /* 완전히 보임 */
+  }
+}
   

@@ -16,8 +16,15 @@ const MyPage = () => {
             </div>
 
             <div className={styles.btn_box}>
-              <button className={styles.btn}>편지 보내기</button>
-              <button className={styles.btn}>편지 구경하기</button>
+              <button
+                className={styles.btn}
+                onClick={() => navigate("/create")}
+              >
+                편지 보내기
+              </button>
+              <button className={styles.btn} onClick={() => navigate("view")}>
+                편지 구경하기
+              </button>
             </div>
           </div>
           <img className={styles.post_box} src={PostBox} />

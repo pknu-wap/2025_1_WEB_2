@@ -37,8 +37,17 @@ const JoinPage = () => {
   };
 
   const handleEmailChange = (e) => {
-    const value = e.target.value;
+    let value = e.target.value;
+
     setEmail(value);
+
+    // 잠깐 보여준 뒤 한글 제거 (100ms 후)
+    setTimeout(() => {
+      const noKorean = value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+      if (value !== noKorean) {
+        setEmail(noKorean);
+      }
+    }, 500); // 지연 시간은 원하는 대로 조절 가능
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(
       emailRegex.test(value) ? "" : "올바른 이메일 형식이 아닙니다."

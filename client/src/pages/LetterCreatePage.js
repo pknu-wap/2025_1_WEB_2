@@ -216,32 +216,34 @@ const LetterCreatePage = () => {
         </div>
       </div>
 
-      <LetterInfoForm
-        isOpen={isOpen}
-        // handleLetterTo={(e) => setUserIdTo(e.target.value)}
-        readOnly={true}
-        userIdTo={userInfo?.name} // 보여주는 값은 사용자 name
-        isEmailChecked={isEmailChecked}
-        handleCheckboxChange={handleCheckboxChange}
-        emailNotifyOnReceive={emailNotifyOnReceive}
-        handleEmail={handleEmailChange}
-        onFocus={handleEmailFocus}
-        currentYear={currentYear}
-        year={year}
-        setYear={setYear}
-        month={month}
-        setMonth={setMonth}
-        day={day}
-        setDay={setDay}
-        privacy={privacy}
-        setPrivacy={setPrivacy}
-        handleClicked={handleClicked}
-        isPrivacy={isPriacy}
-        isPublic={isPublic}
-        handleClick={handleOpen}
-      />
-
-      <LetterFloatingButton handleOpen={handleOpen} />
+      <div className={styles.floating_container}>
+        {isOpen && (
+          <LetterInfoForm
+            isOpen={isOpen}
+            readOnly={true}
+            userIdTo={userInfo?.name}
+            isEmailChecked={isEmailChecked}
+            handleCheckboxChange={handleCheckboxChange}
+            emailNotifyOnReceive={emailNotifyOnReceive}
+            handleEmail={handleEmailChange}
+            onFocus={handleEmailFocus}
+            currentYear={currentYear}
+            year={year}
+            setYear={setYear}
+            month={month}
+            setMonth={setMonth}
+            day={day}
+            setDay={setDay}
+            privacy={privacy}
+            setPrivacy={setPrivacy}
+            handleClicked={handleClicked}
+            isPrivacy={isPriacy}
+            isPublic={isPublic}
+            handleClick={handleOpen}
+          />
+        )}
+        <LetterFloatingButton handleOpen={handleOpen} />
+      </div>
     </div>
   );
 };

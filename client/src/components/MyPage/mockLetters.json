@@ -71,18 +71,6 @@
         "email_notify_on_receive": "userL@example.com",
         "is_public": true,
         "is_sent": "true"
-      },
-      {
-        "id": "369",
-        "title": "일곱 번째 편지입니다.",
-        "content": "이것은 첫 번째 편지 내용입니다.",
-        "user_id_from": "userM",
-        "user_id_send": "userN",
-        "time_send": 1718000000000,
-        "time_receive": 1718600000000,
-        "email_notify_on_receive": "userN@example.com",
-        "is_public": true,
-        "is_sent": "true"
       }
     ]
   }

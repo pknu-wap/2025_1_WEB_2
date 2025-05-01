@@ -11,7 +11,6 @@ function MyPage() {
 
   return (
     <div className="MyPage">
-      <div className="line"></div>
       <div className="box">
         <div className="intro-content">
           <img src={imageAboveText} alt="소개 이미지" className="profile-image" />
@@ -19,6 +18,7 @@ function MyPage() {
         </div>
         <p className="intro-text">한줄소개입니다.</p>
         <button className="profile-button">프로필 편집</button>
+        <div className="line"></div>
 
         <div className="gray-box-container">
           {letters.map((letter, index) => (

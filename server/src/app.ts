@@ -31,6 +31,9 @@ const corsOptionsDelegate: CorsOptionsDelegate = (req,callback) => {
 app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 
+app.get("/",async(req,res)=>{
+    res.sendFile(import.meta.dirname+"../public/index.html");
+});
 
 app.post("/account/login", async (req, res)=>{
     const {email, password} = req.body;

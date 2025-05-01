@@ -55,7 +55,7 @@ const LetterCreatePage = () => {
     };
 
     fetchProjectDetails();
-  }, []);
+  }, [navigate]);
 
   const [isOpen, setIsOpen] = useState(true);
 

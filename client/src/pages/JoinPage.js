@@ -32,8 +32,14 @@ const JoinPage = () => {
 
   const handleNicknameChange = (e) => {
     const value = e.target.value;
-    setNickname(value);
-    setNicknameError(value.length > 10 ? "닉네임은 10자 이내여야 합니다." : "");
+
+    if (value.length <= 10) {
+      setNickname(value);
+      setNicknameError("");
+    } else {
+      // 입력은 막되 에러 메시지는 보여줌
+      setNicknameError("닉네임은 10자 이내여야 합니다.");
+    }
   };
 
   const handleEmailChange = (e) => {

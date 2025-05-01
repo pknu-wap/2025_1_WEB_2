@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
@@ -25,11 +26,18 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 const LetterCreatePage = () => {
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tokenFromCookie = Cookies.get("token");
 
-    if (tokenFromCookie) setToken(tokenFromCookie); // 상태로는 저장 (필요하면 UI에서 활용)
+    if (!tokenFromCookie) {
+      alert("편지 작성은 로그인 후에 가능합니다.");
+      navigate("/login");
+      return; // 이거 중요!
+    }
+
+    setToken(tokenFromCookie);
 
     const fetchProjectDetails = async () => {
       try {
@@ -39,10 +47,8 @@ const LetterCreatePage = () => {
             headers: { Authorization: `Bearer ${tokenFromCookie}` },
           }
         );
-
-        const data = response.data;
-        setUserInfo(data);
-        setUserIdTo(data.id);
+        setUserInfo(response.data);
+        setUserIdTo(response.data.id);
       } catch (error) {
         alert("내 정보를 가져오는데 실패했습니다.");
       }
@@ -50,6 +56,7 @@ const LetterCreatePage = () => {
 
     fetchProjectDetails();
   }, []);
+
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => {
@@ -167,7 +174,7 @@ const LetterCreatePage = () => {
       console.log("전송 성공:", res.data);
 
       alert(
-        `편지가 전송되었습니다!\n\n ${days}일 ${hours}시간 ${minutes}분 ${seconds}초 후에 ㅍ편지를 보내드릴게요.._@v`
+        `편지가 전송되었습니다!\n\n ${days}일 ${hours}시간 ${minutes}분 ${seconds}초 후에 편지를 보내드릴게요.._@v`
       );
 
       // 모든 초기화

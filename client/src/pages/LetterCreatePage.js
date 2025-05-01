@@ -29,15 +29,15 @@ const LetterCreatePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-      // 토큰이 없는 경우
-      alert("편지 작성은 로그인 후에 가능합니다.");
-      navigate("/login"); // 로그인 페이지로 이동
-    }
-
     const tokenFromCookie = Cookies.get("token");
 
-    if (tokenFromCookie) setToken(tokenFromCookie);
+    if (!tokenFromCookie) {
+      alert("편지 작성은 로그인 후에 가능합니다.");
+      navigate("/login");
+      return; // 이거 중요!
+    }
+
+    setToken(tokenFromCookie);
 
     const fetchProjectDetails = async () => {
       try {
@@ -47,10 +47,8 @@ const LetterCreatePage = () => {
             headers: { Authorization: `Bearer ${tokenFromCookie}` },
           }
         );
-
-        const data = response.data;
-        setUserInfo(data);
-        setUserIdTo(data.id);
+        setUserInfo(response.data);
+        setUserIdTo(response.data.id);
       } catch (error) {
         alert("내 정보를 가져오는데 실패했습니다.");
       }
@@ -58,6 +56,7 @@ const LetterCreatePage = () => {
 
     fetchProjectDetails();
   }, []);
+
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => {

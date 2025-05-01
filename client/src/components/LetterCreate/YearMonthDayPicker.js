@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select";
 import styles from "../../assets/LetterCreate/YMDSelector.module.css";
 
 const YearMonthDayPicker = ({
   currentYear,
+
   year,
   setYear,
   month,

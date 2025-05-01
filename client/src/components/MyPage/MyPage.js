@@ -1,3 +1,9 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./MyPage.css";
+import imageAboveText from "../../assets/MyPage/image.png";
+import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -38,7 +44,6 @@ function MyPage() {
         <div className="gray-box-container">
           {letters.map((letter, index) => (
             <div
-
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)} // 클릭 시 해당 id로 이동

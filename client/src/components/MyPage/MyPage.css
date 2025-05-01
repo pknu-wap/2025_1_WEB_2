@@ -7,7 +7,7 @@
 }
 
 .MyPage {
-  padding-bottom: 100px; 
+  padding-bottom: 100px;
 }
 
 .box {
@@ -23,8 +23,8 @@
   padding-top: 50px;
   position: relative;
   z-index: 0;
-  height: auto;  /* 높이를 자동으로 설정 */
-  padding-bottom: 100px; /* 여백을 추가해 아랫부분 간격을 맞춤 */
+  height: auto;
+  padding-bottom: 100px;
 }
 
 .intro-content {
@@ -95,23 +95,18 @@
   z-index: 20;
 }
 
-/* gray-box-container 수정 */
 .gray-box-container {
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
-  position: relative; /* box 내에서 회색 박스들을 배치하도록 relative로 설정 */
-  margin-top: 300px;  /* 회색 박스의 위치를 맞추기 위해 margin-top 추가 */
+  position: relative;
+  margin-top: 300px;
 }
 
-/* gray-box 수정 */
 .gray-box {
-  position: relative;  /* position을 relative로 설정 */
   width: 268px;
   height: 170px;
   background-color: #d9d9d9;

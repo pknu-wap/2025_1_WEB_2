@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useHistory -> useNavigate로 변경
-import axios from 'axios'; // axios import
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './MyPage.css';
 import buttonImage from '../../assets/MyPage/Arrow.png';
 import imageAboveText from '../../assets/MyPage/image.png';
-import lettersData from './mockLetters.json'; // 같은 폴더에 mockLetters.json
+import lettersData from './mockLetters.json';
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [letters, setLetters] = useState(lettersData.letters || []);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   const handleLetterClick = (letterId) => {
-    // 클릭 시 /view/{id}로 이동
-    navigate(`/view/${letterId}`); // navigate로 페이지 이동
+    navigate(`/view/${letterId}`);
   };
 
   const handleFetchLetterData = async (letterId) => {
     try {
-      // 편지 데이터를 서버로부터 가져오기 (예시 URL로 요청)
       const response = await axios.get(`/api/letters/${letterId}`);
-      // 성공적으로 데이터를 받아온 경우
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching letter data:", error);
@@ -41,11 +38,11 @@ function MyPage() {
         <div className="gray-box-container">
           {letters.map((letter, index) => (
             <div
-              key={letter.id} // 각 편지마다 고유한 id를 키로 사용
+              key={letter.id} 
               className={`gray-box ${hoveredIndex === index ? 'hovered' : ''}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => handleLetterClick(letter.id)} // 클릭 시 해당 id로 이동
+              onClick={() => handleLetterClick(letter.id)}
             >
               {hoveredIndex === index && (
                 <div className="box-title">{letter.title}</div>

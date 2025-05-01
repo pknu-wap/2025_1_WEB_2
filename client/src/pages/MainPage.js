@@ -27,7 +27,11 @@ const MyPage = () => {
               </button>
             </div>
           </div>
-          <img className={styles.post_box} src={PostBox} />
+          <img
+            className={styles.post_box}
+            src={PostBox}
+            alt={"우체통 이미지"}
+          />
         </div>
       </div>
     </div>

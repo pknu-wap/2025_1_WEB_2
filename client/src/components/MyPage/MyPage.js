@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
 import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json

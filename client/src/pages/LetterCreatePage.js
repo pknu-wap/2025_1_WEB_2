@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
@@ -25,11 +26,18 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 const LetterCreatePage = () => {
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!token) {
+      // 토큰이 없는 경우
+      alert("편지 작성은 로그인 후에 가능합니다.");
+      navigate("/login"); // 로그인 페이지로 이동
+    }
+
     const tokenFromCookie = Cookies.get("token");
 
-    if (tokenFromCookie) setToken(tokenFromCookie); // 상태로는 저장 (필요하면 UI에서 활용)
+    if (tokenFromCookie) setToken(tokenFromCookie);
 
     const fetchProjectDetails = async () => {
       try {

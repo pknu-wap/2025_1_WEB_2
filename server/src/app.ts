@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 
 app.get("/",async(req,res)=>{
-    res.sendFile(import.meta.dirname+"/../public/index.html");
+    res.sendFile("/public/index.html",{root:process.cwd()});
 });
 
 app.post("/account/login", async (req, res)=>{

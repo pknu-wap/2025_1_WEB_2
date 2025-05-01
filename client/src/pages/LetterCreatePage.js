@@ -136,16 +136,17 @@ const LetterCreatePage = () => {
     const param = {
       title: title,
       content: content,
+      user_id_from: userInfo.id,
       user_id_to: userIdTo,
       time_send: now,
       time_receive: futureReceiveTime,
-      email_notify_on_receive: emailNotifyOnReceive,
+      email_get_notify_receive: emailNotifyOnReceive,
       is_public: isPublic,
     };
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL_PROXY}/letter/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/letter/create`,
         param,
         {
           withCredentials: true,
@@ -159,11 +160,18 @@ const LetterCreatePage = () => {
       console.log("전송 성공:", res.data);
       alert("편지가 전송되었습니다!");
 
-      // 초기화
+      // 모든 초기화
       setTitle("");
       setContent("");
       setUserIdTo("");
       setEmailNotifyOnReceive("");
+      setIsEmailChecked(false);
+      setPrivacy("");
+      setIsPublic(false);
+      setIsPrivacy(false);
+      setYear({ value: currentYear, label: `${currentYear}년` });
+      setMonth({ value: currentMonth + 1, label: `${currentMonth + 1}월` });
+      setDay({ value: currentDate, label: `${currentDate}일` });
     } catch (error) {
       console.error("전송 실패:", error.response?.data || error.message);
       alert("편지 전송에 실패했습니다.");
@@ -176,6 +184,7 @@ const LetterCreatePage = () => {
         <div className={styles.letter_title_form}>
           <LetterInputForm
             placeholderName={"제목을 적어주세요"}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -185,6 +194,7 @@ const LetterCreatePage = () => {
             <LetterInputForm
               placeholderName={"미래의 나에게 편지를 남겨보세요!"}
               customFontSize={16}
+              value={content}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>

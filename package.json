@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pknu-wap/2025_1_WEB_2#readme",
   "dependencies": {
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2"
   }
 }

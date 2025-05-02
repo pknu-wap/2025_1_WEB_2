@@ -1,36 +1,21 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../assets/Header.module.css";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // 추가
+import { useAuth } from "../context/AuthContext"; // 전역 상태 구독
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = Cookies.get("token"); // localStorage 대신 쿠키에서 가져오기
-    setIsLoggedIn(!!token); // 토큰이 있으면 true
-  }, []);
+  const { isLoggedIn, logout } = useAuth(); // ✅ 전역 상태 사용
 
   const handleLogout = () => {
-    Cookies.remove("token"); // localStorage 대신 쿠키 삭제
-    setIsLoggedIn(false); // 상태 업데이트
+    logout(); // 전역 상태를 통한 로그아웃
     alert("로그아웃 되었습니다.");
-    navigate("/loginpage"); // 로그인페이지로 이동
-  };
-
-  const navLogin = () => {
     navigate("/login");
   };
 
-  const navCreate = () => {
-    navigate("/create");
-  };
-
-  const navMyPage = () => {
-    navigate("/mypage");
-  };
+  const navLogin = () => navigate("/login");
+  const navCreate = () => navigate("/create");
+  const navMyPage = () => navigate("/mypage");
 
   return (
     <header className={styles.header}>

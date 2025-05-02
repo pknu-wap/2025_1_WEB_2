@@ -22,32 +22,34 @@
     "@types/express": "^5.0.1",
     "@types/express-ws": "^3.0.5",
     "@types/jsonwebtoken": "^9.0.9",
-    "@typescript-eslint/eslint-plugin": "^8.31.0",
-    "@typescript-eslint/parser": "^8.31.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "drizzle-orm": "^0.41.0",
+    "drizzle-orm": "^0.43.1",
     "eslint-plugin-drizzle": "^0.2.3",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "express-jwt": "^8.5.1",
     "express-ws": "^5.0.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.14.0",
-    "neverthrow": "^8.2.0"
+    "mysql2": "^3.14.1",
+    "neverthrow": "^8.2.0",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.30.6",
+    "drizzle-kit": "^0.31.0",
     "eslint-plugin-neverthrow": "^1.1.4",
-    "eslint-plugin-oxlint": "^0.16.7",
+    "eslint-plugin-oxlint": "^0.16.8",
     "express-async-handler": "^1.2.0",
     "npm-run-all": "^4.1.5",
-    "oxlint": "^0.16.7",
-    "tsdown": "^0.9.7",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
+    "oxlint": "^0.16.8",
+    "tsdown": "^0.10.2",
+    "typescript": "^5.8.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "esbuild",
       "rolldown"
     ]
   }

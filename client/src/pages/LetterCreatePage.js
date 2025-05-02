@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import LetterInputForm from "../components/LetterCreate/LetterInputForm";
@@ -25,11 +26,18 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 const LetterCreatePage = () => {
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tokenFromCookie = Cookies.get("token");
 
-    if (tokenFromCookie) setToken(tokenFromCookie); // 상태로는 저장 (필요하면 UI에서 활용)
+    if (!tokenFromCookie) {
+      alert("편지 작성은 로그인 후에 가능합니다.");
+      navigate("/login");
+      return; // 이거 중요!
+    }
+
+    setToken(tokenFromCookie);
 
     const fetchProjectDetails = async () => {
       try {
@@ -39,17 +47,16 @@ const LetterCreatePage = () => {
             headers: { Authorization: `Bearer ${tokenFromCookie}` },
           }
         );
-
-        const data = response.data;
-        setUserInfo(data);
-        setUserIdTo(data.id);
+        setUserInfo(response.data);
+        setUserIdTo(response.data.id);
       } catch (error) {
         alert("내 정보를 가져오는데 실패했습니다.");
       }
     };
 
     fetchProjectDetails();
-  }, []);
+  }, [navigate]);
+
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => {
@@ -133,19 +140,27 @@ const LetterCreatePage = () => {
       0
     ).getTime();
 
+    const diff = futureReceiveTime - now;
+
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
     const param = {
       title: title,
       content: content,
+      user_id_from: userInfo.id,
       user_id_to: userIdTo,
       time_send: now,
       time_receive: futureReceiveTime,
-      email_notify_on_receive: emailNotifyOnReceive,
+      email_get_notify_receive: emailNotifyOnReceive,
       is_public: isPublic,
     };
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL_PROXY}/letter/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/letter/create`,
         param,
         {
           withCredentials: true,
@@ -157,13 +172,23 @@ const LetterCreatePage = () => {
       );
 
       console.log("전송 성공:", res.data);
-      alert("편지가 전송되었습니다!");
 
-      // 초기화
+      alert(
+        `편지가 전송되었습니다!\n\n ${days}일 ${hours}시간 ${minutes}분 ${seconds}초 후에 편지를 보내드릴게요.._@v`
+      );
+
+      // 모든 초기화
       setTitle("");
       setContent("");
       setUserIdTo("");
       setEmailNotifyOnReceive("");
+      setIsEmailChecked(false);
+      setPrivacy("");
+      setIsPublic(false);
+      setIsPrivacy(false);
+      setYear({ value: currentYear, label: `${currentYear}년` });
+      setMonth({ value: currentMonth + 1, label: `${currentMonth + 1}월` });
+      setDay({ value: currentDate, label: `${currentDate}일` });
     } catch (error) {
       console.error("전송 실패:", error.response?.data || error.message);
       alert("편지 전송에 실패했습니다.");
@@ -176,6 +201,7 @@ const LetterCreatePage = () => {
         <div className={styles.letter_title_form}>
           <LetterInputForm
             placeholderName={"제목을 적어주세요"}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -185,6 +211,7 @@ const LetterCreatePage = () => {
             <LetterInputForm
               placeholderName={"미래의 나에게 편지를 남겨보세요!"}
               customFontSize={16}
+              value={content}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
@@ -196,32 +223,34 @@ const LetterCreatePage = () => {
         </div>
       </div>
 
-      <LetterInfoForm
-        isOpen={isOpen}
-        // handleLetterTo={(e) => setUserIdTo(e.target.value)}
-        readOnly={true}
-        userIdTo={userInfo?.name} // 보여주는 값은 사용자 name
-        isEmailChecked={isEmailChecked}
-        handleCheckboxChange={handleCheckboxChange}
-        emailNotifyOnReceive={emailNotifyOnReceive}
-        handleEmail={handleEmailChange}
-        onFocus={handleEmailFocus}
-        currentYear={currentYear}
-        year={year}
-        setYear={setYear}
-        month={month}
-        setMonth={setMonth}
-        day={day}
-        setDay={setDay}
-        privacy={privacy}
-        setPrivacy={setPrivacy}
-        handleClicked={handleClicked}
-        isPrivacy={isPriacy}
-        isPublic={isPublic}
-        handleClick={handleOpen}
-      />
-
-      <LetterFloatingButton handleOpen={handleOpen} />
+      <div className={styles.floating_container}>
+        {isOpen && (
+          <LetterInfoForm
+            isOpen={isOpen}
+            readOnly={true}
+            userIdTo={userInfo?.name}
+            isEmailChecked={isEmailChecked}
+            handleCheckboxChange={handleCheckboxChange}
+            emailNotifyOnReceive={emailNotifyOnReceive}
+            handleEmail={handleEmailChange}
+            onFocus={handleEmailFocus}
+            currentYear={currentYear}
+            year={year}
+            setYear={setYear}
+            month={month}
+            setMonth={setMonth}
+            day={day}
+            setDay={setDay}
+            privacy={privacy}
+            setPrivacy={setPrivacy}
+            handleClicked={handleClicked}
+            isPrivacy={isPriacy}
+            isPublic={isPublic}
+            handleClick={handleOpen}
+          />
+        )}
+        <LetterFloatingButton handleOpen={handleOpen} />
+      </div>
     </div>
   );
 };

@@ -11,8 +11,7 @@ function MyPage() {
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLetterClick = (letterId) => {
-    // 클릭 시 /view/{id}로 이동
-    navigate(`/view/${letterId}`); // navigate로 페이지 이동
+    navigate(`/view/${letterId}`);
   };
 
   // const handleFetchLetterData = async (letterId) => {
@@ -32,7 +31,7 @@ function MyPage() {
         <div className="intro-content">
           <img
             src={imageAboveText}
-            alt="소개 이미지"
+            alt="프로필 이미지지"
             className="profile-image"
           />
           <p className="name-text">@@</p>
@@ -43,10 +42,10 @@ function MyPage() {
 
         <div className="gray-box-container">
           {letters.map((letter, index) => (
-            <div
+            <div className="gray-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => handleLetterClick(letter.id)} // 클릭 시 해당 id로 이동
+              onClick={() => handleLetterClick(letter.id)}
             >
               {hoveredIndex === index && (
                 <div className="box-title">{letter.title}</div>

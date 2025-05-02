@@ -1,0 +1,63 @@
+/* 폰트-face 정의 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 헤더 스타일 */
+.header {
+    width: 100%;
+    height: 70px;
+    margin: 40px auto 0 auto;
+    font-family: 'Pretendard-Regular';
+    position: fixed;
+    top: 0; /* 화면 상단에 고정 */
+    left: 0; /* 화면 왼쪽에 고정 */
+    right: 0; /* 화면 오른쪽에 고정 */
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+     /* 세로 중앙 정렬 */
+    z-index: 1000; /* 다른 요소들 위에 표시되도록 */
+}
+
+/* 네비게이션 바 스타일 */
+.nav_bar {
+    /* 자식 요소를 수평 정렬하기 위한 설정*/
+    display: flex;
+    /* 자식 요소들 간의 space 넣기 위한 설정 */
+    justify-content: space-between;
+    width: 90%;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* 로고 스타일 */
+.logo {
+    width: 200px;
+}
+
+.logo:hover{
+    cursor: pointer;
+}
+
+
+
+/* 버튼 스타일 */
+.btn {
+    background-color: #ffffff;
+    color: #222222;
+    border: none;
+    outline: none;
+    width: 140px;
+    padding: 10px 10px;
+    margin: 5px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease; /* 부드러운 전환 효과 추가 */
+}
+
+/* 버튼 호버 시 스타일 */
+.btn:hover {
+    background-color: #EDEDED;
+    cursor: pointer;
+}

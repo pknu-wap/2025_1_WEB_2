@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "usernamehw.errorlens",
+    "oxc.oxc-vscode",
+    "dbaeumer.vscode-eslint",
+    "aaron-bond.better-comments",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode"
+  ]
+}

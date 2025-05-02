@@ -1,0 +1,84 @@
+/* 폰트-face 정의 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+.viewPage {
+  margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
+  width: 100%;
+  display: flex;
+  justify-content: center;  /* 가로 중앙 정렬 */
+}
+
+.letterContainer {
+    width: 60%;
+    height: 700px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 70px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    font-family: 'Pretendard-Regular';
+  }
+  
+  .header {
+    font-size: 18px;
+    color: #666;
+  }
+
+  .titleAndButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .separator {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0;
+  }
+  
+  .content {
+    font-size: 16px;
+    color: #333;
+    padding: auto;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+  .button {
+    background-color: #d9d9d9;
+    border: none;
+    padding: 5px 25px;
+    margin-left: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Pretendard-Regular';
+    font-size: 15px;
+  }
+  .onlyMeButton {
+    background-color: #FFFFFF;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Pretendard-Regular';
+    font-size: 15px;
+  }
+  
+  .button:hover {
+    background-color: #ddd;
+  }
+  

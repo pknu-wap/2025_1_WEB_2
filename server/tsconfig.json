@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "#lib/*": ["src/lib/*"]
+    },
+    "strict": true
+  },
+}

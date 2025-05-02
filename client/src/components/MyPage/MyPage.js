@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './MyPage.css';
-import buttonImage from '../../assets/MyPage/Arrow.png';
-import imageAboveText from '../../assets/MyPage/image.png';
-import lettersData from './mockLetters.json';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+import "./MyPage.css";
+import imageAboveText from "../../assets/MyPage/image.png";
+import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [letters, setLetters] = useState(lettersData.letters || []);
-  const navigate = useNavigate();
+  const [letters] = useState(lettersData.letters || []);
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLetterClick = (letterId) => {
     navigate(`/view/${letterId}`);
   };
 
-  const handleFetchLetterData = async (letterId) => {
-    try {
-      const response = await axios.get(`/api/letters/${letterId}`);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching letter data:", error);
-    }
-  };
+  // const handleFetchLetterData = async (letterId) => {
+  //   try {
+  //     // 편지 데이터를 서버로부터 가져오기 (예시 URL로 요청)
+  //     const response = await axios.get(`/api/letters/${letterId}`);
+  //     // 성공적으로 데이터를 받아온 경우
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching letter data:", error);
+  //   }
+  // };
 
   return (
     <div className="MyPage">
       <div className="box">
         <div className="intro-content">
-          <img src={imageAboveText} alt="소개 이미지" className="profile-image" />
+          <img
+            src={imageAboveText}
+            alt="프로필 이미지지"
+            className="profile-image"
+          />
           <p className="name-text">@@</p>
         </div>
         <p className="intro-text">한줄소개입니다.</p>
@@ -37,9 +42,7 @@ function MyPage() {
 
         <div className="gray-box-container">
           {letters.map((letter, index) => (
-            <div
-              key={letter.id} 
-              className={`gray-box ${hoveredIndex === index ? 'hovered' : ''}`}
+            <div className="gray-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}

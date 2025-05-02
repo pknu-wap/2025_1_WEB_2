@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  margin: 0 auto;
+  height: 85vh;
+}
+
+.login-logo {
+  width: 300px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin-bottom: 40px;
+}
+
+.login-logo:hover{
+  cursor: pointer;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 20px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  background: #fff;
+  border-radius: 15px;
+  height: 60px; 
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.input-icon {
+  width: 20px;
+  height: auto;
+  margin-right: 12px;
+}
+
+.login-input {
+  flex: 1;
+  height: 100%;
+  font-family: 'Pretendard-Regular';
+  font-size: 18px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background: transparent;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.login-button {
+  width: 120px;  /* 가로 크기 120px로 설정 */
+  height: 30px;  /* 높이 크기 30px로 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;  /* padding을 0으로 설정하여 크기 조정 */
+  background-color: #E8FBFF;
+  font-family: 'Pretendard-Regular';
+  font-size: 13px;
+  border: 0.5px solid #000000;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.login-button:hover{
+  background-color: #EDEDED;
+}
+
+
+.button-icon {
+  width: 12px;
+  height: auto;
+}

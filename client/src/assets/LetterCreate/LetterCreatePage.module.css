@@ -1,6 +1,7 @@
 .create_page {
     margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
     width: 100%;
+    position: relative;
 }
 .letter_form{
     width: 55%;

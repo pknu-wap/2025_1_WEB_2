@@ -32,13 +32,28 @@ const JoinPage = () => {
 
   const handleNicknameChange = (e) => {
     const value = e.target.value;
-    setNickname(value);
-    setNicknameError(value.length > 10 ? "닉네임은 10자 이내여야 합니다." : "");
+
+    if (value.length <= 10) {
+      setNickname(value);
+      setNicknameError("");
+    } else {
+      // 입력은 막되 에러 메시지는 보여줌
+      setNicknameError("닉네임은 10자 이내여야 합니다.");
+    }
   };
 
   const handleEmailChange = (e) => {
-    const value = e.target.value;
+    let value = e.target.value;
+
     setEmail(value);
+
+    // 잠깐 보여준 뒤 한글 제거 (100ms 후)
+    setTimeout(() => {
+      const noKorean = value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+      if (value !== noKorean) {
+        setEmail(noKorean);
+      }
+    }, 500); // 지연 시간은 원하는 대로 조절 가능
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(
       emailRegex.test(value) ? "" : "올바른 이메일 형식이 아닙니다."
@@ -106,7 +121,7 @@ const JoinPage = () => {
         setPassword("");
         setPasswordCheck("");
         setShowPassword(false);
-        window.location.href = "/loginpage";
+        window.location.href = "/login";
       } else {
         alert("회원가입에 실패했습니다.");
       }

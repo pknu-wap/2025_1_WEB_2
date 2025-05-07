@@ -8,10 +8,13 @@ import Lock from "../../assets/LetterCreate/unlock.png";
 
 const LetterInfoForm = ({
   isOpen,
-  handleLetterTo,
+  readOnly,
   userIdTo,
+  isEmailChecked,
+  handleCheckboxChange,
   handleEmail,
   emailNotifyOnReceive,
+  onFocus,
   currentYear,
   year,
   setYear,
@@ -26,6 +29,7 @@ const LetterInfoForm = ({
   handleClick,
 }) => {
   if (!isOpen) return null;
+
   return (
     <div className={styles.letter_info_form}>
       <div className={styles.letter_info_input_form}>
@@ -33,8 +37,9 @@ const LetterInfoForm = ({
           <LetterInputForm
             placeholderName={"누구에게 보내실 건가요?"}
             customFontSize={22}
-            onChange={handleLetterTo}
             value={userIdTo}
+            readOnly={readOnly}
+            onChange={(e) => alert("자신에게만 편지를 보낼 수 있습니다.")}
           />
         </div>
         <div className={styles.letter_when}>
@@ -83,11 +88,17 @@ const LetterInfoForm = ({
               placeholderName={"your_email@example.com"}
               customFontSize={16}
               onChange={handleEmail}
+              onFocus={onFocus}
               value={emailNotifyOnReceive}
             />
           </div>
           <div className={styles.letter_checkbox}>
-            <input type="checkbox" id="emailCheckbox" />
+            <input
+              type="checkbox"
+              id="emailCheckbox"
+              checked={isEmailChecked}
+              onChange={handleCheckboxChange}
+            />
             <label for="emailCheckbox">
               회원 가입 시 사용한 이메일로 보내주세요.
             </label>

@@ -5,12 +5,12 @@ import LoginPage from "../../components/Login/LoginPage";
 import MyPage from "../MyPage/MyPage";
 import JoinPage from "../../pages/JoinPage";
 import LetterView from "../LetterView/LetterView";
-import TestPage from "../test";
+import MainPage from "../../pages/MainPage";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<TestPage />} />
+      <Route path="/" element={<MainPage />} />
       <Route path="/create" element={<LetterCreatePage />} />
       <Route path="/mypage" element={<MyPage />} />
       {/* <Route path="/view" element={<LetterViewPage />} /> */}

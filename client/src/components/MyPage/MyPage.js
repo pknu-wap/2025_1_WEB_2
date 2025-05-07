@@ -31,7 +31,7 @@ function MyPage() {
         <div className="intro-content">
           <img
             src={imageAboveText}
-            alt="프로필 이미지지"
+            alt="프로필 이미지"
             className="profile-image"
           />
           <p className="name-text">@@</p>

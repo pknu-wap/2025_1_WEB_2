@@ -175,6 +175,16 @@ app.get("/letter/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithm
     }
 });
 
+app.get("/letter/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
+    if (allLetters.isOk()) {
+        res.send({arr_letter:allLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:allLetters.error.message});
+    }
+});
+
 app.get("/letter/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const sentLetters = await dbController.getsentLettersAllWithUserID(req.auth.id);
     if (sentLetters.isOk()) {

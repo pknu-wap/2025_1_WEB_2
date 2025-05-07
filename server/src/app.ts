@@ -166,30 +166,32 @@ app.get("/letter/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), 
 
 
 app.get("/letter/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
-    const sentLetters = await dbController.getsentLetterIdsWithUserID(req.auth.id); // 보낸 편지
-    const unsentLetters = await dbController.getunsentLetterIdsWithUserID(req.auth.id); // 보내지 않은 편지
-    if (sentLetters.isOk()) {
-        res.send({arr_id:sentLetters.value});
+    const allLetters = await dbController.getLetterIdsWithUserID(req.auth.id);
+    if (allLetters.isOk()) {
+        res.send({arr_id:allLetters.value});
     } else {
         res.send(500);
-        res.send({error:sentLetters.error.message});
+        res.send({error:allLetters.error.message});
     }
-    if (unsentLetters.isOk()) {
-        res.send({arr_id:unsentLetters.value});
-    } else {
-        res.send(500);
-        res.send({error:unsentLetters.error.message});
-    }
-    
 });
 
-app.get("/letter/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
-    const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
-    if (allLetters.isOk()) {
-        res.send({arr_letter:allLetters.value});
+app.get("/letter/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const sentLetters = await dbController.getsentLettersAllWithUserID(req.auth.id);
+    if (sentLetters.isOk()) {
+        res.send({arr_letter:sentLetters.value});
     } else {
         res.status(500);
-        res.send({error:allLetters.error.message});
+        res.send({error:sentLetters.error.message});
+    }
+});
+
+app.get("/letter/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const unsentLetters = await dbController.getunsentLettersAllWithUserID(req.auth.id);
+    if (unsentLetters.isOk()) {
+        res.send({arr_letter:unsentLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:unsentLetters.error.message});
     }
 });
 

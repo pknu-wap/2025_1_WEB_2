@@ -1,132 +1,164 @@
 /* 폰트-face 정의 */
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .MyPage {
-    padding-bottom: 100px;
-  }
-  
-  .box {
-    width: 80%;
-    background-color: white;
-    border-radius: 40px;
-    margin: 0 auto;
-    margin-top: 181px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    padding-top: 50px;
-    position: relative;
-    z-index: 0;
-    height: auto;
-    padding-bottom: 100px;
-  }
-  
-  .intro-content {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    font-family: 'Pretendard-Regular';
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile-image {
-    position: absolute;
-    top: 94px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-  }
-  
-  .name-text {
-    position: absolute;
-    top: 169px;
-    left: 50%;
-    font-family: 'Pretendard-Regular';
-    transform: translateX(-50%);
-    font-size: 25px;
-    color: black;
-    text-align: center;
-  }
-  
-  .intro-text {
-    position: absolute;
-    top: 221px;
-    left: 50%;
-    font-family: 'Pretendard-Regular';
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: black;
-    text-align: center;
-  }
-  
-  .profile-button {
-    position: absolute;
-    top: 252px;
-    left: 50%;
-    font-family: 'Pretendard-Regular';
-    transform: translateX(-50%);
-    width: 79px;
-    height: 19px;
-    background-color: #d9d9d9;
-    color: black;
-    border-radius: 30px;
-    font-size: 11px;
-    border: none;
-  }
-  
-  .line {
-    width: 70%;
-    height: 1px;
-    background-color: black;
-    position: absolute;
-    top: 300px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-  }
-  
-  .gray-box-container {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    position: relative;
-    margin-top: 300px;
-  }
-  
-  .gray-box {
-    width: 268px;
-    height: 170px;
-    background-color: #d9d9d9;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .gray-box:hover {
-    background-color: #a9a9a9;
-  }
-  
-  .box-title {
-    font-size: 16px;
-    color: black;
-    text-align: center;
-    font-family: 'Pretendard-Regular';
-    padding: 10px;
-  }
-  
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.MyPage {
+  padding-bottom: 100px;
+}
+
+.box {
+  width: 80%;
+  background-color: white;
+  border-radius: 40px;
+  margin: 0 auto;
+  margin-top: 181px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding-top: 50px;
+  position: relative;
+  z-index: 0;
+  height: auto;
+  padding-bottom: 100px;
+}
+
+.intro-content {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  position: absolute;
+  top: 94px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+}
+
+.name-text {
+  position: absolute;
+  top: 169px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  font-size: 25px;
+  color: black;
+  text-align: center;
+}
+
+.intro-text {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: black;
+  text-align: center;
+}
+
+.profile-button {
+  position: absolute;
+  top: 252px;
+  left: 50%;
+  font-family: 'Pretendard-Regular';
+  transform: translateX(-50%);
+  width: 79px;
+  height: 19px;
+  background-color: #d9d9d9;
+  color: black;
+  border-radius: 30px;
+  font-size: 11px;
+  border: none;
+}
+
+.line {
+  position: relative;
+  width: 80%;
+  height: 1px;
+  background-color: black;
+  top: 280px;
+  left: 40%;
+  margin: 0 auto;
+  right: 30%; 
+  z-index: 20;
+}
+
+.letter-arrived {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  margin-top: -39px;
+  transform: translateX(0%);
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  z-index: 15;
+  border-radius: 25px 25px 0 0;
+  padding-top: 5px;
+  border: 1px solid black;
+  background-color: #E8FBFFCC;
+}
+
+.letter-arriving {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  margin-left: 99.5px;
+  margin-top: -39px;
+  transform: translateX(0%);
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  z-index: 15;
+  border-radius: 25px 25px 0 0;
+  padding-top: 5px;
+  border: 1px solid black;
+  background-color: #FFF9CFCC;
+}
+
+.gray-box-container {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+  margin-top: 300px;
+  box-sizing: border-box;
+}
+
+.gray-box {
+  width: 268px;
+  height: 170px;
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.gray-box:hover {
+  background-color: #a9a9a9;
+}
+
+.box-title {
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  padding: 10px;
+}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./MyPage2.css";
 import imageAboveText from "../../assets/MyPage/image.png";
 import lettersData from "./mockLetters2.json"; // 같은 폴더에 mockLetters.json
+import LockImage from "../../assets/MyPage/lock.png";
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -31,7 +32,7 @@ function MyPage() {
         <div className="intro-content">
           <img
             src={imageAboveText}
-            alt="프로필 이미지지"
+            alt="프로필 이미지"
             className="profile-image"
           />
           <p className="name-text">@@</p>
@@ -43,9 +44,9 @@ function MyPage() {
           <button className="letter-arriving">도착 중인 편지</button>
         </div>
 
-        <div className="gray-box-container">
+        <div className="arriving-box-container">
           {letters.map((letter, index) => (
-            <div className="gray-box"
+            <div className="arriving-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}
@@ -53,6 +54,11 @@ function MyPage() {
               {hoveredIndex === index && (
                 <div className="box-title">{letter.title}</div>
               )}
+              <img
+              src={LockImage}
+              alt="자물쇠 이미지"
+              className="lock-image"
+              />
             </div>
           ))}
         </div>

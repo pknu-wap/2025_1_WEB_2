@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MyPage.css";
+import "./MyPage2.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import lettersData from "./mockLetters.json";
+import lettersData from "./mockLetters2.json";
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);

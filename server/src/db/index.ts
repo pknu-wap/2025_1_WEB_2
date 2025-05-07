@@ -1,7 +1,7 @@
 import { AnyMySql2Connection, MySql2Database } from "drizzle-orm/mysql2";
 
 import { drizzle } from 'drizzle-orm/mysql2';
-import { eq, or } from 'drizzle-orm';
+import { eq, or, and } from 'drizzle-orm';
 import { ok, err, Result } from 'neverthrow';
 import { lettersTable, usersTable } from './schema.ts';
 
@@ -74,10 +74,21 @@ export class DBController {
     }
   }
 
-  async getLetterIdsWithUserID(userId:number) {
+  async getsentLetterIdsWithUserID(userId:number) {
     const result = await this.db.select({
       id: lettersTable.id,
-    }).from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
+    }).from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,true)));
+    if (result.length === 0) {
+      return ok([]);
+    } else {
+      return ok(result.map((v)=>v.id));
+    }
+  }
+
+  async getunsentLetterIdsWithUserID(userId:number) {
+    const result = await this.db.select({
+      id: lettersTable.id,
+    }).from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,false)));
     if (result.length === 0) {
       return ok([]);
     } else {

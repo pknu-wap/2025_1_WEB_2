@@ -127,7 +127,7 @@
   background-color: #FFF9CFCC;
 }
 
-.gray-box-container {
+.arrived-box-container {
   width: 100%;
   padding: 10px;
   display: flex;
@@ -139,19 +139,20 @@
   box-sizing: border-box;
 }
 
-.gray-box {
+.arrived-box {
   width: 268px;
   height: 170px;
-  background-color: #d9d9d9;
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border: 1px solid black;
+  background-color: #E8FBFFCC;
 }
 
-.gray-box:hover {
+.arrived-box:hover {
   background-color: #a9a9a9;
 }
 

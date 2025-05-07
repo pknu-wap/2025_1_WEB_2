@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json
+import lettersData from "./mockLetters.json";
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [letters] = useState(lettersData.letters || []);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   const handleLetterClick = (letterId) => {
     navigate(`/view/${letterId}`);
@@ -43,9 +43,9 @@ function MyPage() {
           <button className="letter-arriving">도착 중인 편지</button>
         </div>
 
-        <div className="gray-box-container">
+        <div className="arrived-box-container">
           {letters.map((letter, index) => (
-            <div className="gray-box"
+            <div className="arrived-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}

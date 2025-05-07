@@ -1,5 +1,5 @@
 import { app } from '#lib/app/index.ts';
-import api from './api/index.ts';
+//import api from './api/index.ts';
 import express from "express";
 import { DBController } from './db/index.ts';
 import { drizzle } from 'drizzle-orm/mysql2';

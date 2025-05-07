@@ -38,7 +38,10 @@ function MyPage() {
         </div>
         <p className="intro-text">한줄소개입니다.</p>
         <button className="profile-button">프로필 편집</button>
-        <div className="line"></div>
+        <div className="line">
+          <button className="letter-arrived">도착한 편지</button>
+          <button className="letter-arriving">도착 중인 편지</button>
+        </div>
 
         <div className="gray-box-container">
           {letters.map((letter, index) => (

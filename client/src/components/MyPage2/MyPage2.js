@@ -27,7 +27,7 @@ function MyPage() {
   // };
 
   return (
-    <div className="MyPage">
+    <div className="MyPage2">
       <div className="box">
         <div className="intro-content">
           <img
@@ -67,4 +67,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default MyPage2;

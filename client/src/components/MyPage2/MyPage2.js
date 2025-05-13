@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import "./MyPage2.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import lettersData from "./mockLetters2.json"; // 같은 폴더에 mockLetters.json
+import lettersData from "./mockLetters2.json"; // 같은 폴더에 mockLetters2.json
 import LockImage from "../../assets/MyPage/lock.png";
 
-function MyPage() {
+function MyPage2() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [letters] = useState(lettersData.letters || []);
   const navigate = useNavigate(); // useNavigate 훅 사용

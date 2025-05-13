@@ -45,7 +45,9 @@ function MyPage() {
 
         <div className="arrived-box-container">
           {letters.map((letter, index) => (
-            <div className="arrived-box"
+            <div 
+              key={letter.id || index}
+              className="arrived-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}

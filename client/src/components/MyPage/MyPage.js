@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json
+import lettersData from "./mockLetters.json";
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [letters] = useState(lettersData.letters || []);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   const handleLetterClick = (letterId) => {
     navigate(`/view/${letterId}`);
@@ -31,18 +31,21 @@ function MyPage() {
         <div className="intro-content">
           <img
             src={imageAboveText}
-            alt="프로필 이미지지"
+            alt="프로필 이미지"
             className="profile-image"
           />
           <p className="name-text">@@</p>
         </div>
         <p className="intro-text">한줄소개입니다.</p>
         <button className="profile-button">프로필 편집</button>
-        <div className="line"></div>
+        <div className="line">
+          <button className="letter-arrived">도착한 편지</button>
+          <button className="letter-arriving">도착 중인 편지</button>
+        </div>
 
-        <div className="gray-box-container">
+        <div className="arrived-box-container">
           {letters.map((letter, index) => (
-            <div className="gray-box"
+            <div className="arrived-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}

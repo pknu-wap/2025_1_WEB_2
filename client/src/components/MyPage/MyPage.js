@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
-import "./MyPage2.css";
+import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import lettersData from "./mockLetters2.json"; // 같은 폴더에 mockLetters2.json
-import LockImage from "../../assets/MyPage/lock.png";
-import MyPage from '../MyPage/MyPage';
+import lettersData from "./mockLetters.json"; // 같은 폴더에 mockLetters.json
 
-function MyPage2() {
+function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [letters] = useState(lettersData.letters || []);
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLetterClick = (letterId) => {
     navigate(`/view/${letterId}`);
-  };
-
-  const handleButtonClick = () => {
-    navigate('/mypage')
   };
 
   // const handleFetchLetterData = async (letterId) => {
@@ -32,28 +26,23 @@ function MyPage2() {
   // };
 
   return (
-    <div className="MyPage2">
+    <div className="MyPage">
       <div className="box">
         <div className="intro-content">
           <img
             src={imageAboveText}
-            alt="프로필 이미지"
+            alt="프로필 이미지지"
             className="profile-image"
           />
           <p className="name-text">@@</p>
         </div>
         <p className="intro-text">한줄소개입니다.</p>
         <button className="profile-button">프로필 편집</button>
-        <div className="line">
-          <button
-          className="letter-arrived"
-          onClick={handleButtonClick}>도착한 편지</button>
-          <button className="letter-arriving">도착 중인 편지</button>
-        </div>
+        <div className="line"></div>
 
-        <div className="arriving-box-container">
+        <div className="gray-box-container">
           {letters.map((letter, index) => (
-            <div className="arriving-box"
+            <div className="gray-box"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => handleLetterClick(letter.id)}
@@ -61,11 +50,6 @@ function MyPage2() {
               {hoveredIndex === index && (
                 <div className="box-title">{letter.title}</div>
               )}
-              <img
-              src={LockImage}
-              alt="자물쇠 이미지"
-              className="lock-image"
-              />
             </div>
           ))}
         </div>
@@ -74,4 +58,4 @@ function MyPage2() {
   );
 }
 
-export default MyPage2;
+export default MyPage;

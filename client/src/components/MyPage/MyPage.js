@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
 import lettersData from "./mockLetters.json";
+// import MyPage2 from "./mypage2/MyPage2";
 
 function MyPage() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -14,6 +15,9 @@ function MyPage() {
     navigate(`/view/${letterId}`);
   };
 
+  const handleButtonClick = () => {
+    navigate('/mypage2')
+  }
   // const handleFetchLetterData = async (letterId) => {
   //   try {
   //     // 편지 데이터를 서버로부터 가져오기 (예시 URL로 요청)
@@ -40,7 +44,9 @@ function MyPage() {
         <button className="profile-button">프로필 편집</button>
         <div className="line">
           <button className="letter-arrived">도착한 편지</button>
-          <button className="letter-arriving">도착 중인 편지</button>
+          <button 
+          className="letter-arriving"
+          onClick={handleButtonClick}>도착 중인 편지</button>
         </div>
 
         <div className="arrived-box-container">

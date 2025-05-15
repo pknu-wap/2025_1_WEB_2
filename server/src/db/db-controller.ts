@@ -1,7 +1,7 @@
 import { AnyMySql2Connection, MySql2Database } from "drizzle-orm/mysql2";
 import { lettersTable, usersTable } from "./schema.ts";
 import { err, ok, Result } from "neverthrow";
-import { eq,or } from "drizzle-orm";
+import { eq,or,and } from "drizzle-orm";
 
 export class DBController {
   db: MySql2Database<Record<string, never>> & {
@@ -57,6 +57,22 @@ export class DBController {
 
   async getLettersAllWithUserID(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
     const result = await this.db.select().from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
+    if (result.length === 0) {
+      return ok([]);
+    }
+    return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
+  }
+
+  async getLettersAllWithUserIDSent(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
+    const result = await this.db.select().from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,true)));
+    if (result.length === 0) {
+      return ok([]);
+    }
+    return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
+  }
+
+  async getLettersAllWithUserIDUnsent(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
+    const result = await this.db.select().from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,false)));
     if (result.length === 0) {
       return ok([]);
     }

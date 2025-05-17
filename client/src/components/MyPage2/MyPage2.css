@@ -89,7 +89,7 @@
   height: 1px;
   background-color: black;
   position: absolute;
-  top: 300px;
+  top: 320px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;

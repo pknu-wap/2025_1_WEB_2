@@ -10,22 +10,40 @@ const LetterView = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchLetter = async () => {
-      try {
-        const response = await axios.get(`${process.env.PUBLIC_URL}/mockLetters.json`);
-        const found = response.data.letters.find((item) => item.id === id);
+  const fetchLetter = async () => {
+    try {
+      const getTokenFromCookie = () => {
+        const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+        return match ? match[2] : null;
+      };
+      const tokenFromCookie = getTokenFromCookie();
 
-        if (found) setLetter(found);
-        else setError("해당 ID의 편지를 찾을 수 없습니다.");
-      } catch {
-        setError("데이터를 불러오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/letter/get`,
+        {
+          params: { id },
+          headers: {
+            Authorization: `Bearer ${tokenFromCookie}`,
+          },
+        }
+      );
+
+      if (response.data && response.data.letter) {
+        setLetter(response.data.letter);
+      } else {
+        setError("해당 ID의 편지를 찾을 수 없습니다.");
       }
-    };
+    } catch (error) {
+      console.error("API 요청 에러:", error); // 에러 로그 출력
+      setError("데이터를 불러오는 데 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchLetter();
-  }, [id]);
+  fetchLetter();
+}, [id]);
+
 
   const getDateDiffInfo = (send, receive) => {
     const toDate = (ts) => new Date(ts.toString().length === 13 ? ts : ts * 1000);

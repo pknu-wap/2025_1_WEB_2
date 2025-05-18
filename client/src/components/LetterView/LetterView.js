@@ -1,35 +1,82 @@
 import styles from "../../assets/LetterView/LetterView.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-
 const LetterView = () => {
-  const { id } = useParams(); // URL의 id 추출
+  const { id } = useParams();
   const [letter, setLetter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchLetter = async () => {
-      try {
-        const response = await axios.get(`${process.env.PUBLIC_URL}/mockLetters.json`);
-        const found = response.data.letters.find((item) => item.id === id);
+  const fetchLetter = async () => {
+    try {
+      const getTokenFromCookie = () => {
+        const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+        return match ? match[2] : null;
+      };
+      const tokenFromCookie = getTokenFromCookie();
 
-        if (found) {
-          setLetter(found);
-        } else {
-          setError("해당 ID의 편지를 찾을 수 없습니다.");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/letter/get`,
+        {
+          params: { id },
+          headers: {
+            Authorization: `Bearer ${tokenFromCookie}`,
+          },
         }
-      } catch (err) {
-        setError("데이터를 불러오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      );
 
-    fetchLetter();
-  }, [id]);
+      if (response.data && response.data.letter) {
+        setLetter(response.data.letter);
+      } else {
+        setError("해당 ID의 편지를 찾을 수 없습니다.");
+      }
+    } catch (error) {
+      console.error("API 요청 에러:", error); // 에러 로그 출력
+      setError("데이터를 불러오는 데 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchLetter();
+}, [id]);
+
+
+  const getDateDiffInfo = (send, receive) => {
+    const toDate = (ts) => new Date(ts.toString().length === 13 ? ts : ts * 1000);
+    const sendDate = toDate(send);
+    const receiveDate = toDate(receive);
+
+    const year = sendDate.getFullYear();
+    const month = sendDate.getMonth() + 1;
+    const day = sendDate.getDate();
+    const formattedSend = `${year}년 ${String(month).padStart(2, "0")}월 ${String(day).padStart(2, "0")}일`;
+
+    let years = receiveDate.getFullYear() - sendDate.getFullYear();
+    let months = receiveDate.getMonth() - sendDate.getMonth();
+    let days = receiveDate.getDate() - sendDate.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      const prevMonth = new Date(receiveDate.getFullYear(), receiveDate.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    const diff = `${years}년 ${months}개월 ${days}일`;
+    return { formattedSend, diff };
+  };
+
+  const dateInfo = useMemo(() => {
+    if (!letter) return null;
+    return getDateDiffInfo(letter.time_send, letter.time_receive);
+  }, [letter]);
 
   if (loading) return <div className={styles.viewPage}>로딩 중...</div>;
   if (error) return <div className={styles.viewPage}>{error}</div>;
@@ -38,7 +85,7 @@ const LetterView = () => {
     <div className={styles.viewPage}>
       <div className={styles.letterContainer}>
         <div className={styles.header}>
-          YYYY년 MM월 DD일로부터 YY년 MM 개월 DD일만에 도착한 편지입니다!
+          {dateInfo.formattedSend}로부터 {dateInfo.diff} 만에 도착한 편지입니다!
         </div>
         <div className={styles.titleAndButtons}>
           <div className={styles.title}>{letter.title}</div>

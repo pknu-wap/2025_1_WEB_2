@@ -1,6 +1,7 @@
 .create_page {
     margin: 170px auto 0 auto; /* 위쪽 150px, 좌우 자동 정렬 */
     width: 100%;
+
 }
 .letter_form{
     width: 55%;
@@ -46,9 +47,9 @@
 }
 
 .floating_container {
-    position: fixed;
-    bottom: 70px;
-    right: 70px;
+    position: relative;
+    margin-top: 50px; /* 원하는 만큼 늘리세요 */
+    right: 80px;
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-end;

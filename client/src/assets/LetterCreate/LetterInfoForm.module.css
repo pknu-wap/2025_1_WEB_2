@@ -7,9 +7,9 @@
 }
 
 .letter_info_form{
-    position: fixed;
+    position: absolute;
     width: 480px;
-    height: 600px;
+    height: 580px;
     font-family: 'Pretendard-Regular';
     border: 0.01rem #222222 solid;
     border-radius: 30px;

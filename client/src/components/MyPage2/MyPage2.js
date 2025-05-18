@@ -6,10 +6,11 @@ import "./MyPage2.css";
 import imageAboveText from "../../assets/MyPage/image.png";
 import LockImage from "../../assets/MyPage/lock.png";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function MyPage2() {
   const [letters, setLetters] = useState([]);
   const [userNickname, setUserNickname] = useState("FROM");
-  const [isHoveringArrived, setIsHoveringArrived] = useState(false);  // 추가
   const navigate = useNavigate();
 
   const parseJwt = (token) => {
@@ -38,10 +39,6 @@ function MyPage2() {
     }
   }, []);
 
-  const handleButtonClick = () => {
-    navigate("/mypage");
-  };
-
   useEffect(() => {
     const fetchLetters = async () => {
       const token = Cookies.get("token");
@@ -62,6 +59,7 @@ function MyPage2() {
           return;
         }
         const now = Date.now();
+
         const arrivingLetters = arr_letter.filter((letter) => letter.time_receive > now);
         setLetters(arrivingLetters);
       } catch (e) {
@@ -86,6 +84,10 @@ function MyPage2() {
     return diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : 0;
   };
 
+  const handleLetterClick = (letterId) => {
+    navigate(`/letter/${letterId}`); 
+  };
+
   return (
     <div className="MyPage2">
       <div className="box_2">
@@ -94,12 +96,21 @@ function MyPage2() {
           <p className="name-text_2">{userNickname}</p>
         </div>
 
-        </div>
-
         <div className="arriving-box-container_2">
           {letters.length === 0 && <p>도착 중인 편지가 없습니다.</p>}
           {letters.map((letter, index) => (
-
+            <div
+              key={letter.id || index}
+              className="arrived-letter-box_2"
+              onClick={() => handleLetterClick(letter.id)}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={LockImage} alt="lock" className="lock-image" />
+              <div className="letter-info_2">
+                <p className="letter-from_2">FROM: {letter.sender_nickname || "알 수 없음"}</p>
+                <p className="letter-arrival-date_2">도착 예정일: {formatDate(letter.time_receive)}</p>
+                <p className="letter-days-left_2">남은 일수: {getDaysLeft(letter.time_receive)}일</p>
+              </div>
             </div>
           ))}
         </div>

@@ -1,0 +1,214 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.MyPage {
+  padding-bottom: 100px;
+}
+
+.box_1 {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 181px;
+  padding-top: 50px;
+  padding-bottom: 100px;
+
+  background-color: white;
+  border-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  position: relative;
+  z-index: 0;
+}
+
+.intro-content_1 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: 'Pretendard-Regular';
+}
+
+.profile-image {
+  position: absolute;
+  top: 94px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100px;
+  height: 100px;
+}
+
+.name-text_1 {
+  position: absolute;
+  top: 169px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: 'Pretendard-Regular';
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.intro-text_1 {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: 'Pretendard-Regular';
+  font-size: 11px;
+  color: black;
+  text-align: center;
+}
+
+.profile-button_1 {
+  position: absolute;
+  top: 252px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 79px;
+  height: 19px;
+
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 30px;
+
+  color: black;
+  font-family: 'Pretendard-Regular';
+  font-size: 11px;
+}
+
+.line_1 {
+  position: absolute;
+  top: 320px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 70%;
+  height: 1px;
+
+  background-color: black;
+  z-index: 20;
+}
+
+.letter-arrived_1 {
+  position: absolute;
+  top: auto;
+  left: auto;
+  transform: translateX(0%);
+
+  width: 100px;
+  height: 45px;
+  margin-top: -44px;
+
+  background-color: #E8FBFFCC;
+  border: 1px solid black;
+  border-radius: 25px 25px 0 0;
+
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  padding-top: 5px;
+
+  cursor: pointer;
+  transition: height 0.2s ease, margin-top 0.2s ease;
+
+  z-index: 15;
+}
+
+.letter-arrived_1.hovered-by-arriving {
+  height: 40px;
+  margin-top: -39px;
+}
+
+.letter-arriving_1 {
+  position: absolute;
+  top: auto;
+  left: auto;
+  transform: translateX(0%);
+  transform-origin: bottom;
+
+  width: 100px;
+  height: 40px;
+  margin-left: 99.5px;
+  margin-top: -39px;
+
+  background-color: #FFF9CFCC;
+  border: 1px solid black;
+  border-radius: 25px 25px 0 0;
+
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  padding-top: 5px;
+
+  cursor: pointer;
+  transition: height 0.2s ease, margin-top 0.2s ease;
+
+  z-index: 15;
+}
+
+.letter-arriving_1:hover {
+  height: 45px;
+  margin-top: -44px;
+}
+
+.arrived-box-container_1 {
+  margin-top: 300px;
+  width: 80%;
+  padding: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+
+  position: relative;
+  box-sizing: border-box;
+}
+
+.arrived-box_1 {
+  position: relative;
+
+  width: 268px;
+  height: 170px;
+
+  background-color: #E8FBFFCC;
+  border: 1px solid black;
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arrived-box_1:hover {
+  background-color: #a9a9a9;
+}
+
+.letter-date_1 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+
+  color: black;
+  font-family: 'Pretendard-Regular';
+}

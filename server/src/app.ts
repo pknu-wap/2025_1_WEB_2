@@ -1,5 +1,5 @@
 import { app } from '#lib/app/index.ts';
-import api from './api/index.ts';
+//import api from './api/index.ts';
 import express from "express";
 import { DBController } from './db/index.ts';
 import { drizzle } from 'drizzle-orm/mysql2';
@@ -182,6 +182,26 @@ app.get("/letter/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["H
     } else {
         res.status(500);
         res.send({error:allLetters.error.message});
+    }
+});
+
+app.get("/letter/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const sentLetters = await dbController.getsentLettersAllWithUserID(req.auth.id);
+    if (sentLetters.isOk()) {
+        res.send({arr_letter:sentLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:sentLetters.error.message});
+    }
+});
+
+app.get("/letter/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
+    const unsentLetters = await dbController.getunsentLettersAllWithUserID(req.auth.id);
+    if (unsentLetters.isOk()) {
+        res.send({arr_letter:unsentLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:unsentLetters.error.message});
     }
 });
 

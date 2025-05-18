@@ -23,6 +23,7 @@ import LetterInfoForm from "../components/LetterCreate/LetterInfoForm";
 // 	email_notify_on_receive : string  // 편지가 전송되었을 때, 알림을 받을 이메일
 // 	is_public    : boolean // 편지 공개 여부; true면 공개
 // }
+
 const LetterCreatePage = () => {
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);

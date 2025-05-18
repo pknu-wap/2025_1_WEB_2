@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import "./MyPage2.css";
+import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
-import LockImage from "../../assets/MyPage/lock.png";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-function MyPage2() {
+function MyPage() {
   const [letters, setLetters] = useState([]);
-  const [userNickname, setUserNickname] = useState("FROM");
+  const [userNickname, setUserNickname] = useState("사용자");
+  const [isHoveringArriving, setIsHoveringArriving] = useState(false);
   const navigate = useNavigate();
 
   const parseJwt = (token) => {
@@ -34,10 +34,18 @@ function MyPage2() {
     if (token) {
       const decoded = parseJwt(token);
       if (decoded) {
-        setUserNickname(decoded.nickname || decoded.name || "FROM");
+        setUserNickname(decoded.nickname || decoded.name || "사용자");
       }
     }
   }, []);
+
+  const handleLetterClick = (letterId) => {
+    navigate(`/view/${letterId}`);
+  };
+
+  const handleButtonClick = () => {
+    navigate("/mypage2");
+  };
 
   useEffect(() => {
     const fetchLetters = async () => {
@@ -47,23 +55,26 @@ function MyPage2() {
         navigate("/login");
         return;
       }
+
       try {
         const response = await axios.get(`${API_BASE_URL}/letter/get_all_of_me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
         const { arr_letter, error } = response.data;
         if (error) {
-          alert("편지 목록을 불러오지 못했습니다: " + error);
+          alert("편지 데이터를 불러오는 중 오류 발생: " + error);
           return;
         }
-        const now = Date.now();
 
-        const arrivingLetters = arr_letter.filter((letter) => letter.time_receive > now);
-        setLetters(arrivingLetters);
+        const now = Date.now();
+        const arrivedLetters = arr_letter.filter(letter => letter.time_receive <= now);
+
+        setLetters(arrivedLetters);
       } catch (e) {
-        alert("편지 목록 요청 중 오류 발생: " + e.message);
+        alert("편지 목록 요청 실패: " + e.message);
       }
     };
 
@@ -78,39 +89,39 @@ function MyPage2() {
     return `${yyyy}년 ${mm}월 ${dd}일`;
   };
 
-  const getDaysLeft = (timestamp) => {
-    const now = new Date();
-    const diffMs = timestamp - now.getTime();
-    return diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : 0;
-  };
-
-  const handleLetterClick = (letterId) => {
-    navigate(`/letter/${letterId}`); 
-  };
-
   return (
-    <div className="MyPage2">
-      <div className="box_2">
-        <div className="intro-content_2">
+    <div className="MyPage">
+      <div className="box_1">
+        <div className="intro-content_1">
           <img src={imageAboveText} alt="프로필 이미지" className="profile-image" />
-          <p className="name-text_2">{userNickname}</p>
+          <p className="name-text_1">{userNickname}</p>
+        </div>
+        <p className="intro-text_1">한줄소개입니다.</p>
+        <button className="profile-button_1">프로필 편집</button>
+        <div className="line_1">
+          <button className={`letter-arrived_1 ${isHoveringArriving ? "hovered-by-arriving" : ""}`}>
+            도착한 편지
+          </button>
+          <button
+            className="letter-arriving_1"
+            onMouseEnter={() => setIsHoveringArriving(true)}
+            onMouseLeave={() => setIsHoveringArriving(false)}
+            onClick={handleButtonClick}
+          >
+            도착 중인 편지
+          </button>
         </div>
 
-        <div className="arriving-box-container_2">
-          {letters.length === 0 && <p>도착 중인 편지가 없습니다.</p>}
+        <div className="arrived-box-container_1">
+          {letters.length === 0 && <p>도착한 편지가 없습니다.</p>}
           {letters.map((letter, index) => (
             <div
               key={letter.id || index}
-              className="arrived-letter-box_2"
+              className="arrived-box_1"
               onClick={() => handleLetterClick(letter.id)}
-              style={{ cursor: "pointer" }}
             >
-              <img src={LockImage} alt="lock" className="lock-image" />
-              <div className="letter-info_2">
-                <p className="letter-from_2">FROM: {letter.sender_nickname || "알 수 없음"}</p>
-                <p className="letter-arrival-date_2">도착 예정일: {formatDate(letter.time_receive)}</p>
-                <p className="letter-days-left_2">남은 일수: {getDaysLeft(letter.time_receive)}일</p>
-              </div>
+              <div className="letter-date_1">{formatDate(letter.time_receive)}</div>
+              <div className="letter-title_1">{letter.title}</div>
             </div>
           ))}
         </div>
@@ -119,4 +130,4 @@ function MyPage2() {
   );
 }
 
-export default MyPage2;
+export default MyPage;

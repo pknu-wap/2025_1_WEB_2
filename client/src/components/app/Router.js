@@ -7,6 +7,7 @@ import JoinPage from "../../pages/JoinPage";
 import LetterView from "../LetterView/LetterView";
 import MainPage from "../../pages/MainPage";
 import MyPage2 from "../MyPage2/MyPage2"
+import PublicLetters from "../PublicLetters/PublicLetters";
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/mypage2" element={<MyPage2 />} />
       <Route path="/view/:id" element={<LetterView />} />
+      <Route path="/public-letters" element={<PublicLetters />} />
     </Routes>
   );
 };

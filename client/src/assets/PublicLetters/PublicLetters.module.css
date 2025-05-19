@@ -1,0 +1,86 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+/* ✅ 유연한 그리드 + 가운데 정렬 보완 */
+.lettersContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 유동적 열 */
+  gap: 40px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  width: 100%;
+  justify-items: center; /* 아이템 가로 가운데 정렬 */
+}
+
+.letterCard {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  width: 100%; 
+  max-width: 280px; /* ✅ 카드 너비 고정 */
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background-color: #FFF9CF; 
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.date,
+.arrival {
+  font-size: 14px;
+  color: #444;
+  margin: 0;
+}
+
+.author {
+  margin-top: auto;
+  text-align: right;
+  font-size: 13px;
+  color: #666;
+}
+
+.pagination {
+  margin: 20px 0 40px;
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pageNumber {
+  background-color: transparent;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.pageNumber:hover {
+  background-color: #eee;
+}
+
+.active {
+  background-color: white;
+  border: 1px solid #ccc;
+  font-weight: bold;
+}

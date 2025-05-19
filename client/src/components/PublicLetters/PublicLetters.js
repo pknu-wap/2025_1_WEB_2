@@ -38,19 +38,21 @@ const PublicLetters = () => {
         ))}
       </div>
 
-      <div className={styles.pagination}>
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            onClick={() => handlePageClick(i + 1)}
-            className={`${styles.pageNumber} ${
-              currentPage === i + 1 ? styles.active : ""
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handlePageClick(i + 1)}
+              className={`${styles.pageNumber} ${
+                currentPage === i + 1 ? styles.active : ""
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

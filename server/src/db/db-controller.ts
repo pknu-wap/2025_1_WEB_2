@@ -98,4 +98,13 @@ export class DBController {
       return ok(result.map((v)=>v.id));
     }
   }
+
+  async getAllpublicLetter(): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>>{
+    const result = await this.db.select().from(lettersTable).where(and(eq(lettersTable.is_public,true),eq(lettersTable.is_sent,true)));
+    if (result.length === 0) {
+      return ok([]);
+    }
+    return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
+  }
+
 }

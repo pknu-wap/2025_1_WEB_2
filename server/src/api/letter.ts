@@ -131,4 +131,15 @@ router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:
     }
 });
 
+router.get("/letter/get_all_public", async(req,res)=>{
+    const publicLetters = await dbController.getAllpublicLetter();
+    if (publicLetters.isOk()) {
+        res.send({arr_letter:publicLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:publicLetters.error.message});
+    }
+});
+
+
 export {router as letterRouter};

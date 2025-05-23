@@ -187,7 +187,6 @@ const LetterCreatePage = () => {
   };
 
   // textarea가 아닌 div를 클릭하더라도 입력할 수 있도록 하기 위함 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  const textAreaRef = useRef(null); // textarea DOM 참조
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);

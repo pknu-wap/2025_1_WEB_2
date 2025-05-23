@@ -263,12 +263,14 @@ const LetterCreatePage = () => {
 
         <div className={styles.letter_content_form}>
           <div style={{ height: "90%" }}>
-            <LetterInputForm
-              placeholderName={"미래의 나에게 편지를 남겨보세요!"}
-              customFontSize={20}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <div className={styles.letter_content_input}>
+              <LetterInputForm
+                placeholderName={"미래의 나에게 편지를 남겨보세요!"}
+                customFontSize={20}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
           </div>
           <div className={styles.send_btn_box}>
             {/* 버튼 클릭시 Info 입력이 뜨도록 변경 */}

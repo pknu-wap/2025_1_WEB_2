@@ -3,8 +3,6 @@ import { expressjwt,Request } from "express-jwt";
 import {createHash} from "crypto";
 import { generateToken } from '../jwt/jwt.ts';
 import { DB } from "src/db/index.ts";
-import { Z } from "vitest/dist/chunks/reporters.d.79o4mouw.js";
-import { z } from "zod";
 
 const SALT = process.env.SALT!;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!;

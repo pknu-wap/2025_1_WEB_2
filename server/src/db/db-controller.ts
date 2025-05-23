@@ -45,6 +45,19 @@ export class DBController {
     return ok(result[0]);
   }
 
+  async getUserWithID(id:number) : Promise<Result<{
+    id: number;
+    name: string;
+    email: string;
+    passwordHash: string;
+  }, Error>> {
+    const result = await this.db.select().from(usersTable).where(eq(usersTable.id,id));
+    if (result.length === 0) {
+      return err(new Error("User Not Found"));
+    }
+    return ok(result[0]);
+  }
+
   async addLetter(prop: typeof lettersTable.$inferInsert) {
     try {
       const id = (await this.db.insert(lettersTable).values(prop).$returningId())[0].id;

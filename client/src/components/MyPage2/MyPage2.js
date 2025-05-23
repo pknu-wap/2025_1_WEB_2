@@ -11,6 +11,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 function MyPage2() {
   const [letters, setLetters] = useState([]);
   const [userNickname, setUserNickname] = useState("FROM");
+  const [isHoveringArrived, setIsHoveringArrived] = useState(false);  // 추가
   const navigate = useNavigate();
 
   const parseJwt = (token) => {
@@ -39,6 +40,10 @@ function MyPage2() {
     }
   }, []);
 
+  const handleButtonClick = () => {
+    navigate("/mypage");
+  };
+
   useEffect(() => {
     const fetchLetters = async () => {
       const token = Cookies.get("token");
@@ -59,7 +64,6 @@ function MyPage2() {
           return;
         }
         const now = Date.now();
-
         const arrivingLetters = arr_letter.filter((letter) => letter.time_receive > now);
         setLetters(arrivingLetters);
       } catch (e) {
@@ -84,10 +88,6 @@ function MyPage2() {
     return diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : 0;
   };
 
-  const handleLetterClick = (letterId) => {
-    navigate(`/letter/${letterId}`); 
-  };
-
   return (
     <div className="MyPage2">
       <div className="box_2">
@@ -95,21 +95,39 @@ function MyPage2() {
           <img src={imageAboveText} alt="프로필 이미지" className="profile-image" />
           <p className="name-text_2">{userNickname}</p>
         </div>
+        <p className="intro-text_2">한줄소개입니다.</p>
+        <button className="profile-button_2" onClick={handleButtonClick}>
+          프로필 편집
+        </button>
+        <div className="line_2">
+          <button
+            className="letter-arrived_2"
+            onMouseEnter={() => setIsHoveringArrived(true)}
+            onMouseLeave={() => setIsHoveringArrived(false)}
+            onClick={handleButtonClick}
+          >
+            도착한 편지
+          </button>
+          <button className={`letter-arriving_2 ${isHoveringArrived ? "hovered-by-arrived" : ""}`}>
+            도착 중인 편지
+          </button>
+        </div>
 
         <div className="arriving-box-container_2">
           {letters.length === 0 && <p>도착 중인 편지가 없습니다.</p>}
           {letters.map((letter, index) => (
-            <div
-              key={letter.id || index}
-              className="arrived-letter-box_2"
-              onClick={() => handleLetterClick(letter.id)}
-              style={{ cursor: "pointer" }}
-            >
-              <img src={LockImage} alt="lock" className="lock-image" />
-              <div className="letter-info_2">
-                <p className="letter-from_2">FROM: {letter.sender_nickname || "알 수 없음"}</p>
-                <p className="letter-arrival-date_2">도착 예정일: {formatDate(letter.time_receive)}</p>
-                <p className="letter-days-left_2">남은 일수: {getDaysLeft(letter.time_receive)}일</p>
+            <div key={letter.id || index} 
+            className="arriving-box_2"
+            onClick={() => alert(`편지가 아직 도착하지 않았습니다. 조금만 더 기다려 주세요!`)}>
+              <img src={LockImage} alt="자물쇠 이미지" className="lock-image" />
+              <div className="box-title_2">
+                From.{userNickname} {formatDate(letter.time_receive)}
+                <br />
+                <span className="nowrap-text_2">
+                  도착까지{" "}
+                  <span className="date_2">{getDaysLeft(letter.time_receive)}</span>
+                  일 남았습니다.
+                </span>
               </div>
             </div>
           ))}

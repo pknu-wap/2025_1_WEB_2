@@ -208,7 +208,7 @@ const LetterCreatePage = () => {
           <div style={{ height: "90%" }}>
             <LetterInputForm
               placeholderName={"미래의 나에게 편지를 남겨보세요!"}
-              customFontSize={16}
+              customFontSize={20}
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />

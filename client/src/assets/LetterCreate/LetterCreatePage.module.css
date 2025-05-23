@@ -13,7 +13,7 @@
     align-items: center;
     border-radius: 20px;
     /* 위쪽 오른쪽 아래쪽 왼쪽 */
-    padding: 20px 30px 10px 30px;
+    padding: 18px 35px 12px 30px;
 }
 
 .letter_content_form{
@@ -21,7 +21,7 @@
     border-radius: 20px;
     height: 500px;
     /* 위쪽 오른쪽 아래쪽 왼쪽 */
-    padding: 30px 30px 10px 30px;
+    padding: 28px 30px 10px 30px;
     margin-top: 15px;
 }
 .send_btn_box {

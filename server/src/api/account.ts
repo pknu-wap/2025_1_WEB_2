@@ -3,6 +3,8 @@ import { expressjwt,Request } from "express-jwt";
 import {createHash} from "crypto";
 import { generateToken } from '../jwt/jwt.ts';
 import { DB } from "src/db/index.ts";
+import { Z } from "vitest/dist/chunks/reporters.d.79o4mouw.js";
+import { z } from "zod";
 
 const SALT = process.env.SALT!;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!;
@@ -55,6 +57,24 @@ router.post("/create", async(req, res)=>{
 
 router.get("/my",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async (req: Request<{id:number,email: string,name:string}>, res)=>{
     res.send({id:req.auth.id,email:req.auth.email,name:req.auth.name});
+});
+
+
+router.get("/profile/:id", async (req,res) => {
+    const resultID = Number(req.params.id);
+    if (Number.isNaN(resultID)) {
+        res.status(400);
+        res.send("Bad Request")
+        return;
+    }
+    const resultUser = await dbController.getUserWithID(resultID);
+    if (resultUser.isErr()) {
+        res.status(404);
+        res.send("User Not Found");
+        return;
+    } else {
+        res.send({id:resultUser.value.id,name:resultUser.value.name});
+    }
 });
 
 export {router as accountRouter};

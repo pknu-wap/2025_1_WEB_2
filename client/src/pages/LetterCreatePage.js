@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -186,6 +186,20 @@ const LetterCreatePage = () => {
     // }
   };
 
+  // textarea가 아닌 div를 클릭하더라도 입력할 수 있도록 하기 위함 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const textAreaRef = useRef(null); // textarea DOM 참조
+
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const handleTitleDivClick = () => {
+    titleRef.current?.focus();
+  };
+
+  const handleContentDivClick = () => {
+    contentRef.current?.focus();
+  };
+
   const sendLetter = async () => {
     const now = Date.now();
 
@@ -253,18 +267,28 @@ const LetterCreatePage = () => {
   return (
     <div className={styles.create_page}>
       <div className={styles.letter_form}>
-        <div className={styles.letter_title_form}>
+        <div
+          className={styles.letter_title_form}
+          onClick={handleTitleDivClick}
+          style={{ cursor: "text" }}
+        >
           <LetterInputForm
+            ref={titleRef}
             placeholderName={"제목을 적어주세요"}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
-        <div className={styles.letter_content_form}>
+        <div
+          className={styles.letter_content_form}
+          onClick={handleContentDivClick}
+          style={{ cursor: "text" }}
+        >
           <div style={{ height: "90%" }}>
             <div className={styles.letter_content_input}>
               <LetterInputForm
+                ref={contentRef}
                 placeholderName={"미래의 나에게 편지를 남겨보세요!"}
                 customFontSize={20}
                 value={content}

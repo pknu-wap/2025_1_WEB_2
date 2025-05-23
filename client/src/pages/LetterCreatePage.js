@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -58,7 +58,7 @@ const LetterCreatePage = () => {
     fetchProjectDetails();
   }, [navigate]);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
@@ -129,7 +129,78 @@ const LetterCreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
+    setIsOpen((prev) => !prev);
+    // const now = Date.now();
+    // const futureReceiveTime = new Date(
+    //   year.value,
+    //   month.value - 1,
+    //   day.value,
+    //   12,
+    //   0,
+    //   0
+    // ).getTime();
+    // const diff = futureReceiveTime - now;
+    // const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    // const param = {
+    //   title: title,
+    //   content: content,
+    //   user_id_from: userInfo.id,
+    //   user_id_to: userIdTo,
+    //   time_send: now,
+    //   time_receive: futureReceiveTime,
+    //   email_get_notify_receive: emailNotifyOnReceive,
+    //   is_public: isPublic,
+    // };
+    // try {
+    //   const res = await axios.post(
+    //     `${process.env.REACT_APP_API_BASE_URL}/letter/create`,
+    //     param,
+    //     {
+    //       withCredentials: true,
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   console.log("전송 성공:", res.data);
+    //   alert(
+    //     `편지가 전송되었습니다!\n\n ${days}일 후에 편지를 보내드릴게요._@v`
+    //   );
+    //   // 모든 초기화
+    //   setTitle("");
+    //   setContent("");
+    //   setUserIdTo("");
+    //   setEmailNotifyOnReceive("");
+    //   setIsEmailChecked(false);
+    //   setPrivacy("");
+    //   setIsPublic(false);
+    //   setIsPrivacy(false);
+    //   setYear({ value: currentYear, label: `${currentYear}년` });
+    //   setMonth({ value: currentMonth + 1, label: `${currentMonth + 1}월` });
+    //   setDay({ value: currentDate, label: `${currentDate}일` });
+    // } catch (error) {
+    //   console.error("전송 실패:", error.response?.data || error.message);
+    //   alert("편지 전송에 실패했습니다.");
+    // }
+  };
+
+  // textarea가 아닌 div를 클릭하더라도 입력할 수 있도록 하기 위함 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const textAreaRef = useRef(null); // textarea DOM 참조
+
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const handleTitleDivClick = () => {
+    titleRef.current?.focus();
+  };
+
+  const handleContentDivClick = () => {
+    contentRef.current?.focus();
+  };
+
+  const sendLetter = async () => {
     const now = Date.now();
 
     const futureReceiveTime = new Date(
@@ -196,24 +267,37 @@ const LetterCreatePage = () => {
   return (
     <div className={styles.create_page}>
       <div className={styles.letter_form}>
-        <div className={styles.letter_title_form}>
+        <div
+          className={styles.letter_title_form}
+          onClick={handleTitleDivClick}
+          style={{ cursor: "text" }}
+        >
           <LetterInputForm
+            ref={titleRef}
             placeholderName={"제목을 적어주세요"}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
-        <div className={styles.letter_content_form}>
+        <div
+          className={styles.letter_content_form}
+          onClick={handleContentDivClick}
+          style={{ cursor: "text" }}
+        >
           <div style={{ height: "90%" }}>
-            <LetterInputForm
-              placeholderName={"미래의 나에게 편지를 남겨보세요!"}
-              customFontSize={16}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <div className={styles.letter_content_input}>
+              <LetterInputForm
+                ref={contentRef}
+                placeholderName={"미래의 나에게 편지를 남겨보세요!"}
+                customFontSize={20}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
           </div>
           <div className={styles.send_btn_box}>
+            {/* 버튼 클릭시 Info 입력이 뜨도록 변경 */}
             <button className={styles.send_btn} onClick={handleSubmit}>
               편지를 전송합니다.
             </button>
@@ -244,7 +328,7 @@ const LetterCreatePage = () => {
             handleClicked={handleClicked}
             isPrivacy={isPriacy}
             isPublic={isPublic}
-            handleClick={handleOpen}
+            handleClick={sendLetter}
           />
         )}
         <LetterFloatingButton handleOpen={handleOpen} />

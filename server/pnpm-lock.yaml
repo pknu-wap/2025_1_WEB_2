@@ -56,6 +56,9 @@ importers:
       neverthrow:
         specifier: ^8.2.0
         version: 8.2.0
+      node-cron:
+        specifier: ^4.0.7
+        version: 4.0.7
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
@@ -2028,6 +2031,10 @@ packages:
 
   nice-try@1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
+
+  node-cron@4.0.7:
+    resolution: {integrity: sha512-A37UUDpxRT/kWanELr/oMayCWQFk9Zx9BEUoXrAKuKwKzH4XuAX+vMixMBPkgZBkADgJwXv91w5cMRTNSVP/mA==}
+    engines: {node: '>=6.0.0'}
 
   normalize-package-data@2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
@@ -4474,6 +4481,8 @@ snapshots:
       '@rollup/rollup-linux-x64-gnu': 4.40.1
 
   nice-try@1.0.5: {}
+
+  node-cron@4.0.7: {}
 
   normalize-package-data@2.5.0:
     dependencies:

@@ -1,7 +1,7 @@
 import { AnyMySql2Connection, MySql2Database } from "drizzle-orm/mysql2";
 import { lettersTable, usersTable } from "./schema.ts";
 import { err, ok, Result } from "neverthrow";
-import { eq,or,and } from "drizzle-orm";
+import { eq,or,and,lt } from "drizzle-orm";
 
 export class DBController {
   db: MySql2Database<Record<string, never>> & {
@@ -120,4 +120,13 @@ export class DBController {
     return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
 
+  async letterstosend(): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>>{
+    const now = new Date();
+    const result = await this.db.select().from(lettersTable).where(and(lt(lettersTable.time_receive, now),eq(lettersTable.is_sent,false)));
+    if (result.length === 0) {
+      return ok([]);
+    }
+    return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
+  }
+  
 }

@@ -22,3 +22,8 @@ export const lettersTable = mysqlTable('letters_table', {
   is_public: boolean().notNull(),
   is_sent: boolean().notNull()
 });
+
+export const lettersViewsTable = mysqlTable('letters_views_table', {
+  id: serial().primaryKey(),
+  views: bigint({mode:"number",unsigned:true}).notNull(),
+});

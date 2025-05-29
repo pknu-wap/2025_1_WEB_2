@@ -38,7 +38,25 @@ const LetterCreatePage = () => {
       return; // 이거 중요!
     }
 
-    setToken(tokenFromCookie);
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/account/my`,
+          {
+            headers: { Authorization: `Bearer ${tokenFromCookie}` },
+          }
+        );
+
+        setToken(tokenFromCookie); // 토큰이 유효할 때만 저장
+      } catch (error) {
+        console.error("유효하지 않은 토큰입니다. 다시 로그인해주세요.");
+        Cookies.remove("token"); // 토큰 제거
+        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        navigate("/login");
+      }
+    };
+
+    fetchUserInfo();
 
     const fetchProjectDetails = async () => {
       try {

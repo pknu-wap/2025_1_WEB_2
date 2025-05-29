@@ -35,7 +35,7 @@ const LetterCreatePage = () => {
     if (!tokenFromCookie) {
       alert("편지 작성은 로그인 후에 가능합니다.");
       navigate("/login");
-      return; // 이거 중요!
+      return;
     }
 
     const fetchUserInfo = async () => {
@@ -47,33 +47,19 @@ const LetterCreatePage = () => {
           }
         );
 
-        setToken(tokenFromCookie); // 토큰이 유효할 때만 저장
+        // 유효한 경우 상태 모두 세팅
+        setToken(tokenFromCookie);
+        setUserInfo(response.data);
+        setUserIdTo(response.data.id);
       } catch (error) {
         console.error("유효하지 않은 토큰입니다. 다시 로그인해주세요.");
-        Cookies.remove("token"); // 토큰 제거
+        Cookies.remove("token");
         alert("세션이 만료되었습니다. 다시 로그인해주세요.");
         navigate("/login");
       }
     };
 
     fetchUserInfo();
-
-    const fetchProjectDetails = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/account/my`,
-          {
-            headers: { Authorization: `Bearer ${tokenFromCookie}` },
-          }
-        );
-        setUserInfo(response.data);
-        setUserIdTo(response.data.id);
-      } catch (error) {
-        alert("내 정보를 가져오는데 실패했습니다.");
-      }
-    };
-
-    fetchProjectDetails();
   }, [navigate]);
 
   const [isOpen, setIsOpen] = useState(false);

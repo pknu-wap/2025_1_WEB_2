@@ -4,13 +4,18 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import "./MyPage.css";
 import imageAboveText from "../../assets/MyPage/image.png";
+import polygonIcon from "../../assets/MyPage/Polygon 1.png";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function MyPage() {
   const [letters, setLetters] = useState([]);
+  const [sortedLetters, setSortedLetters] = useState([]);
   const [userNickname, setUserNickname] = useState("사용자");
   const [isHoveringArriving, setIsHoveringArriving] = useState(false);
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [sortOpen, setSortOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const parseJwt = (token) => {
@@ -25,6 +30,7 @@ function MyPage() {
       );
       return JSON.parse(jsonPayload);
     } catch (e) {
+      console.error("JWT 파싱 오류:", e);  // eslint 경고 해결 위해 에러 사용
       return null;
     }
   };
@@ -38,6 +44,11 @@ function MyPage() {
       }
     }
   }, []);
+
+  const handleSortOrderChange = (order) => {
+    setSortOrder(order);
+    setSortOpen(false);
+  };
 
   const handleLetterClick = (letterId) => {
     navigate(`/view/${letterId}`);
@@ -81,6 +92,15 @@ function MyPage() {
     fetchLetters();
   }, [navigate]);
 
+  useEffect(() => {
+    const sorted = [...letters].sort((a, b) => {
+      return sortOrder === "desc"
+        ? b.time_receive - a.time_receive
+        : a.time_receive - b.time_receive;
+    });
+    setSortedLetters(sorted);
+  }, [letters, sortOrder]);
+
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const yyyy = date.getFullYear();
@@ -93,10 +113,9 @@ function MyPage() {
     <div className="MyPage">
       <div className="box_1">
         <div className="intro-content_1">
-          <img src={imageAboveText} alt="프로필 이미지" className="profile-image" />
+          <img src={imageAboveText} alt="프로필 이미지" className="profile-image_1" />
           <p className="name-text_1">{userNickname}</p>
         </div>
-        <p className="intro-text_1">한줄소개입니다.</p>
         <button className="profile-button_1">프로필 편집</button>
         <div className="line_1">
           <button className={`letter-arrived_1 ${isHoveringArriving ? "hovered-by-arriving" : ""}`}>
@@ -110,11 +129,28 @@ function MyPage() {
           >
             도착 중인 편지
           </button>
+
+          <div className="sort-box_1">
+            <button className="sort-toggle-button_1" onClick={() => setSortOpen(!sortOpen)}>
+              {sortOrder === "desc" ? "최신순" : "오래된순"}
+              <img
+                src={polygonIcon}
+                alt="폴리곤 아이콘"
+                className={`polygon-icon_1 ${sortOpen ? "rotated" : ""}`} 
+              />
+            </button>
+            {sortOpen && (
+              <div className="sort-options_1">
+                <button onClick={() => handleSortOrderChange("desc")}>최신순</button>
+                <button onClick={() => handleSortOrderChange("asc")}>오래된순</button>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="arrived-box-container_1">
-          {letters.length === 0 && <p>도착한 편지가 없습니다.</p>}
-          {letters.map((letter, index) => (
+          {sortedLetters.length === 0 && <p>도착한 편지가 없습니다.</p>}
+          {sortedLetters.map((letter, index) => (
             <div
               key={letter.id || index}
               className="arrived-box_1"

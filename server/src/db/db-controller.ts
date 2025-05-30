@@ -128,5 +128,9 @@ export class DBController {
     }
     return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
+
+  async deleteLetter(id:number,user_id_from:number) {
+    await this.db.delete(lettersTable).where(and(eq(lettersTable.id,id),eq(lettersTable.user_id_from,user_id_from)));
+  }
   
 }

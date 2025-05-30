@@ -11,7 +11,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 function MyPage2() {
   const [letters, setLetters] = useState([]);
   const [userNickname, setUserNickname] = useState("FROM");
-  const [isHoveringArrived, setIsHoveringArrived] = useState(false);  // 추가
+  const [isHoveringArrived, setIsHoveringArrived] = useState(false);
   const navigate = useNavigate();
 
   const parseJwt = (token) => {
@@ -95,10 +95,7 @@ function MyPage2() {
           <img src={imageAboveText} alt="프로필 이미지" className="profile-image" />
           <p className="name-text_2">{userNickname}</p>
         </div>
-        <p className="intro-text_2">한줄소개입니다.</p>
-        <button className="profile-button_2" onClick={handleButtonClick}>
-          프로필 편집
-        </button>
+        <button className="profile-button_2">프로필 편집</button>
         <div className="line_2">
           <button
             className="letter-arrived_2"
@@ -116,13 +113,15 @@ function MyPage2() {
         <div className="arriving-box-container_2">
           {letters.length === 0 && <p>도착 중인 편지가 없습니다.</p>}
           {letters.map((letter, index) => (
-            <div key={letter.id || index} 
-            className="arriving-box_2"
-            onClick={() => alert(`편지가 아직 도착하지 않았습니다. 조금만 더 기다려 주세요!`)}>
+            <div
+              key={letter.id || index}
+              className="arriving-box_2"
+              onClick={() => alert('아직 도착하지 않은 편지입니다. 조금만 더 기다려 주세요.')}
+            >
               <img src={LockImage} alt="자물쇠 이미지" className="lock-image" />
               <div className="box-title_2">
-                From.{userNickname} {formatDate(letter.time_receive)}
-                <br />
+                <span className="name_2">From.{userNickname}</span>
+                <p>도착일: {formatDate(letter.time_receive)}</p>
                 <span className="nowrap-text_2">
                   도착까지{" "}
                   <span className="date_2">{getDaysLeft(letter.time_receive)}</span>

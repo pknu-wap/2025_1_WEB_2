@@ -28,8 +28,14 @@ app.get("/",async(req,res)=>{
 });
 app.use("/account",accountRouter);
 app.use("/letter",letterRouter);
+
 cron.schedule('0 12 * * *', async () => {
     console.log('Running daily email send task at 12:00 PM');
     handler();
 },{"timezone": "Asia/Seoul"}); // Set timezone to Asia/Seoul
+
+if (process.argv.find((v)=>v.includes("--email-send-now"))) {
+    handler();
+}
+
 export default app;

@@ -1,15 +1,24 @@
 @font-face {
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
-.MyPage {
+.MyPage2 {
   padding-bottom: 100px;
 }
 
-.box_1 {
+.box_2 {
+  background-color: white;
+
   width: 80%;
   height: auto;
   margin: 0 auto;
@@ -17,7 +26,6 @@
   padding-top: 50px;
   padding-bottom: 100px;
 
-  background-color: white;
   border-radius: 40px;
 
   display: flex;
@@ -29,7 +37,7 @@
   z-index: 0;
 }
 
-.intro-content_1 {
+.intro-content_2 {
   position: absolute;
   top: 0;
   left: 50%;
@@ -44,47 +52,35 @@
 
 .profile-image {
   position: absolute;
-  top: 94px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
-.name-text_1 {
+.name-text_2 {
   position: absolute;
-  top: 169px;
+  top: 185px;
   left: 50%;
   transform: translateX(-50%);
 
   font-family: 'Pretendard-Regular';
-  font-size: 25px;
+  font-size: 30px;
   color: black;
   text-align: center;
   white-space: nowrap;
 }
 
-.intro-text_1 {
+.profile-button_2 {
   position: absolute;
-  top: 221px;
+  top: 255px;
   left: 50%;
   transform: translateX(-50%);
 
-  font-family: 'Pretendard-Regular';
-  font-size: 11px;
-  color: black;
-  text-align: center;
-}
-
-.profile-button_1 {
-  position: absolute;
-  top: 252px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 79px;
-  height: 19px;
+  width: 85px;
+  height: 25px;
 
   background-color: #d9d9d9;
   border: none;
@@ -92,12 +88,12 @@
 
   color: black;
   font-family: 'Pretendard-Regular';
-  font-size: 11px;
+  font-size: 15px;
 }
 
-.line_1 {
+.line_2 {
   position: absolute;
-  top: 320px;
+  top: 340px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -108,53 +104,24 @@
   z-index: 20;
 }
 
-.letter-arrived_1 {
-  position: absolute;
-  top: auto;
-  left: auto;
-  transform: translateX(0%);
-
-  width: 100px;
-  height: 45px;
-  margin-top: -44px;
-
-  background-color: #E8FBFFCC;
-  border: 1px solid black;
-  border-radius: 25px 25px 0 0;
-
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  padding-top: 5px;
-
-  cursor: pointer;
-  transition: height 0.2s ease, margin-top 0.2s ease;
-
-  z-index: 15;
-}
-
-.letter-arrived_1.hovered-by-arriving {
-  height: 40px;
-  margin-top: -39px;
-}
-
-.letter-arriving_1 {
+.letter-arrived_2 {
   position: absolute;
   top: auto;
   left: auto;
   transform: translateX(0%);
   transform-origin: bottom;
 
-  width: 100px;
-  height: 40px;
-  margin-left: 99.5px;
-  margin-top: -39px;
+  width: 130px;
+  height: 50px;
+  margin-top: -49px;
 
-  background-color: #FFF9CFCC;
+  background-color: #E8FBFFCC;
   border: 1px solid black;
   border-radius: 25px 25px 0 0;
 
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
   padding-top: 5px;
 
   cursor: pointer;
@@ -163,52 +130,103 @@
   z-index: 15;
 }
 
-.letter-arriving_1:hover {
-  height: 45px;
-  margin-top: -44px;
+.letter-arrived_2:hover {
+  height: 56px;
+  margin-top: -55px;
 }
 
-.arrived-box-container_1 {
-  margin-top: 300px;
+.letter-arriving_2 {
+ position: absolute;
+  top: auto;
+  left: auto;
+  transform: translateX(0%);
+
+  width: 130px;
+  height: 56px;
+  margin-left: 129.5px;
+  margin-top: -55px;
+
+  background-color: #FFF9CFCC;
+  border: 1px solid black;
+  border-radius: 25px 25px 0 0;
+
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
+  padding-top: 5px;
+
+  cursor: pointer;
+  transition: height 0.2s ease, margin-top 0.2s ease;
+
+  z-index: 15;
+}
+
+.letter-arriving_2.hovered-by-arrived {
+  height: 50px;
+  margin-top: -49px;
+}
+
+.arriving-box-container_2 {
   width: 80%;
   padding: 10px;
+  margin-top: 330px;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
 
-  position: relative;
   box-sizing: border-box;
+
+  position: relative;
 }
 
-.arrived-box_1 {
-  position: relative;
+.arriving-box_2 {
+  background-color: #FFF9CFCC;
 
   width: 268px;
   height: 170px;
+  padding: 20px 0;
 
-  background-color: #E8FBFFCC;
   border: 1px solid black;
   border-radius: 30px;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  cursor: pointer;
+  box-sizing: border-box;
+
   transition: background-color 0.3s ease;
 }
 
-.arrived-box_1:hover {
-  background-color: #a9a9a9;
+.lock-image {
+  width: 40px;
+  height: auto;
+  margin-bottom: 13px;
 }
 
-.letter-date_1 {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-
+.box-title_2 {
   color: black;
+
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
+  text-align: center;
+
+  padding: 0px 10px;
+
+  word-break: break-word;
+  white-space: nowrap;
+  line-height: 5px;
+}
+
+.name_2 {
   font-family: 'Pretendard-Regular';
+}
+
+.date_2 {
+  color: red;
+  font-weight: bold;
 }

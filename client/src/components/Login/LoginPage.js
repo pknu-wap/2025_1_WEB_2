@@ -22,6 +22,13 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // 엔터 로그인 핸들러
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   useEffect(() => {
     const header = document.querySelector("header");
     if (header) header.style.display = "none";
@@ -110,7 +117,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" onKeyDown={handleKeyDown}>
       <img
         src={logo}
         alt="로고"

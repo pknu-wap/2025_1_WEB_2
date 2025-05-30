@@ -13,7 +13,7 @@
     align-items: center;
     border-radius: 20px;
     /* 위쪽 오른쪽 아래쪽 왼쪽 */
-    padding: 20px 30px 10px 30px;
+    padding: 18px 35px 12px 30px;
 }
 
 .letter_content_form{
@@ -21,9 +21,17 @@
     border-radius: 20px;
     height: 500px;
     /* 위쪽 오른쪽 아래쪽 왼쪽 */
-    padding: 30px 30px 10px 30px;
+    padding: 28px 30px 10px 30px;
     margin-top: 15px;
+
 }
+
+.letter_content_input {
+    max-height: 435px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .send_btn_box {
     display: flex; /* Flexbox 적용 */
     justify-content: flex-end; /* 내부 요소를 오른쪽으로 정렬 */

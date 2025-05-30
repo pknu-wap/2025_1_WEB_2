@@ -34,8 +34,10 @@ cron.schedule('0 12 * * *', async () => {
     handler();
 },{"timezone": "Asia/Seoul"}); // Set timezone to Asia/Seoul
 
-if (process.argv.find((v)=>v.includes("--email-send-now"))) {
+if (process.argv.find((v)=>v.includes("--send-email-now"))) {
+    console.log("Sending Email Now")
     handler();
+    console.log("Sending Email End")
 }
 
 export default app;

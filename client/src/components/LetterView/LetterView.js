@@ -91,7 +91,6 @@ const LetterView = () => {
           <div className={styles.title}>{letter.title}</div>
           <div className={styles.buttonGroup}>
             <button className={styles.onlyMeButton}>🔒나만보기</button>
-            <button className={styles.button}>수정</button>
             <button className={styles.button}>삭제</button>
           </div>
         </div>

@@ -145,7 +145,7 @@ const zDelete = z.object({letterId:z.number()});
 router.post("/delete",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),async(req:Request<{id:number,email:string,name:string}>,res)=>{
     const r = zDelete.safeParse(req.body)
     if (!r.success) {
-        res.status(401);
+        res.status(400);
         res.send(r.error.message);
         return;
     }

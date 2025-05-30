@@ -7,9 +7,11 @@
     "test": "vitest",
     "dev": "run-p internal:build:watch internal:run-node:watch",
     "start": "run-s internal:build internal:run-node",
+    "start:send-email-now": "run-s internal:build internal:run-node:send-email-now",
     "internal:build": "tsdown",
     "internal:build:watch": "tsdown --watch",
     "internal:run-node": "node dist/main.js",
+    "internal:run-node:send-email-now": "node dist/main.js --send-email-now",
     "internal:run-node:watch": "node --watch --watch-preserve-output dist/main.js"
   },
   "type": "module",

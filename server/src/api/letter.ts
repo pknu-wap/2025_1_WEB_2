@@ -161,6 +161,7 @@ router.post("/delete",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),a
         return;
     }
     await dbController.deleteLetter(r.data.letterId,req.auth!.id);
+    res.send({});
 })
 
 

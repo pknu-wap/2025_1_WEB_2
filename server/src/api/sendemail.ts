@@ -19,16 +19,16 @@ const ses = new SESClient({
     }
 }); // AWS_REGION = "ap-northeast-2"
 
-export const handler = async(req: Request, res: Response) => {
+export const handler = async() => {
     try {
     const result = await dbController.letterstosend();
     if (result.isErr()) {
-      return res.status(500).json({ message: "DB fetch error", error: result.error });
+      return console.error("Error fetching letters to send:", result.error);
     }
 
     const letters = result.value;
     if (letters.length === 0) {
-      return res.status(200).json({ message: "No letters to send" });
+      return console.log("No letters to send at this time.");
     }
 
     const sendResults = [];
@@ -47,14 +47,9 @@ export const handler = async(req: Request, res: Response) => {
       }
     }
 
-    res.status(200).json({
-      message: "Send attempt complete",
-      results: sendResults,
-    });
+    console.log("Email sending results:", sendResults);
   } catch (e) {
-    console.error("Unhandled error:", e);
-    res.status(500).json({ message: "Unexpected error", error: e });
-  }
+    console.error("Unhandled error:", e);}
 };
 
 

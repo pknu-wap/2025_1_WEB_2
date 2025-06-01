@@ -60,7 +60,12 @@ export const handler = async() => {
     console.error("Unhandled error:", e);}
 };
 
-
+const DateTimeFormatinstance = new Intl.DateTimeFormat("ko-KR", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          timeZone: "Asia/Seoul",
+        });
 async function sendEmail(letter: Omit<typeof lettersTable.$inferSelect, "time_send" | "time_receive"> & { time_send: number; time_receive: number }) {
     try {
         const email = letter.email_get_notify_receive;
@@ -69,6 +74,38 @@ async function sendEmail(letter: Omit<typeof lettersTable.$inferSelect, "time_se
         const timeSend = new Date(letter.time_send);
         const timeReceive = new Date(letter.time_receive);
 
+        const id = letter.id;
+        const resultUser = await dbController.getUserWithID(letter.user_id_from);
+        const name = resultUser.isOk() ? resultUser.value.name : "Unknown Sender";
+        const sendtime = DateTimeFormatinstance.format(timeSend);
+
+        const htmlTemplate = `
+  <div style="font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif; background-color:#f9f9f9; padding:24px; color:#333;">
+    <div style="background:#fff; padding:24px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05); max-width:600px; margin:auto;">
+      <div style="font-size:20px; margin-bottom:16px; color:#444;">📮 느린우체통에서 편지가 도착했어요!</div>
+      <div style="margin-bottom:24px;">
+        <div><strong style="color:#666;">📌 편지 제목:</strong> ${title}</div>
+      </div>
+
+      <div><strong style="color:#666;">💌 편지 내용:</strong></div>
+      <div style="white-space:pre-line; line-height:1.6; margin-top:8px; background-color:#f0f0f5; padding:16px; border-radius:8px;">
+        ${content}
+        <div style="margin-top:24px; text-align:right; font-size:14px; color:#555;">
+          ${sendtime}의 ${name}으로부터.
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <a href="https://slow-postbox.netlify.app/view/${id}" style="display:inline-block; background-color:#1d72b8; color:#fff; padding:12px 24px; border-radius:6px; text-decoration:none; font-weight:bold;">📖 편지 읽으러 가기</a>
+      </div>
+
+      <div style="margin-top:32px; font-size:12px; color:#999; text-align:center;">
+        이 편지는 느린우체통 서비스를 통해 전달되었습니다.<br>
+        시간이 흘러도 당신의 마음은 도착합니다.
+      </div>
+    </div>
+  </div>
+`;
         console.log("Email to send:", email);
         // const params = {
         //     Destination: {
@@ -95,8 +132,7 @@ async function sendEmail(letter: Omit<typeof lettersTable.$inferSelect, "time_se
           from: '"느린 우체통" <slowpost2025@gmail.com>', // sender address
           to: email, // list of receivers
           subject: "느린우체통으로부터 편지가 도착했습니다 📮", // Subject line
-          text: `제목: ${title}\n내용: ${content}`, // plain text body
-          html: `제목: ${title}<br>내용: ${content}`, // html body
+          html: htmlTemplate, // html body
         });
 
         console.log("Message sent: %s", info.messageId);

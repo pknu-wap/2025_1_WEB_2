@@ -1,7 +1,7 @@
 import { AnyMySql2Connection, MySql2Database } from "drizzle-orm/mysql2";
-import { lettersTable, usersTable } from "./schema.ts";
+import { lettersTable, lettersViewsTable, usersTable } from "./schema.ts";
 import { err, ok, Result } from "neverthrow";
-import { eq,or,and,lt } from "drizzle-orm";
+import { eq,or,and,lt, sql } from "drizzle-orm";
 
 export class DBController {
   db: MySql2Database<Record<string, never>> & {
@@ -132,5 +132,31 @@ export class DBController {
   async deleteLetter(id:number,user_id_from:number) {
     await this.db.delete(lettersTable).where(and(eq(lettersTable.id,id),eq(lettersTable.user_id_from,user_id_from)));
   }
-  
+
+  async initViewCounter(letterId:number) {
+    await this.db.insert(lettersViewsTable).values({views:1,id:letterId});
+  }
+
+  async getViewCountOfPubLetter(letterId:number) {
+    const result = await this.db.select().from(lettersViewsTable).where(eq(lettersViewsTable.id,letterId));
+    if (result.length === 0) {
+      return null;
+    } else {
+      return result[0].views
+    }
+  }
+
+  async setViewCountOfPubLetter(letterId:number,views:number) {
+    await this.db.update(lettersViewsTable).set({views}).where(eq(lettersViewsTable.id,letterId));
+  }
+
+  async initOrIncrementViewCountOfPubLetter(letterId:number) {
+    const count = await this.getViewCountOfPubLetter(letterId);
+    if (count == null) {
+      this.initViewCounter(letterId);
+    } else {
+      this.setViewCountOfPubLetter(letterId,count+1);
+    }
+  }
+
 }

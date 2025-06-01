@@ -19,6 +19,24 @@ const zLetterCreate = z.object({
   is_public:z.boolean()
 });
 
+// const id = await dbController.addLetter({
+//     title:",",
+//     content:",",
+//     email_get_notify_receive: ",",
+//     time_send:new Date(),
+//     time_receive: new Date(),
+//     user_id_from:1,
+//     user_id_to:1,
+//     is_public:true,
+//     is_sent:true
+// });
+
+// if (id.isOk()) {
+//     //const a = await dbController.getViewCountOfPubLetter(id.value)
+//     // const a = 2;
+//     await dbController.initOrIncrementViewCountOfPubLetter(id.value);
+// }
+
 router.post("/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
   const parseResult = zLetterCreate.safeParse(req.body);
   if (!parseResult.success) {
@@ -87,6 +105,7 @@ router.get("/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), asyn
       res.status(422);
       res.send({error:"Not public, and you are not sender nor receiver"});
   }
+  await dbController.initOrIncrementViewCountOfPubLetter(letter.value.id);
   res.send({letter: letter.value});
 });
 
@@ -162,7 +181,25 @@ router.post("/delete",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),a
     }
     await dbController.deleteLetter(r.data.letterId,req.auth!.id);
     res.send({});
+});
+
+router.get("/view_count",async (req,res)=>{
+    const parseResult = zLetterGet.safeParse(req.query);
+    if (!parseResult.success) {
+        res.status(400);
+        res.send({error: parseResult.error.toString()});
+        return;
+    }
+    const r = await dbController.getViewCountOfPubLetter(parseResult.data.id);
+    if (r == null) {
+        res.status(404);
+        res.send("Not Found");
+    } else {
+        res.send({viewCount:r});
+    }
 })
+
+
 
 
 export {router as letterRouter};

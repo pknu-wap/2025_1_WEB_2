@@ -25,7 +25,7 @@ const Router = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/mypage2" element={<MyPage2 />} />
       <Route path="/view/:id" element={<LetterView />} />
-      <Route path="/public-letters" element={<PublicLetters />} />
+      <Route path="/view" element={<PublicLetters />} />
     </Routes>
   );
 };

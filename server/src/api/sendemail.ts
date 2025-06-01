@@ -1,4 +1,4 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import nodemailer from "nodemailer"
 import { DB } from "src/db/index.ts";
 import { Request, Response } from 'express';
 import dotenv from 'dotenv';
@@ -8,16 +8,24 @@ dotenv.config();
 
 const dbController = DB.getInstance().dbController;
 
-if (!process.env.AWS_ACCESS_KEY || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.AWS_REGION) {
-  throw new Error('AWS credentials or region are not properly set');
-}
-const ses = new SESClient({
-    region: process.env.AWS_REGION,
-    credentials: {
-        accessKeyId:process.env.AWS_ACCESS_KEY || '',
-        secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY || '',
-    }
-}); // AWS_REGION = "ap-northeast-2"
+// if (!process.env.AWS_ACCESS_KEY || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.AWS_REGION) {
+//   throw new Error('AWS credentials or region are not properly set');
+// }
+
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user:"slowpost2025@gmail.com",
+    pass:process.env.GOOGLE_APP_PASSWORD
+  }
+});
+// const ses = new SESClient({
+//     region: process.env.AWS_REGION,
+//     credentials: {
+//         accessKeyId:process.env.AWS_ACCESS_KEY || '',
+//         secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY || '',
+//     }
+// }); // AWS_REGION = "ap-northeast-2"
 
 export const handler = async() => {
     try {
@@ -61,30 +69,43 @@ async function sendEmail(letter: Omit<typeof lettersTable.$inferSelect, "time_se
         const timeSend = new Date(letter.time_send);
         const timeReceive = new Date(letter.time_receive);
 
-        
         console.log("Email to send:", email);
-        const params = {
-            Destination: {
-            ToAddresses: [email],
-            },
-            Message: {
-            Body: {
-                Text: {
-                Data: `제목: ${title}\n내용: ${content}`,
-                },
-            },
-            Subject: {
-                Data: "느린우체통으로부터 편지가 도착했습니다 📮",
-            },
-            },
-            Source: "no-reply@slowpost.p-e.kr",
-        };
+        // const params = {
+        //     Destination: {
+        //     ToAddresses: [email],
+        //     },
+        //     Message: {
+        //     Body: {
+        //         Text: {
+        //         Data: `제목: ${title}\n내용: ${content}`,
+        //         },
+        //     },
+        //     Subject: {
+        //         Data: "느린우체통으로부터 편지가 도착했습니다 📮",
+        //     },
+        //     },
+        //     Source: "no-reply@slowpost.p-e.kr",
+        // };
 
-        const command = new SendEmailCommand(params);
-        return await ses.send(command);
+        // const command = new SendEmailCommand(params);
+        // return await ses.send(command);
+
+
+        const info = await transport.sendMail({
+          from: '"느린 우체통" <slowpost2025@gmail.com>', // sender address
+          to: email, // list of receivers
+          subject: "느린우체통으로부터 편지가 도착했습니다 📮", // Subject line
+          text: `제목: ${title}\n내용: ${content}`, // plain text body
+          html: `제목: ${title}<br>내용: ${content}`, // html body
+        });
+
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        return true;
+
     }
     catch (error) {
         console.error('Error sending email:', error);
         throw error;
-    }  
+    }
 }

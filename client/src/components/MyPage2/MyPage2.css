@@ -1,6 +1,12 @@
-/* 폰트-face 정의 */
 @font-face {
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
@@ -32,147 +38,138 @@
 }
 
 .intro-content_2 {
-  font-family: 'Pretendard-Regular';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  font-family: 'Pretendard-Regular';
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
-
   position: absolute;
-  top: 94px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
+
+  width: 150px;
+  height: 150px;
 }
 
 .name-text_2 {
-  color: black;
+  position: absolute;
+  top: 185px;
+  left: 50%;
+  transform: translateX(-50%);
 
   font-family: 'Pretendard-Regular';
-  font-size: 25px;
+  font-size: 30px;
+  color: black;
   text-align: center;
   white-space: nowrap;
-
-  position: absolute;
-  top: 169px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.intro-text_2 {
-  color: black;
-
-  font-family: 'Pretendard-Regular';
-  font-size: 11px;
-  text-align: center;
-
-  position: absolute;
-  top: 221px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .profile-button_2 {
-  background-color: #d9d9d9;
-  color: black;
+  position: absolute;
+  top: 255px;
+  left: 50%;
+  transform: translateX(-50%);
 
-  width: 79px;
-  height: 19px;
+  width: 85px;
+  height: 25px;
+
+  background-color: #d9d9d9;
   border: none;
   border-radius: 30px;
 
+  color: black;
   font-family: 'Pretendard-Regular';
-  font-size: 11px;
-
-  position: absolute;
-  top: 252px;
-  left: 50%;
-  transform: translateX(-50%);
+  font-size: 15px;
 }
 
 .line_2 {
-  background-color: black;
+  position: absolute;
+  top: 340px;
+  left: 50%;
+  transform: translateX(-50%);
 
   width: 70%;
   height: 1px;
 
-  position: absolute;
-  top: 320px;
-  left: 50%;
-  transform: translateX(-50%);
+  background-color: black;
   z-index: 20;
 }
 
 .letter-arrived_2 {
+  position: absolute;
+  top: auto;
+  left: auto;
+  transform: translateX(0%);
+  transform-origin: bottom;
+
+  width: 130px;
+  height: 50px;
+  margin-top: -49px;
+
   background-color: #E8FBFFCC;
-  color: black;
-
-  width: 100px;
-  height: 40px;
-  margin-top: -39px;
-  padding-top: 5px;
-
   border: 1px solid black;
   border-radius: 25px 25px 0 0;
 
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
+  padding-top: 5px;
 
   cursor: pointer;
   transition: height 0.2s ease, margin-top 0.2s ease;
 
-  position: absolute;
-  transform: translateX(0%);
-  transform-origin: bottom;
   z-index: 15;
 }
 
 .letter-arrived_2:hover {
-  height: 45px;
-  margin-top: -44px;
+  height: 56px;
+  margin-top: -55px;
 }
 
 .letter-arriving_2 {
+ position: absolute;
+  top: auto;
+  left: auto;
+  transform: translateX(0%);
+
+  width: 130px;
+  height: 56px;
+  margin-left: 129.5px;
+  margin-top: -55px;
+
   background-color: #FFF9CFCC;
-  color: black;
-
-  width: 100px;
-  height: 45px;
-  margin-left: 99.5px;
-  margin-top: -44px;
-  padding-top: 5px;
-
   border: 1px solid black;
   border-radius: 25px 25px 0 0;
 
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
+  padding-top: 5px;
 
+  cursor: pointer;
   transition: height 0.2s ease, margin-top 0.2s ease;
 
-  position: absolute;
-  transform: translateX(0%);
   z-index: 15;
 }
 
 .letter-arriving_2.hovered-by-arrived {
-  height: 40px;
-  margin-top: -39px;
+  height: 50px;
+  margin-top: -49px;
 }
 
 .arriving-box-container_2 {
   width: 80%;
   padding: 10px;
-  margin-top: 300px;
+  margin-top: 330px;
 
   display: flex;
   flex-wrap: wrap;
@@ -201,27 +198,32 @@
 
   box-sizing: border-box;
 
-  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .lock-image {
   width: 40px;
   height: auto;
-  margin-bottom: 6px;
+  margin-bottom: 13px;
 }
 
 .box-title_2 {
   color: black;
 
-  font-family: 'Pretendard-Regular';
-  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-size: 19px;
   text-align: center;
 
-  padding: 0 10px;
+  padding: 0px 10px;
 
   word-break: break-word;
-  white-space: normal;
+  white-space: nowrap;
+  line-height: 5px;
+}
+
+.name_2 {
+  font-family: 'Pretendard-Regular';
 }
 
 .date_2 {

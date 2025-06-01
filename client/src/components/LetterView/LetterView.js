@@ -1,16 +1,53 @@
 import styles from "../../assets/LetterView/LetterView.module.css";
 import { useEffect, useState, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LetterView = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [letter, setLetter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  const fetchLetter = async () => {
+    const fetchLetter = async () => {
+      try {
+        const getTokenFromCookie = () => {
+          const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+          return match ? match[2] : null;
+        };
+        const tokenFromCookie = getTokenFromCookie();
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/letter/get`,
+          {
+            params: { id },
+            headers: {
+              Authorization: `Bearer ${tokenFromCookie}`,
+            },
+          }
+        );
+
+        if (response.data && response.data.letter) {
+          setLetter(response.data.letter);
+        } else {
+          setError("해당 ID의 편지를 찾을 수 없습니다.");
+        }
+      } catch (error) {
+        console.error("API 요청 에러:", error);
+        setError("데이터를 불러오는 데 실패했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLetter();
+  }, [id]);
+
+  const handleDelete = async () => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+
     try {
       const getTokenFromCookie = () => {
         const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
@@ -18,32 +55,27 @@ const LetterView = () => {
       };
       const tokenFromCookie = getTokenFromCookie();
 
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/letter/get`,
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/letter/delete`,
+        { letterId: Number(id) },
         {
-          params: { id },
           headers: {
             Authorization: `Bearer ${tokenFromCookie}`,
           },
         }
       );
 
-      if (response.data && response.data.letter) {
-        setLetter(response.data.letter);
+      if (response.data && !response.data.error) {
+        alert("편지가 삭제되었습니다.");
+        navigate("/");
       } else {
-        setError("해당 ID의 편지를 찾을 수 없습니다.");
+        alert("삭제 중 오류가 발생했습니다: " + response.data.error);
       }
-    } catch (error) {
-      console.error("API 요청 에러:", error); // 에러 로그 출력
-      setError("데이터를 불러오는 데 실패했습니다.");
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      console.error("삭제 요청 실패:", err);
+      alert("삭제 요청에 실패했습니다.");
     }
   };
-
-  fetchLetter();
-}, [id]);
-
 
   const getDateDiffInfo = (send, receive) => {
     const toDate = (ts) => new Date(ts.toString().length === 13 ? ts : ts * 1000);
@@ -91,8 +123,7 @@ const LetterView = () => {
           <div className={styles.title}>{letter.title}</div>
           <div className={styles.buttonGroup}>
             <button className={styles.onlyMeButton}>🔒나만보기</button>
-            <button className={styles.button}>수정</button>
-            <button className={styles.button}>삭제</button>
+            <button className={styles.button} onClick={handleDelete}>삭제</button>
           </div>
         </div>
         <div className={styles.separator}></div>

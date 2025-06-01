@@ -4,6 +4,8 @@ import express from "express";
 import { CorsOptions, CorsOptionsDelegate, default as cors } from 'cors';
 import { accountRouter } from './api/account.ts';
 import { letterRouter } from './api/letter.ts';
+import cron from 'node-cron';
+import { handler } from './api/sendemail.ts';
 
 const allowlist = ["http://localhost:3000","http://127.0.0.1:3000","https://slow-postbox.netlify.app"]
 
@@ -26,5 +28,16 @@ app.get("/",async(req,res)=>{
 });
 app.use("/account",accountRouter);
 app.use("/letter",letterRouter);
+
+cron.schedule('0 12 * * *', async () => {
+    console.log('Running daily email send task at 12:00 PM');
+    handler();
+},{"timezone": "Asia/Seoul"}); // Set timezone to Asia/Seoul
+
+if (process.argv.find((v)=>v.includes("--send-email-now"))) {
+    console.log("Sending Email Now")
+    handler();
+    console.log("Sending Email End")
+}
 
 export default app;

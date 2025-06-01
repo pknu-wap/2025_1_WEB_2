@@ -131,4 +131,38 @@ router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:
     }
 });
 
+router.get("/get_all_public", async(req,res)=>{
+    const publicLetters = await dbController.getAllpublicLetter();
+    if (publicLetters.isOk()) {
+        res.send({arr_letter:publicLetters.value});
+    } else {
+        res.status(500);
+        res.send({error:publicLetters.error.message});
+    }
+});
+
+const zDelete = z.object({letterId:z.number()});
+router.post("/delete",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),async(req:Request<{id:number,email:string,name:string}>,res)=>{
+    const r = zDelete.safeParse(req.body)
+    if (!r.success) {
+        res.status(400);
+        res.send(r.error.message);
+        return;
+    }
+    const rl = await dbController.getLetter(r.data.letterId);
+    if (rl.isErr()) {
+        res.status(500);
+        res.send("/letter/delete getLetter Failed");
+        return;
+    }
+    if (rl.value!.user_id_from !== req.auth!.id) {
+        res.status(403);
+        res.send("the letter is not by you");
+        return;
+    }
+    await dbController.deleteLetter(r.data.letterId,req.auth!.id);
+    res.send({});
+})
+
+
 export {router as letterRouter};

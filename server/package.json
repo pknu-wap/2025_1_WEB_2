@@ -7,9 +7,11 @@
     "test": "vitest",
     "dev": "run-p internal:build:watch internal:run-node:watch",
     "start": "run-s internal:build internal:run-node",
+    "start:send-email-now": "run-s internal:build internal:run-node:send-email-now",
     "internal:build": "tsdown",
     "internal:build:watch": "tsdown --watch",
     "internal:run-node": "node dist/main.js",
+    "internal:run-node:send-email-now": "node dist/main.js --send-email-now",
     "internal:run-node:watch": "node --watch --watch-preserve-output dist/main.js"
   },
   "type": "module",
@@ -22,6 +24,7 @@
     "@types/express": "^5.0.1",
     "@types/express-ws": "^3.0.5",
     "@types/jsonwebtoken": "^9.0.9",
+    "@types/nodemailer": "^6.4.17",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
     "cors": "^2.8.5",
@@ -34,6 +37,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.1",
     "neverthrow": "^8.2.0",
+    "node-cron": "^4.1.0",
+    "nodemailer": "^7.0.3",
     "uuid": "^11.1.0",
     "zod": "^3.24.3"
   },

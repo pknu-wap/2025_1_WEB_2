@@ -159,7 +159,7 @@ export class DBController {
     }
   }
 
-  async getAllViewCounts() {
+  async getAllViewCounts(): Promise<Array<{ id: number; views: number }>> {
     // 모든 view count를 id, views 형태로 반환
     const result = await this.db.select().from(lettersViewsTable);
     return result.map((v) => ({ id: v.id, views: v.views }));

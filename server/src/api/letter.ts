@@ -199,7 +199,7 @@ router.get("/view_count",async (req,res)=>{
     }
 });
 
-router.get("/get_letter_list_by_view_count", async (req, res) => {
+router.get("/list_by_view_count", async (req, res) => {
   // 모든 공개 편지 가져오기
   const publicLettersResult = await dbController.getAllpublicLetter();
   if (!publicLettersResult.isOk()) {

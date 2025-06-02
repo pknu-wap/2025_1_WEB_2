@@ -67,16 +67,17 @@
     font-family: 'Pretendard-Regular';
     font-size: 15px;
   }
-  .onlyMeButton {
+  .onlyMeButton, .publicButton {
     background-color: #FFFFFF;
     border: none;
     padding: 5px 10px;
     margin-left: 5px;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 15px;
+    /* cursor: pointer; */
     font-family: 'Pretendard-Regular';
     font-size: 15px;
   }
+
   
   .button:hover {
     background-color: #ddd;

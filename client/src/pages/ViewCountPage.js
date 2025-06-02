@@ -81,7 +81,9 @@ const ViewCountPage = () => {
         const res = await axios.get(
           `${process.env.REACT_APP_API_BASE_URL}/letter/list_by_view_count`
         );
-        const letters = res.data.slice(0, 3);
+        const letters = res.data.arr_letter?.slice(0, 3) || [];
+
+        // ✅ 반드시 상태에 넣어줘야 화면에 표시됨
         setTopLetters(letters);
 
         const userIds = [...new Set(letters.map((l) => l.user_id_from))];
@@ -93,7 +95,7 @@ const ViewCountPage = () => {
               const res = await axios.get(
                 `${process.env.REACT_APP_API_BASE_URL}/account/profile/${id}`
               );
-              nameMap[id] = res.data.name || `ID ${id}`;
+              nameMap[id] = res.data.nickname || `ID ${id}`; // 🔄 닉네임도 반영
             } catch {
               nameMap[id] = `ID ${id}`;
             }

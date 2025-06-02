@@ -1,9 +1,6 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../assets/MainPage/MainPage.module.css";
 import PostBox from "../assets/MainPage/postbox.png";
-
-import ViewCountPage from "./ViewCountPage";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -36,8 +33,6 @@ const MainPage = () => {
             alt={"우체통 이미지"}
           />
         </div>
-
-        <ViewCountPage />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../assets/PublicLetters/PublicLetters.module.css";
+import ViewCountPage from "../../pages/ViewCountPage";
 
 const lettersPerPage = 9;
 
@@ -102,10 +103,15 @@ const PublicLetters = () => {
             <h3 className={styles.title}>
               ✉️ <span className={styles.highlight}>{letter.title}</span>
             </h3>
-            <p className={styles.date}>발송일: {formatDate(letter.time_send)}</p>
-            <p className={styles.arrival}>도착일: {formatDate(letter.time_receive)}</p>
+            <p className={styles.date}>
+              발송일: {formatDate(letter.time_send)}
+            </p>
+            <p className={styles.arrival}>
+              도착일: {formatDate(letter.time_receive)}
+            </p>
             <p className={styles.author}>
-              보낸 사람: {userNames[letter.user_id_from] || `ID ${letter.user_id_from}`}
+              보낸 사람:{" "}
+              {userNames[letter.user_id_from] || `ID ${letter.user_id_from}`}
             </p>
           </div>
         ))}
@@ -126,10 +132,9 @@ const PublicLetters = () => {
           ))}
         </div>
       )}
+      <ViewCountPage />
     </div>
   );
 };
 
 export default PublicLetters;
-
-

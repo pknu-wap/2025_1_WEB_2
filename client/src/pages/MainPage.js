@@ -1,10 +1,10 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../assets/MainPage/MainPage.module.css";
 import PostBox from "../assets/MainPage/postbox.png";
 
-const MyPage = () => {
+const MainPage = () => {
   const navigate = useNavigate();
+
   return (
     <div className={styles.main_page}>
       <div className={styles.main_container}>
@@ -22,7 +22,7 @@ const MyPage = () => {
               >
                 편지 보내기
               </button>
-              <button className={styles.btn} onClick={() => navigate("view")}>
+              <button className={styles.btn} onClick={() => navigate("/view")}>
                 편지 구경하기
               </button>
             </div>
@@ -38,4 +38,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default MainPage;

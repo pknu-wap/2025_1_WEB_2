@@ -1,5 +1,6 @@
 import express from "express";
 import { expressjwt,Request } from "express-jwt";
+import { Letter } from "src/db/db-controller.ts";
 import { DB } from "src/db/index.ts";
 import {z} from "zod";
 
@@ -18,6 +19,24 @@ const zLetterCreate = z.object({
   email_get_notify_receive:z.string().email(),
   is_public:z.boolean()
 });
+
+// const id = await dbController.addLetter({
+//     title:",",
+//     content:",",
+//     email_get_notify_receive: ",",
+//     time_send:new Date(),
+//     time_receive: new Date(),
+//     user_id_from:1,
+//     user_id_to:1,
+//     is_public:true,
+//     is_sent:true
+// });
+
+// if (id.isOk()) {
+//     //const a = await dbController.getViewCountOfPubLetter(id.value)
+//     // const a = 2;
+//     await dbController.initOrIncrementViewCountOfPubLetter(id.value);
+// }
 
 router.post("/create",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
   const parseResult = zLetterCreate.safeParse(req.body);
@@ -59,37 +78,49 @@ const zLetterGet = z.object({
   id:z.string().transform((v)=>Number(v))
 });
 
-router.get("/get",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
-  const parseResult = zLetterGet.safeParse(req.query);
-  if (!parseResult.success) {
+// JWT를 optional로 적용
+router.get(
+  "/get",
+  expressjwt({ secret: JWT_SECRET_KEY, algorithms: ["HS256"], credentialsRequired: false }),
+  async (req: Request<{ id: number; email: string; name: string }>, res) => {
+    const parseResult = zLetterGet.safeParse(req.query);
+    if (!parseResult.success) {
       res.status(400);
-      res.send({error: parseResult.error.toString()});
+      res.send({ error: parseResult.error.toString() });
       return;
-  }
-  const body = parseResult.data;
-  if (isNaN(parseResult.data.id)) {
+    }
+    const body = parseResult.data;
+    if (isNaN(body.id)) {
       res.status(400);
-      res.send({error: "id is not number"});
+      res.send({ error: "id is not number" });
       return;
-  }
-  const letter = await dbController.getLetter(body.id);
-  if (letter.isErr()) {
+    }
+    const letter = await dbController.getLetter(body.id);
+    if (letter.isErr()) {
       res.status(500);
-      res.send({error:letter.error});
+      res.send({ error: letter.error });
       return;
-  }
-  if (letter.value === null) {
+    }
+    if (letter.value === null) {
       res.status(404);
-      res.send({error:"404 Not Found"});
+      res.send({ error: "404 Not Found" });
       return;
+    }
+    // 공개 편지는 JWT 없이 허용, 비공개는 JWT 필요 + 본인만 허용
+    if (!letter.value.is_public) {
+      if (!req.auth || (req.auth.id !== letter.value.user_id_from && req.auth.id !== letter.value.user_id_to)) {
+        res.status(401);
+        res.send({ error: "Only the sender or receiver can access a private letter. JWT required." });
+        return;
+      }
+    }
+    if (letter.value.is_public) {
+      await dbController.initOrIncrementViewCountOfPubLetter(letter.value.id);
+    }
+    // mask if not sent
+    res.send({ letter: maskUnsentLetter(letter.value) });
   }
-  if (!letter.value.is_public && req.auth.id !== letter.value.user_id_from && req.auth.id !== letter.value.user_id_to) {
-      res.status(422);
-      res.send({error:"Not public, and you are not sender nor receiver"});
-  }
-  res.send({letter: letter.value});
-});
-
+);
 
 router.get("/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
   const allLetters = await dbController.getLetterIdsWithUserID(req.auth.id);
@@ -104,7 +135,7 @@ router.get("/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["
 router.get("/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
   const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
   if (allLetters.isOk()) {
-      res.send({arr_letter:allLetters.value});
+      res.send({arr_letter: maskUnsentLetters(allLetters.value)});
   } else {
       res.status(500);
       res.send({error:allLetters.error.message});
@@ -114,7 +145,7 @@ router.get("/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256
 router.get("/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const sentLetters = await dbController.getLettersAllWithUserIDSent(req.auth.id);
     if (sentLetters.isOk()) {
-        res.send({arr_letter:sentLetters.value});
+        res.send({arr_letter: maskUnsentLetters(sentLetters.value)});
     } else {
         res.status(500);
         res.send({error:sentLetters.error.message});
@@ -124,7 +155,7 @@ router.get("/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["
 router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const unsentLetters = await dbController.getLettersAllWithUserIDUnsent(req.auth.id);
     if (unsentLetters.isOk()) {
-        res.send({arr_letter:unsentLetters.value});
+        res.send({arr_letter: maskUnsentLetters(unsentLetters.value)});
     } else {
         res.status(500);
         res.send({error:unsentLetters.error.message});
@@ -134,7 +165,7 @@ router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:
 router.get("/get_all_public", async(req,res)=>{
     const publicLetters = await dbController.getAllpublicLetter();
     if (publicLetters.isOk()) {
-        res.send({arr_letter:publicLetters.value});
+        res.send({arr_letter: maskUnsentLetters(publicLetters.value)});
     } else {
         res.status(500);
         res.send({error:publicLetters.error.message});
@@ -162,7 +193,59 @@ router.post("/delete",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}),a
     }
     await dbController.deleteLetter(r.data.letterId,req.auth!.id);
     res.send({});
-})
+});
 
+router.get("/view_count",async (req,res)=>{
+    const parseResult = zLetterGet.safeParse(req.query);
+    if (!parseResult.success) {
+        res.status(400);
+        res.send({error: parseResult.error.toString()});
+        return;
+    }
+    const r = await dbController.getViewCountOfPubLetter(parseResult.data.id);
+    if (r == null) {
+        res.status(404);
+        res.send("Not Found");
+    } else {
+        res.send({viewCount:r});
+    }
+});
+
+router.get("/list_by_view_count", async (req, res) => {
+  // 모든 공개 편지 가져오기
+  const publicLettersResult = await dbController.getAllpublicLetter();
+  if (!publicLettersResult.isOk()) {
+    res.status(500);
+    res.send({ error: publicLettersResult.error.message });
+    return;
+  }
+  const publicLetters = publicLettersResult.value;
+
+  // view count 정보 가져오기
+  const viewCounts = await dbController.getAllViewCounts(); // [{id, views}]
+  const viewCountMap = new Map(viewCounts.map((v) => [v.id, v.views]));
+
+  // 각 편지에 viewCount 추가 (없으면 0)
+  const lettersWithView = publicLetters.map((letter) => ({
+    ...letter,
+    viewCount: viewCountMap.get(letter.id) || 0,
+  }));
+
+  // viewCount 기준 내림차순 정렬
+  lettersWithView.sort((a, b) => b.viewCount - a.viewCount);
+
+  res.send({ arr_letter: maskUnsentLetters(lettersWithView) });
+});
+
+// Helper to hide title/content if not sent
+function maskUnsentLetter(letter: Letter) {
+  if (letter && letter.is_sent === false) {
+    return { ...letter, title: null, content: null };
+  }
+  return letter;
+}
+function maskUnsentLetters(arr: Letter[]) {
+  return Array.isArray(arr) ? arr.map(maskUnsentLetter) : arr;
+}
 
 export {router as letterRouter};

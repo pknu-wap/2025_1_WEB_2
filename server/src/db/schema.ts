@@ -13,7 +13,7 @@ export const usersTable = mysqlTable('users_table', {
 export const lettersTable = mysqlTable('letters_table', {
   id: serial().primaryKey(),
   title: varchar({ length: 180 }).notNull(),
-  content: varchar({ length: 320 }).notNull(),
+  content: varchar({ length: 1016 }).notNull(),
   user_id_from: bigint({mode:"number",unsigned:true}).notNull().references(()=>usersTable.id),
   user_id_to: bigint({mode:"number",unsigned:true}).notNull().references(()=>usersTable.id),
   time_send: datetime().notNull(),

@@ -197,9 +197,32 @@ router.get("/view_count",async (req,res)=>{
     } else {
         res.send({viewCount:r});
     }
-})
+});
 
+router.get("/get_letter_list_by_view_count", async (req, res) => {
+  // 모든 공개 편지 가져오기
+  const publicLettersResult = await dbController.getAllpublicLetter();
+  if (!publicLettersResult.isOk()) {
+    res.status(500);
+    res.send({ error: publicLettersResult.error.message });
+    return;
+  }
+  const publicLetters = publicLettersResult.value;
 
+  // view count 정보 가져오기
+  const viewCounts = await dbController.getAllViewCounts(); // [{id, views}]
+  const viewCountMap = new Map(viewCounts.map((v) => [v.id, v.views]));
 
+  // 각 편지에 viewCount 추가 (없으면 0)
+  const lettersWithView = publicLetters.map((letter) => ({
+    ...letter,
+    viewCount: viewCountMap.get(letter.id) || 0,
+  }));
+
+  // viewCount 기준 내림차순 정렬
+  lettersWithView.sort((a, b) => b.viewCount - a.viewCount);
+
+  res.send({ arr_letter: lettersWithView });
+});
 
 export {router as letterRouter};

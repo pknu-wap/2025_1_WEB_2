@@ -2,20 +2,38 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// 💡 CSS in JS로 바로 정의
+const commonFont = {
+  fontFamily: "Pretendard-Regular",
+};
 const styles = {
+  guideText: {
+    position: "fixed",
+    bottom: "110px",
+    left: "40px",
+    backgroundColor: "#ffffffcc", // 반투명 흰 배경
+    padding: "6px 10px",
+    borderRadius: "8px",
+    fontSize: "14px",
+    fontWeight: "500",
+    color: "#333",
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
+    zIndex: 999,
+    fontFamily: "Pretendard-Regular",
+  },
+
   overlay: {
     position: "fixed",
-    bottom: "90px",
-    left: "20px",
+    bottom: "110px",
+    left: "40px",
     zIndex: 1000,
   },
   modal: {
-    background: "white",
+    ...commonFont,
+    background: "#E8FBFF",
     borderRadius: "16px",
     padding: "20px",
     width: "320px",
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
     animation: "slideUp 0.3s ease-out",
   },
   closeBtn: {
@@ -27,41 +45,67 @@ const styles = {
   },
   floatingBtn: {
     position: "fixed",
-    bottom: "20px",
-    left: "20px",
+    bottom: "40px",
+    left: "40px",
     width: "60px",
     height: "60px",
-    borderRadius: "50%",
-    backgroundColor: "#f06292",
+    borderRadius: "20px",
+    backgroundColor: "#ffffff",
     color: "#fff",
     border: "none",
     fontSize: "30px",
     cursor: "pointer",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
     zIndex: 1000,
   },
   card: {
+    background: "white",
     border: "1px solid #ddd",
     borderRadius: "10px",
-    padding: "10px",
+    padding: "15px",
     marginBottom: "12px",
     cursor: "pointer",
     transition: "all 0.2s",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    position: "relative",
+    minHeight: "120px",
   },
-  title: {
-    fontWeight: "bold",
-    fontSize: "16px",
+
+  titleRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: "5px",
   },
+
+  title: {
+    fontWeight: "bold",
+    fontSize: "24px",
+  },
+
   date: {
     fontSize: "13px",
     color: "#555",
-    marginBottom: "3px",
+    marginLeft: "10px",
+    whiteSpace: "nowrap",
   },
+
+  content: {
+    fontSize: "20px",
+    color: "#333",
+    wordBreak: "break-word",
+    padding: "5px",
+  },
+
   author: {
-    fontSize: "13px",
-    color: "#444",
-    marginTop: "3px",
+    bottom: "8px",
+    right: "12px",
+    fontSize: "12px",
+    color: "#666",
+    alignSelf: "flex-end", // 오른쪽 정렬
+    fontStyle: "italic",
   },
 };
 
@@ -83,7 +127,6 @@ const ViewCountPage = () => {
         );
         const letters = res.data.arr_letter?.slice(0, 3) || [];
 
-        // ✅ 반드시 상태에 넣어줘야 화면에 표시됨
         setTopLetters(letters);
 
         const userIds = [...new Set(letters.map((l) => l.user_id_from))];
@@ -95,7 +138,7 @@ const ViewCountPage = () => {
               const res = await axios.get(
                 `${process.env.REACT_APP_API_BASE_URL}/account/profile/${id}`
               );
-              nameMap[id] = res.data.nickname || `ID ${id}`; // 🔄 닉네임도 반영
+              nameMap[id] = res.data.name || `ID ${id}`;
             } catch {
               nameMap[id] = `ID ${id}`;
             }
@@ -111,9 +154,6 @@ const ViewCountPage = () => {
     fetchTopLetters();
   }, [isOpen]);
 
-  const formatDate = (timestamp) =>
-    new Date(timestamp).toLocaleDateString("ko-KR");
-
   const truncateContent = (text, maxLength = 15) =>
     text?.length > maxLength ? `${text.slice(0, maxLength)}...` : text || "";
 
@@ -124,12 +164,14 @@ const ViewCountPage = () => {
 
   return (
     <>
-      {/* 🔘 플로팅 버튼 */}
+      {!isOpen && (
+        <div style={styles.guideText}>
+          지금 가장 인기 있는 편지들을 구경해보세요!
+        </div>
+      )}
       <button style={styles.floatingBtn} onClick={toggleModal}>
-        📨
+        🔥
       </button>
-
-      {/* 📦 인기 편지 모달 */}
       {isOpen && (
         <div style={styles.overlay}>
           <div style={styles.modal}>
@@ -137,24 +179,27 @@ const ViewCountPage = () => {
               ✕
             </button>
             <h3 style={{ marginBottom: "15px" }}>🔥 인기 편지 Top 3</h3>
-            {topLetters.map((letter) => (
+            {topLetters.map((letter, index) => (
               <div
                 key={letter.id}
                 style={styles.card}
                 onClick={() => handleClick(letter.id)}
               >
-                <div style={styles.title}>✉️ {letter.title}</div>
-                <div style={styles.date}>
-                  발송일: {formatDate(letter.time_send)}
+                <div style={styles.titleRow}>
+                  <div style={styles.title}>
+                    {index === 0 && "🥇 "}
+                    {index === 1 && "🥈 "}
+                    {index === 2 && "🥉 "}
+                    {letter.title}
+                  </div>
                 </div>
-                <div style={styles.date}>
-                  도착일: {formatDate(letter.time_receive)}
+
+                <div style={styles.content}>
+                  {truncateContent(letter.content)}
                 </div>
+
                 <div style={styles.author}>
-                  내용: {truncateContent(letter.content)}
-                </div>
-                <div style={styles.author}>
-                  보낸 사람:{" "}
+                  BY.{" "}
                   {userNames[letter.user_id_from] ||
                     `ID ${letter.user_id_from}`}
                 </div>

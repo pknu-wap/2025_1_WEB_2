@@ -3,6 +3,8 @@ import { lettersTable, lettersViewsTable, usersTable } from "./schema.ts";
 import { err, ok, Result } from "neverthrow";
 import { eq,or,and,lt, sql } from "drizzle-orm";
 
+
+export type Letter = Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number};
 export class DBController {
   db: MySql2Database<Record<string, never>> & {
     $client: AnyMySql2Connection;
@@ -68,7 +70,7 @@ export class DBController {
     }
   }
 
-  async getLettersAllWithUserID(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
+  async getLettersAllWithUserID(userId:number): Promise<Result<Array<Letter>,Error>> {
     const result = await this.db.select().from(lettersTable).where(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)));
     if (result.length === 0) {
       return ok([]);
@@ -76,7 +78,7 @@ export class DBController {
     return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
 
-  async getLettersAllWithUserIDSent(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
+  async getLettersAllWithUserIDSent(userId:number): Promise<Result<Array<Letter>,Error>> {
     const result = await this.db.select().from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,true)));
     if (result.length === 0) {
       return ok([]);
@@ -84,7 +86,7 @@ export class DBController {
     return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
 
-  async getLettersAllWithUserIDUnsent(userId:number): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>> {
+  async getLettersAllWithUserIDUnsent(userId:number): Promise<Result<Array<Letter>,Error>> {
     const result = await this.db.select().from(lettersTable).where(and(or(eq(lettersTable.user_id_from,userId),eq(lettersTable.user_id_to,userId)),eq(lettersTable.is_sent,false)));
     if (result.length === 0) {
       return ok([]);
@@ -112,7 +114,7 @@ export class DBController {
     }
   }
 
-  async getAllpublicLetter(): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>>{
+  async getAllpublicLetter(): Promise<Result<Array<Letter>,Error>>{
     const result = await this.db.select().from(lettersTable).where(and(eq(lettersTable.is_public,true),eq(lettersTable.is_sent,true)));
     if (result.length === 0) {
       return ok([]);
@@ -120,7 +122,7 @@ export class DBController {
     return ok(result.map((v)=>{return {...v,time_send:v.time_send.getTime(),time_receive:v.time_receive.getTime()}}));
   }
 
-  async letterstosend(): Promise<Result<Array<Omit<typeof lettersTable.$inferSelect,"time_send"|"time_receive">&{time_send:number,time_receive:number}>,Error>>{
+  async letterstosend(): Promise<Result<Array<Letter>,Error>>{
     const now = new Date();
     const result = await this.db.select().from(lettersTable).where(and(lt(lettersTable.time_receive, now),eq(lettersTable.is_sent,false)));
     if (result.length === 0) {

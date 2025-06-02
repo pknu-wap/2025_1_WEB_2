@@ -1,5 +1,6 @@
 import express from "express";
 import { expressjwt,Request } from "express-jwt";
+import { Letter } from "src/db/db-controller.ts";
 import { DB } from "src/db/index.ts";
 import {z} from "zod";
 
@@ -116,7 +117,8 @@ router.get(
     if (letter.value.is_public) {
       await dbController.initOrIncrementViewCountOfPubLetter(letter.value.id);
     }
-    res.send({ letter: letter.value });
+    // mask if not sent
+    res.send({ letter: maskUnsentLetter(letter.value) });
   }
 );
 
@@ -133,7 +135,7 @@ router.get("/list_all_ids_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["
 router.get("/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
   const allLetters = await dbController.getLettersAllWithUserID(req.auth.id);
   if (allLetters.isOk()) {
-      res.send({arr_letter:allLetters.value});
+      res.send({arr_letter: maskUnsentLetters(allLetters.value)});
   } else {
       res.status(500);
       res.send({error:allLetters.error.message});
@@ -143,7 +145,7 @@ router.get("/get_all_of_me",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256
 router.get("/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const sentLetters = await dbController.getLettersAllWithUserIDSent(req.auth.id);
     if (sentLetters.isOk()) {
-        res.send({arr_letter:sentLetters.value});
+        res.send({arr_letter: maskUnsentLetters(sentLetters.value)});
     } else {
         res.status(500);
         res.send({error:sentLetters.error.message});
@@ -153,7 +155,7 @@ router.get("/get_all_of_me/sent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["
 router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:["HS256"]}), async(req:Request<{id:number,email: string,name:string}>, res)=>{
     const unsentLetters = await dbController.getLettersAllWithUserIDUnsent(req.auth.id);
     if (unsentLetters.isOk()) {
-        res.send({arr_letter:unsentLetters.value});
+        res.send({arr_letter: maskUnsentLetters(unsentLetters.value)});
     } else {
         res.status(500);
         res.send({error:unsentLetters.error.message});
@@ -163,7 +165,7 @@ router.get("/get_all_of_me/unsent",expressjwt({secret:JWT_SECRET_KEY,algorithms:
 router.get("/get_all_public", async(req,res)=>{
     const publicLetters = await dbController.getAllpublicLetter();
     if (publicLetters.isOk()) {
-        res.send({arr_letter:publicLetters.value});
+        res.send({arr_letter: maskUnsentLetters(publicLetters.value)});
     } else {
         res.status(500);
         res.send({error:publicLetters.error.message});
@@ -232,7 +234,18 @@ router.get("/list_by_view_count", async (req, res) => {
   // viewCount 기준 내림차순 정렬
   lettersWithView.sort((a, b) => b.viewCount - a.viewCount);
 
-  res.send({ arr_letter: lettersWithView });
+  res.send({ arr_letter: maskUnsentLetters(lettersWithView) });
 });
+
+// Helper to hide title/content if not sent
+function maskUnsentLetter(letter: Letter) {
+  if (letter && letter.is_sent === false) {
+    return { ...letter, title: null, content: null };
+  }
+  return letter;
+}
+function maskUnsentLetters(arr: Letter[]) {
+  return Array.isArray(arr) ? arr.map(maskUnsentLetter) : arr;
+}
 
 export {router as letterRouter};

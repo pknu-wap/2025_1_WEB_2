@@ -8,7 +8,8 @@ const LetterView = () => {
   const navigate = useNavigate();
   const [letter, setLetter] = useState(null);
   const [loading, setLoading] = useState(true);
-  const hasAlertedRef = useRef(false); // useRef로 한 번만 실행 제어
+  const [error, setError] = useState(null); // 에러 상태 추가
+  const hasAlertedRef = useRef(false);
 
   useEffect(() => {
     const fetchLetter = async () => {
@@ -35,14 +36,14 @@ const LetterView = () => {
           setLetter(resultLetter);
         } else {
           if (!tokenFromCookie) {
-            handleLetterError("편지가 존재하지 않거나 로그인이 되어 있지 않아서 볼 수 없어요.");
+            handleLetterError("편지가 존재하지 않거나, 나만보기 편지라서 볼 수 없어요.");
           } else {
             handleLetterError("편지가 존재하지 않아요.");
           }
         }
       } catch (error) {
         console.error("API 요청 에러:", error);
-        handleLetterError("편지가 존재하지 않거나 로그인이 되어 있지 않아서 볼 수 없어요.");
+        handleLetterError("편지가 존재하지 않거나 나만보기 편지라서 볼 수 없어요.");
       } finally {
         setLoading(false);
       }
@@ -54,8 +55,7 @@ const LetterView = () => {
   const handleLetterError = (message) => {
     if (!hasAlertedRef.current) {
       hasAlertedRef.current = true;
-      alert(message);
-      window.location.href = "https://slow-postbox.netlify.app/";
+      setError(message); // alert 대신 에러 상태 설정
     }
   };
 
@@ -133,6 +133,23 @@ const LetterView = () => {
   }, [letter]);
 
   if (loading) return <div className={styles.viewPage}>로딩 중...</div>;
+
+  if (error) {
+  return (
+    <div className={styles.viewPage}>
+      <div className={styles.errorMessageBox}>
+        <div className={styles.emoji}>📭</div>
+        <div className={styles.errorMessage}>
+          편지가 존재하지 않거나, 나만 보기 편지라서 볼 수 없어요. <br />
+          아래 버튼을 눌러 홈으로 돌아가거나, 우측 상단 버튼을 눌러 로그인 해주세요.
+        </div>
+        <button className={styles.homeButton} onClick={() => navigate("/")}>
+          홈으로 돌아가기
+        </button>
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className={styles.viewPage}>

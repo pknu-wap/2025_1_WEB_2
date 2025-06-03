@@ -67,6 +67,7 @@
     font-family: 'Pretendard-Regular';
     font-size: 15px;
   }
+
   .onlyMeButton, .publicButton {
     background-color: #FFFFFF;
     border: none;
@@ -83,3 +84,43 @@
     background-color: #ddd;
   }
   
+.errorMessageBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+.errorMessage {
+  font-size: 1.4rem;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.homeButton {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #3ca878;
+  border: 2px solid #3ca878;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.homeButton:hover {
+  background-color: #3ca878;
+  color: white;
+}
+
+.emoji {
+  font-size: 3rem;
+}
+
+

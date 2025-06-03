@@ -16,6 +16,7 @@ const Header = () => {
   const navLogin = () => navigate("/login");
   const navCreate = () => navigate("/create");
   const navMyPage = () => navigate("/mypage");
+  const navView = () => navigate("/view");
 
   return (
     <header className={styles.header}>
@@ -36,6 +37,9 @@ const Header = () => {
               로그인
             </button>
           )}
+          <button className={styles.btn} onClick={navView}>
+            편지 구경하기
+          </button>
           <button className={styles.btn} onClick={navCreate}>
             느린 편지 쓰기
           </button>

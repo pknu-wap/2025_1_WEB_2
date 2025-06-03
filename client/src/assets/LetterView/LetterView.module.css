@@ -50,6 +50,7 @@
     font-size: 20px;
     color: #333;
     padding: auto;
+    white-space: pre-wrap;
   }
   
   .buttonGroup {

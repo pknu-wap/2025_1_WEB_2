@@ -38,7 +38,10 @@ const PublicLetters = () => {
           throw new Error("편지 데이터 형식이 올바르지 않습니다.");
         }
 
-        setAllLetters(letters);
+        const sortedLetters = [...letters].sort(
+          (a, b) => b.time_receive - a.time_receive
+        );
+        setAllLetters(sortedLetters);
 
         const uniqueUserIds = [...new Set(letters.map((l) => l.user_id_from))];
         const userNameResults = await Promise.all(

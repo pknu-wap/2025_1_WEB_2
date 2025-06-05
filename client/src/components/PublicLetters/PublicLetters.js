@@ -15,13 +15,6 @@ const PublicLetters = () => {
 
   const navigate = useNavigate();
 
-  // 날짜 포맷 함수
-  const formatDate = (timestamp) => {
-    const d = new Date();
-    d.setTime(timestamp);
-    return d.toLocaleDateString("ko-KR");
-  };
-
   // 사용자 ID로 이름 불러오기
   const fetchUserName = async (userId) => {
     try {
@@ -46,7 +39,10 @@ const PublicLetters = () => {
           throw new Error("편지 데이터 형식이 올바르지 않습니다.");
         }
 
-        setAllLetters(letters);
+        const sortedLetters = [...letters].sort(
+          (a, b) => b.time_receive - a.time_receive
+        );
+        setAllLetters(sortedLetters);
 
         const uniqueUserIds = [...new Set(letters.map((l) => l.user_id_from))];
         const userNameResults = await Promise.all(
@@ -103,14 +99,22 @@ const PublicLetters = () => {
             <h3 className={styles.title}>
               ✉️ <span className={styles.highlight}>{letter.title}</span>
             </h3>
-            <p className={styles.date}>
-              발송일: {formatDate(letter.time_send)}
-            </p>
-            <p className={styles.arrival}>
-              도착일: {formatDate(letter.time_receive)}
+            <p className={styles.arrivalInfo}>
+              {(() => {
+                const sendDate = new Date(letter.time_send);
+                const receiveDate = new Date(letter.time_receive);
+                const diffTime = receiveDate - sendDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                const formattedSendDate = `${sendDate.getFullYear()}년 ${
+                  sendDate.getMonth() + 1
+                }월 ${sendDate.getDate()}일`;
+
+                return `${formattedSendDate}로부터 ${diffDays}일 만에 도착한 편지`;
+              })()}
             </p>
             <p className={styles.author}>
-              보낸 사람:{" "}
+              BY.{" "}
               {userNames[letter.user_id_from] || `ID ${letter.user_id_from}`}
             </p>
           </div>

@@ -106,7 +106,7 @@ const LoginPage = () => {
       if (token) {
         login(token);
         alert("로그인 성공");
-        window.location.href = "/";
+        window.location.href = "/view";
       } else {
         alert("로그인 실패 : 토큰이 없습니다.");
       }

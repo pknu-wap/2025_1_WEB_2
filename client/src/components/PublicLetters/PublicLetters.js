@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../assets/PublicLetters/PublicLetters.module.css";
+import ViewCountPage from "../../pages/ViewCountPage";
 
 const lettersPerPage = 9;
 
@@ -135,6 +136,7 @@ const PublicLetters = () => {
           ))}
         </div>
       )}
+      <ViewCountPage />
     </div>
   );
 };
